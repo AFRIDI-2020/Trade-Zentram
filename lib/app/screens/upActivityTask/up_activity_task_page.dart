@@ -63,8 +63,10 @@ class UpActivityTaskPage extends GetView<UpActivityTaskController> {
                   } else {
                     taskDetailsController.taskDetailsData.value.taskChecklistsData!.isNotEmpty
                         ? Get.to(
-                          () => CheckListPage(pageTitle: pageTitle,),
-                    )
+                            () => CheckListPage(
+                              pageTitle: pageTitle,
+                            ),
+                          )
                         : null;
                   }
                 },
@@ -83,12 +85,14 @@ class UpActivityTaskPage extends GetView<UpActivityTaskController> {
                   ),
                 ),
               ),
-              const SizedBox(width: 15,),
+              const SizedBox(
+                width: 15,
+              ),
             ],
           ),
         ),
         //floatingActionButtonLocation: FloatingActionButtonLocation.,
-       /* floatingActionButton: SizedBox(
+        /* floatingActionButton: SizedBox(
           width: 180,
           child: ElevatedButton(
             onPressed: () async {
@@ -381,39 +385,29 @@ class UpActivityTaskPage extends GetView<UpActivityTaskController> {
                             context: context,
                             builder: (BuildContext context) {
                               return AlertDialog(
+                                backgroundColor: Colors.white,
                                 shape: const RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.all(Radius.circular(0.0))),
-                                content: const SizedBox(
-                                  height: 180,
-                                  child: Column(
-                                    children: [
-                                      Icon(Icons.not_listed_location,
-                                          size: 80, color: Color(0xFFC62828)
-                                          // Color(0xFF9c27b0),
-                                          ),
-                                      SizedBox(
-                                        height: 16,
-                                      ),
-                                      Text(
-                                        "WANNA START?",
-                                        style: TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                      Text(
-                                        "Are you sure that you want to start Task - Task # 3647?",
-                                        style: TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.normal,
-                                        ),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    ],
-                                  ),
+                                    borderRadius: BorderRadius.all(Radius.circular(8))),
+                                content: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    const Icon(
+                                      Icons.play_circle_outline,
+                                      size: 80,
+                                    ),
+                                    const SizedBox(
+                                      height: 16,
+                                    ),
+                                    Text("WANNA START?", style: theme.textTheme.titleLarge),
+                                    const SizedBox(
+                                      height: 4,
+                                    ),
+                                    Text(
+                                      "Are you sure that you want to start Task - Task # 3647?",
+                                      style: theme.textTheme.bodySmall,
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ],
                                 ),
                                 actions: <Widget>[
                                   Row(
@@ -424,17 +418,14 @@ class UpActivityTaskPage extends GetView<UpActivityTaskController> {
                                           Get.back();
                                         },
                                         style: ButtonStyle(
-                                            shape:
-                                                MaterialStateProperty.all<RoundedRectangleBorder>(
-                                              RoundedRectangleBorder(
-                                                borderRadius: BorderRadius.circular(0.0),
-                                              ),
-                                            ),
-                                            backgroundColor:
-                                                const MaterialStatePropertyAll(Color(0xFF9c27b0))),
-                                        child: const Text(
+                                          backgroundColor: MaterialStatePropertyAll(
+                                            Colors.red.shade900,
+                                          ),
+                                        ),
+                                        child: Text(
                                           "NO",
-                                          style: TextStyle(color: Colors.white),
+                                          style: theme.textTheme.titleMedium
+                                              ?.copyWith(color: Colors.white),
                                         ),
                                       ),
                                       const SizedBox(
@@ -448,18 +439,8 @@ class UpActivityTaskPage extends GetView<UpActivityTaskController> {
                                           );
                                           Get.back();
                                         },
-                                        style: ButtonStyle(
-                                            shape:
-                                                MaterialStateProperty.all<RoundedRectangleBorder>(
-                                              RoundedRectangleBorder(
-                                                borderRadius: BorderRadius.circular(0.0),
-                                              ),
-                                            ),
-                                            backgroundColor:
-                                                const MaterialStatePropertyAll(Color(0xFFC62828))),
                                         child: const Text(
                                           "YES",
-                                          style: TextStyle(color: Colors.white),
                                         ),
                                       )
                                     ],
@@ -489,58 +470,39 @@ class UpActivityTaskPage extends GetView<UpActivityTaskController> {
                                 context: context,
                                 builder: (BuildContext context) {
                                   return AlertDialog(
+                                    backgroundColor: Colors.white,
+                                    contentPadding:
+                                        const EdgeInsets.symmetric(horizontal: 8, vertical: 20),
                                     shape: const RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.all(Radius.circular(0.0))),
-                                    content: const SizedBox(
-                                      height: 180,
-                                      child: Column(
-                                        children: [
-                                          Icon(
-                                            Icons.error_outline,
-                                            size: 80,
-                                            color: Color(0xFFed6c02),
-                                          ),
-                                          SizedBox(
-                                            height: 16,
-                                          ),
-                                          Text(
-                                            "TASK NOT STARTED",
-                                            style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                            textAlign: TextAlign.center,
-                                          ),
-                                          Text(
-                                            "You must have to click the start button and then you can click ADD TRANSPORT!",
-                                            style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.normal,
-                                            ),
-                                            textAlign: TextAlign.center,
-                                          ),
-                                        ],
-                                      ),
+                                        borderRadius: BorderRadius.all(Radius.circular(8))),
+                                    content: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        const Icon(
+                                          Icons.play_circle_outline,
+                                          size: 80,
+                                        ),
+                                        const SizedBox(
+                                          height: 16,
+                                        ),
+                                        Text("TASK NOT STARTED", style: theme.textTheme.titleLarge),
+                                        const SizedBox(
+                                          height: 4,
+                                        ),
+                                        Text(
+                                          "You must have to click the start button and then you can click ADD TRANSPORT!",
+                                          style: theme.textTheme.bodySmall,
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ],
                                     ),
                                     actions: <Widget>[
                                       ElevatedButton(
                                         onPressed: () {
                                           Get.back();
                                         },
-                                        style: ButtonStyle(
-                                            shape:
-                                                MaterialStateProperty.all<RoundedRectangleBorder>(
-                                              RoundedRectangleBorder(
-                                                borderRadius: BorderRadius.circular(0.0),
-                                              ),
-                                            ),
-                                            backgroundColor:
-                                                const MaterialStatePropertyAll(Color(0xFFed6c02))),
                                         child: const Text(
                                           "Ok",
-                                          style: TextStyle(color: Colors.white),
                                         ),
                                       )
                                     ],
@@ -549,7 +511,7 @@ class UpActivityTaskPage extends GetView<UpActivityTaskController> {
                               )
                             : taskDetailsController
                                     .taskDetailsData.value.taskTransportationData!.isEmpty
-                                ? showModal(context, taskDetailsController, false)
+                                ? showModal(context, taskDetailsController, false, theme: theme)
                                 : taskDetailsController
                                                 .taskDetailsData
                                                 .value
@@ -572,7 +534,7 @@ class UpActivityTaskPage extends GetView<UpActivityTaskController> {
                                                     1]
                                                 .taskTransportationEndLat !=
                                             null
-                                    ? showModal(context, taskDetailsController, false)
+                                    ? showModal(context, taskDetailsController, false, theme: theme)
                                     : showDialog(
                                         context: context,
                                         builder: (BuildContext context) {
@@ -1157,7 +1119,8 @@ class UpActivityTaskPage extends GetView<UpActivityTaskController> {
                                                 .taskDetailsData
                                                 .value
                                                 .taskTransportationData![index]
-                                                .taskTransportationRemarks);
+                                                .taskTransportationRemarks,
+                                            theme: theme);
                                       }
                                     }
                                     break;
@@ -1321,8 +1284,11 @@ class UpActivityTaskPage extends GetView<UpActivityTaskController> {
       String? vehicleId,
       String? fare,
       String? remark,
-      String? autoId}) {
-    log("$from ,$to, $vehicle, $fare, $remark, $vehicleId");
+      String? autoId,
+      required ThemeData theme}) {
+    log(
+      "$from ,$to, $vehicle, $fare, $remark, $vehicleId",
+    );
     showModalBottomSheet(
       context: context,
       useSafeArea: true,
@@ -1359,120 +1325,218 @@ class UpActivityTaskPage extends GetView<UpActivityTaskController> {
             : taskDetailsController.remarkTextEditingController.text = remark!;
 
         return StatefulBuilder(builder: (context, StateSetter mystate) {
-          return SizedBox(
-            height: MediaQuery.of(context).size.height,
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 32.0),
-              child: SingleChildScrollView(
-                scrollDirection: Axis.vertical,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height / 16,
-                    ),
-                    Row(
-                      children: [
-                        const Text(
-                          'Add Transport',
-                          style: TextStyle(fontSize: 20),
-                        ),
-                        const Spacer(),
-                        InkWell(
-                            onTap: () {
-                              taskDetailsController.searchFromController.clear();
-                              taskDetailsController.searchToController.clear();
-                              taskDetailsController.searchVehicleController.clear();
-                              taskDetailsController.fareTextEditingController.clear();
-                              taskDetailsController.remarkTextEditingController.clear();
-                              taskDetailsController.fareCloseIcon.value = false;
-                              taskDetailsController.remarkCloseIcon.value = false;
-                              taskDetailsController.showFromValidate.value = "false";
-                              taskDetailsController.showToValidate.value = "false";
-                              taskDetailsController.showVehicleValidate.value = "false";
-                              taskDetailsController.showFareValidate.value = "false";
-                              Get.back();
-                            },
-                            child: const Icon(Icons.cancel_outlined))
-                      ],
-                    ),
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height / 18,
-                    ),
-                    SearchAnchor(
-                        isFullScreen: false,
-                        viewBackgroundColor: const Color(0xFFE8F0FE),
-                        searchController: taskDetailsController.searchFromController,
-                        viewHintText: taskDetailsController.searchFromController.text,
-                        viewOnChanged: (value) {
-                          taskDetailsController.filterFromLocations(value);
-                          mystate(() {
+          return Padding(
+            padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 32.0),
+            child: SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Text('Add Transport', style: theme.textTheme.titleLarge),
+                      const Spacer(),
+                      InkWell(
+                          onTap: () {
+                            taskDetailsController.searchFromController.clear();
+                            taskDetailsController.searchToController.clear();
+                            taskDetailsController.searchVehicleController.clear();
+                            taskDetailsController.fareTextEditingController.clear();
+                            taskDetailsController.remarkTextEditingController.clear();
+                            taskDetailsController.fareCloseIcon.value = false;
+                            taskDetailsController.remarkCloseIcon.value = false;
                             taskDetailsController.showFromValidate.value = "false";
-                          });
-                        },
-                        viewTrailing: [
-                          IconButton(
-                              onPressed: () {
-                                mystate(() {
-                                  taskDetailsController.searchFromController.clear();
-                                  taskDetailsController.filteredFromLocationsList.value = [];
-                                  taskDetailsController.searchFromController.closeView("");
-                                });
-                              },
-                              icon: const Icon(Icons.clear))
-                        ],
-                        builder: (context, controller) {
-                          return TextFormField(
-                            readOnly: true,
-                            onTap: () {
-                              controller.openView();
+                            taskDetailsController.showToValidate.value = "false";
+                            taskDetailsController.showVehicleValidate.value = "false";
+                            taskDetailsController.showFareValidate.value = "false";
+                            Get.back();
+                          },
+                          child: const Icon(Icons.cancel_outlined))
+                    ],
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height / 18,
+                  ),
+                  SearchAnchor(
+                      isFullScreen: false,
+                      viewBackgroundColor: const Color(0xFFE8F0FE),
+                      searchController: taskDetailsController.searchFromController,
+                      viewHintText: taskDetailsController.searchFromController.text,
+                      viewOnChanged: (value) {
+                        taskDetailsController.filterFromLocations(value);
+                        mystate(() {
+                          taskDetailsController.showFromValidate.value = "false";
+                        });
+                      },
+                      viewTrailing: [
+                        IconButton(
+                            onPressed: () {
+                              mystate(() {
+                                taskDetailsController.searchFromController.clear();
+                                taskDetailsController.filteredFromLocationsList.value = [];
+                                taskDetailsController.searchFromController.closeView("");
+                              });
                             },
-                            controller: controller,
-                            decoration: InputDecoration(
-                              labelText: "From",
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: const BorderRadius.all(Radius.circular(10)),
-                                borderSide: BorderSide(color: ColorConstant().baseColor),
-                              ),
-                              border: const OutlineInputBorder(
-                                borderRadius: BorderRadius.all(Radius.circular(12.0)),
-                              ),
-                              focusedBorder: const OutlineInputBorder(
-                                borderRadius: BorderRadius.all(Radius.circular(12.0)),
-                                borderSide: BorderSide(color: Colors.purple, width: 0.5),
-                              ),
+                            icon: const Icon(Icons.clear))
+                      ],
+                      builder: (context, controller) {
+                        return TextFormField(
+                          readOnly: true,
+                          onTap: () {
+                            controller.openView();
+                          },
+                          controller: controller,
+                          decoration: InputDecoration(
+                            labelText: "From",
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: const BorderRadius.all(Radius.circular(10)),
+                              borderSide: BorderSide(color: ColorConstant().baseColor),
                             ),
-                          );
-                        },
-                        suggestionsBuilder: (context, controller) {
-                          //log("CHECKING: ${taskDetailsController.formLocationDetailsList.length}");
-                          return [
-                            SizedBox(
-                              height: MediaQuery.of(context).size.height / 1.5,
-                              child: Scrollbar(
-                                thickness: 10,
-                                child: ListView.builder(
-                                    itemCount: taskDetailsController
+                            border: const OutlineInputBorder(
+                              borderRadius: BorderRadius.all(Radius.circular(12.0)),
+                            ),
+                            focusedBorder: const OutlineInputBorder(
+                              borderRadius: BorderRadius.all(Radius.circular(12.0)),
+                              borderSide: BorderSide(color: Colors.purple, width: 0.5),
+                            ),
+                          ),
+                        );
+                      },
+                      suggestionsBuilder: (context, controller) {
+                        //log("CHECKING: ${taskDetailsController.formLocationDetailsList.length}");
+                        return [
+                          SizedBox(
+                            height: MediaQuery.of(context).size.height / 1.5,
+                            child: Scrollbar(
+                              thickness: 10,
+                              child: ListView.builder(
+                                  itemCount: taskDetailsController.filteredFromLocationsList.isEmpty
+                                      ? taskDetailsController.formLocationDetailsList.length
+                                      : taskDetailsController.filteredFromLocationsList.length,
+                                  itemBuilder: (context, index) {
+                                    LocationDetails location = taskDetailsController
                                             .filteredFromLocationsList.isEmpty
-                                        ? taskDetailsController.formLocationDetailsList.length
-                                        : taskDetailsController.filteredFromLocationsList.length,
-                                    itemBuilder: (context, index) {
-                                      LocationDetails location = taskDetailsController
-                                              .filteredFromLocationsList.isEmpty
-                                          ? taskDetailsController.formLocationDetailsList[index]
-                                          : taskDetailsController.filteredFromLocationsList[index];
+                                        ? taskDetailsController.formLocationDetailsList[index]
+                                        : taskDetailsController.filteredFromLocationsList[index];
 
-                                      return InkWell(
+                                    return InkWell(
+                                      onTap: () {
+                                        // taskDetailsController
+                                        //         .filteredFromLocationsList =
+                                        //     taskDetailsController.locations;
+                                        taskDetailsController.searchFromController
+                                            .closeView(location.locationName);
+                                      },
+                                      child: Container(
+                                        height: 50,
+                                        width: MediaQuery.of(context).size.width,
+                                        color: index == 0
+                                            ? Colors.blue.withOpacity(0.1)
+                                            : Colors.transparent,
+                                        child: Padding(
+                                          padding:
+                                              const EdgeInsets.only(left: 16.0, right: 16, top: 16),
+                                          child: Text(
+                                            "${location.locationName}",
+                                            style: const TextStyle(
+                                              fontSize: 16,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  }),
+                            ),
+                          )
+                        ];
+                      }),
+                  Visibility(
+                    visible: taskDetailsController.showFromValidate.value == "true" &&
+                            taskDetailsController.searchFromController.text == ""
+                        ? true
+                        : false,
+                    child: const Text(
+                      "Please fill required field",
+                      style: TextStyle(color: Colors.red),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  SearchAnchor(
+                      viewBackgroundColor: const Color(0xFFE8F0FE),
+                      isFullScreen: false,
+                      searchController: taskDetailsController.searchToController,
+                      viewHintText: taskDetailsController.searchToController.text,
+                      viewOnChanged: (value) {
+                        taskDetailsController.filterToLocations(value);
+                        mystate(() {
+                          taskDetailsController.showToValidate.value = "false";
+                        });
+                      },
+                      viewTrailing: [
+                        IconButton(
+                            onPressed: () {
+                              mystate(() {
+                                taskDetailsController.searchToController.clear();
+                                // taskDetailsController
+                                //         .filteredToLocationsList =
+                                //     taskDetailsController.locations;
+                                taskDetailsController.searchToController.closeView("");
+                              });
+                            },
+                            icon: const Icon(Icons.clear))
+                      ],
+                      builder: (context, controller) {
+                        return TextFormField(
+                          readOnly: true,
+                          onTap: () {
+                            controller.openView();
+                          },
+                          controller: controller,
+                          decoration: InputDecoration(
+                            alignLabelWithHint: true,
+                            hintText: edit ? to : "To",
+                            labelText: "To",
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: const BorderRadius.all(Radius.circular(10)),
+                              borderSide: BorderSide(
+                                  color: ColorConstant().baseColor), // Change underline color here
+                            ),
+                            border: const OutlineInputBorder(
+                              borderRadius: BorderRadius.all(Radius.circular(12.0)),
+                            ),
+                            focusedBorder: const OutlineInputBorder(
+                              borderRadius: BorderRadius.all(Radius.circular(12.0)),
+                              borderSide: BorderSide(color: Colors.purple, width: 0.5),
+                            ),
+                          ),
+                        );
+                      },
+                      suggestionsBuilder: (context, controller) {
+                        return [
+                          SizedBox(
+                            height: MediaQuery.of(context).size.height / 1.5,
+                            child: Scrollbar(
+                              thickness: 10,
+                              child: ListView.builder(
+                                  itemCount: taskDetailsController.filteredToLocationsList.isEmpty
+                                      ? taskDetailsController.toLocationDetailsList.length
+                                      : taskDetailsController.filteredToLocationsList.length,
+                                  itemBuilder: (context, index) {
+                                    LocationDetails location =
+                                        taskDetailsController.filteredToLocationsList.isEmpty
+                                            ? taskDetailsController.toLocationDetailsList[index]
+                                            : taskDetailsController.filteredToLocationsList[index];
+                                    return SizedBox(
+                                      height: 50,
+                                      child: InkWell(
                                         onTap: () {
-                                          // taskDetailsController
-                                          //         .filteredFromLocationsList =
-                                          //     taskDetailsController.locations;
-                                          taskDetailsController.searchFromController
+                                          taskDetailsController.searchToController
                                               .closeView(location.locationName);
                                         },
                                         child: Container(
-                                          height: 50,
-                                          width: MediaQuery.of(context).size.width,
                                           color: index == 0
                                               ? Colors.blue.withOpacity(0.1)
                                               : Colors.transparent,
@@ -1487,441 +1551,333 @@ class UpActivityTaskPage extends GetView<UpActivityTaskController> {
                                             ),
                                           ),
                                         ),
-                                      );
-                                    }),
-                              ),
-                            )
-                          ];
-                        }),
-                    Visibility(
-                      visible: taskDetailsController.showFromValidate.value == "true" &&
-                              taskDetailsController.searchFromController.text == ""
-                          ? true
-                          : false,
-                      child: const Text(
-                        "Please fill required field",
-                        style: TextStyle(color: Colors.red),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 16,
-                    ),
-                    SearchAnchor(
-                        viewBackgroundColor: const Color(0xFFE8F0FE),
-                        isFullScreen: false,
-                        searchController: taskDetailsController.searchToController,
-                        viewHintText: taskDetailsController.searchToController.text,
-                        viewOnChanged: (value) {
-                          taskDetailsController.filterToLocations(value);
-                          mystate(() {
-                            taskDetailsController.showToValidate.value = "false";
-                          });
-                        },
-                        viewTrailing: [
-                          IconButton(
-                              onPressed: () {
-                                mystate(() {
-                                  taskDetailsController.searchToController.clear();
-                                  // taskDetailsController
-                                  //         .filteredToLocationsList =
-                                  //     taskDetailsController.locations;
-                                  taskDetailsController.searchToController.closeView("");
-                                });
-                              },
-                              icon: const Icon(Icons.clear))
-                        ],
-                        builder: (context, controller) {
-                          return TextFormField(
-                            readOnly: true,
-                            onTap: () {
-                              controller.openView();
-                            },
-                            controller: controller,
-                            decoration: InputDecoration(
-                              alignLabelWithHint: true,
-                              hintText: edit ? to : "To",
-                              labelText: "To",
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: const BorderRadius.all(Radius.circular(10)),
-                                borderSide: BorderSide(
-                                    color:
-                                        ColorConstant().baseColor), // Change underline color here
-                              ),
-                              border: const OutlineInputBorder(
-                                borderRadius: BorderRadius.all(Radius.circular(12.0)),
-                              ),
-                              focusedBorder: const OutlineInputBorder(
-                                borderRadius: BorderRadius.all(Radius.circular(12.0)),
-                                borderSide: BorderSide(color: Colors.purple, width: 0.5),
-                              ),
+                                      ),
+                                    );
+                                  }),
                             ),
-                          );
-                        },
-                        suggestionsBuilder: (context, controller) {
-                          return [
-                            SizedBox(
-                              height: MediaQuery.of(context).size.height / 1.5,
-                              child: Scrollbar(
-                                thickness: 10,
-                                child: ListView.builder(
-                                    itemCount: taskDetailsController.filteredToLocationsList.isEmpty
-                                        ? taskDetailsController.toLocationDetailsList.length
-                                        : taskDetailsController.filteredToLocationsList.length,
-                                    itemBuilder: (context, index) {
-                                      LocationDetails location = taskDetailsController
-                                              .filteredToLocationsList.isEmpty
-                                          ? taskDetailsController.toLocationDetailsList[index]
-                                          : taskDetailsController.filteredToLocationsList[index];
-                                      return SizedBox(
-                                        height: 50,
-                                        child: InkWell(
-                                          onTap: () {
-                                            taskDetailsController.searchToController
-                                                .closeView(location.locationName);
-                                          },
-                                          child: Container(
-                                            color: index == 0
-                                                ? Colors.blue.withOpacity(0.1)
-                                                : Colors.transparent,
-                                            child: Padding(
-                                              padding: const EdgeInsets.only(
-                                                  left: 16.0, right: 16, top: 16),
-                                              child: Text(
-                                                "${location.locationName}",
-                                                style: const TextStyle(
-                                                  fontSize: 16,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      );
-                                    }),
-                              ),
-                            )
-                          ];
-                        }),
-                    Visibility(
-                      visible: taskDetailsController.showToValidate.value == "true" &&
-                              taskDetailsController.searchToController.text == ""
-                          ? true
-                          : false,
-                      child: const Text(
-                        "Please fill required field",
-                        style: TextStyle(color: Colors.red),
-                      ),
+                          )
+                        ];
+                      }),
+                  Visibility(
+                    visible: taskDetailsController.showToValidate.value == "true" &&
+                            taskDetailsController.searchToController.text == ""
+                        ? true
+                        : false,
+                    child: const Text(
+                      "Please fill required field",
+                      style: TextStyle(color: Colors.red),
                     ),
-                    const SizedBox(
-                      height: 16,
-                    ),
-                    SearchAnchor(
-                        viewBackgroundColor: const Color(0xFFE8F0FE),
-                        isFullScreen: false,
-                        searchController: taskDetailsController.searchVehicleController,
-                        viewHintText: taskDetailsController.searchVehicleController.text,
-                        viewOnChanged: (value) {
-                          taskDetailsController.filterVehicles(value);
-                          mystate(() {
-                            taskDetailsController.showVehicleValidate.value = "false";
-                          });
-                        },
-                        viewTrailing: [
-                          IconButton(
-                              onPressed: () {
-                                mystate(() {
-                                  taskDetailsController.searchVehicleController.clear();
-
-                                  taskDetailsController.searchVehicleController.closeView("");
-                                });
-                              },
-                              icon: const Icon(Icons.clear))
-                        ],
-                        builder: (context, controller) {
-                          return TextFormField(
-                            readOnly: true,
-                            onTap: () {
-                              controller.openView();
-                            },
-                            controller: controller,
-                            decoration: InputDecoration(
-                              alignLabelWithHint: true,
-                              hintText: edit ? vehicle : "Vehicle",
-                              labelText: "Vehicle",
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: const BorderRadius.all(Radius.circular(10)),
-                                borderSide: BorderSide(color: ColorConstant().baseColor),
-                              ),
-                              border: const OutlineInputBorder(
-                                borderRadius: BorderRadius.all(Radius.circular(12.0)),
-                              ),
-                              focusedBorder: const OutlineInputBorder(
-                                borderRadius: BorderRadius.all(Radius.circular(12.0)),
-                                borderSide: BorderSide(color: Colors.purple, width: 0.5),
-                              ),
-                            ),
-                          );
-                        },
-                        suggestionsBuilder: (context, controller) {
-                          return [
-                            SizedBox(
-                              height: MediaQuery.of(context).size.height / 1.5,
-                              child: Scrollbar(
-                                thickness: 10,
-                                child: ListView.builder(
-                                    itemCount: taskDetailsController.filteredVechileList.isEmpty
-                                        ? taskDetailsController.vehiclesList.length
-                                        : taskDetailsController.filteredVechileList.length,
-                                    itemBuilder: (context, index) {
-                                      VehicleData vehicle =
-                                          taskDetailsController.filteredVechileList.isEmpty
-                                              ? taskDetailsController.vehiclesList[index]
-                                              : taskDetailsController.filteredVechileList[index];
-                                      return InkWell(
-                                        onTap: () {
-                                          taskDetailsController.selectedVehicleId.value =
-                                              vehicle.key ?? 0;
-                                          taskDetailsController.searchVehicleController
-                                              .closeView(vehicle.value);
-                                        },
-                                        child: Container(
-                                          color: index == 0
-                                              ? Colors.blue.withOpacity(0.1)
-                                              : Colors.transparent,
-                                          height: 50,
-                                          child: Padding(
-                                            padding: const EdgeInsets.only(
-                                                left: 16.0, right: 16, top: 16),
-                                            child: Text(
-                                              "${vehicle.value}",
-                                              style: const TextStyle(
-                                                fontSize: 16,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      );
-                                    }),
-                              ),
-                            )
-                          ];
-                        }),
-                    Visibility(
-                      visible: taskDetailsController.showVehicleValidate.value == "true" &&
-                              taskDetailsController.searchVehicleController.text == ""
-                          ? true
-                          : false,
-                      child: const Text(
-                        "Please fill required field",
-                        style: TextStyle(color: Colors.red),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 16,
-                    ),
-                    TextFormField(
-                      keyboardType: TextInputType.number,
-                      controller: taskDetailsController.fareTextEditingController,
-                      onTap: () {
-                        taskDetailsController.fareCloseIcon.value = true;
-                      },
-                      onChanged: (value) {
-                        if (taskDetailsController.fareTextEditingController.text != "") {
-                          taskDetailsController.fareCloseIcon.value = true;
-                          taskDetailsController.showFareValidate.value = "false";
-                        } else {
-                          taskDetailsController.fareCloseIcon.value = false;
-                        }
-
+                  ),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  SearchAnchor(
+                      viewBackgroundColor: const Color(0xFFE8F0FE),
+                      isFullScreen: false,
+                      searchController: taskDetailsController.searchVehicleController,
+                      viewHintText: taskDetailsController.searchVehicleController.text,
+                      viewOnChanged: (value) {
+                        taskDetailsController.filterVehicles(value);
                         mystate(() {
-                          taskDetailsController.showFareValidate.value = "false";
+                          taskDetailsController.showVehicleValidate.value = "false";
                         });
                       },
-                      decoration: InputDecoration(
-                        suffixIcon: taskDetailsController.fareCloseIcon.value
-                            ? InkWell(
-                                onTap: () {
-                                  mystate(() {
-                                    taskDetailsController.fareTextEditingController.clear();
-                                    taskDetailsController.fareCloseIcon.value = false;
-                                  });
-                                },
-                                child: const Padding(
-                                  padding: EdgeInsets.only(right: 18.0),
-                                  child: Icon(Icons.close),
-                                ),
-                              )
-                            : const SizedBox.shrink(),
-                        hintText: edit ? fare : "Fare",
-                        labelText: 'Fare',
-                        alignLabelWithHint: true,
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: const BorderRadius.all(Radius.circular(10)),
-                          borderSide: BorderSide(color: ColorConstant().baseColor),
-                        ),
-                        border: const OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(12.0)),
-                        ),
-                        focusedBorder: const OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(12.0)),
-                          borderSide: BorderSide(color: Colors.purple, width: 0.5),
-                        ),
-                      ),
-                    ),
-                    Visibility(
-                      visible: taskDetailsController.showFareValidate.value == "true" &&
-                              taskDetailsController.fareTextEditingController.text == ""
-                          ? true
-                          : false,
-                      child: const Text(
-                        "Please fill required field",
-                        style: TextStyle(color: Colors.red),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 16,
-                    ),
-                    TextFormField(
-                      controller: taskDetailsController.remarkTextEditingController,
-                      onTap: () {
-                        taskDetailsController.remarkCloseIcon.value = true;
-                      },
-                      onChanged: (value) {
-                        if (taskDetailsController.remarkTextEditingController.text != "") {
-                          taskDetailsController.remarkCloseIcon.value = true;
-                        } else {
-                          taskDetailsController.remarkCloseIcon.value = false;
-                        }
-                      },
-                      decoration: InputDecoration(
-                        suffixIcon: taskDetailsController.remarkCloseIcon.value
-                            ? InkWell(
-                                onTap: () {
-                                  mystate(() {
-                                    taskDetailsController.remarkTextEditingController.clear();
-                                    taskDetailsController.remarkCloseIcon.value = false;
-                                  });
-                                },
-                                child: const Padding(
-                                  padding: EdgeInsets.only(right: 18.0),
-                                  child: Icon(Icons.close),
-                                ),
-                              )
-                            : const SizedBox.shrink(),
-                        hintText: edit ? remark : "Remark",
-                        labelText: 'Remark',
-                        alignLabelWithHint: true,
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: const BorderRadius.all(Radius.circular(10)),
-                          borderSide: BorderSide(
-                              color: ColorConstant().baseColor), // Change underline color here
-                        ),
-                        border: const OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(12.0)),
-                        ),
-                        focusedBorder: const OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(12.0)),
-                          borderSide: BorderSide(color: Colors.purple, width: 0.5),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 16,
-                    ),
-                    SizedBox(
-                      width: 120,
-                      height: 50,
-                      child: ElevatedButton(
-                        onPressed: !edit
-                            ? () async {
-                                AuthController authController = Get.put(AuthController());
-                                if (taskDetailsController.searchFromController.text != "" &&
-                                    taskDetailsController.searchToController.text != "" &&
-                                    taskDetailsController.searchVehicleController.text != "" &&
-                                    taskDetailsController.fareTextEditingController.text != "") {
-                                  if (!await authController.handleLocationPermission()) {
-                                    authController.logout();
-                                  } else {
-                                    taskDetailsController.addTransport();
-                                    Get.back();
-                                  }
-                                } else {
-                                  mystate(() {
-                                    taskDetailsController.showFromValidate.value = "true";
-                                    taskDetailsController.showToValidate.value = "true";
-                                    taskDetailsController.showVehicleValidate.value = "true";
-                                    taskDetailsController.showFareValidate.value = "true";
-                                  });
-                                }
-                              }
-                            : () async {
-                                AuthController authController = Get.put(AuthController());
+                      viewTrailing: [
+                        IconButton(
+                            onPressed: () {
+                              mystate(() {
+                                taskDetailsController.searchVehicleController.clear();
 
-                                var request = {
-                                  // "taskId": taskDetailsController.taskId.value,
-                                  "taskTransportationAutoId": autoId ?? "",
-                                  "taskTransportationCost":
-                                      taskDetailsController.fareTextEditingController.text == ""
-                                          ? fare
-                                          : taskDetailsController.fareTextEditingController.text,
-                                  "taskTransportationEndLat": null,
-                                  "taskTransportationEndLocation":
-                                      taskDetailsController.searchToController.text == ""
-                                          ? to
-                                          : taskDetailsController.searchToController.text,
-                                  "taskTransportationEndLong": null,
-                                  "taskTransportationRemarks":
-                                      taskDetailsController.remarkTextEditingController.text == ""
-                                          ? remark
-                                          : taskDetailsController.remarkTextEditingController.text,
-                                  "taskTransportationStartLat": authController.latitude.value,
-                                  "taskTransportationStartLocation":
-                                      taskDetailsController.searchFromController.text == ""
-                                          ? from
-                                          : taskDetailsController.searchFromController.text,
-                                  "taskTransportationStartLong": authController.longitude.value,
-                                  "taskTransportationVehicleId":
-                                      taskDetailsController.selectedVehicleId.value == 0
-                                          ? vehicleId
-                                          : taskDetailsController.selectedVehicleId.value,
-                                  "taskTransporationWayStatus": 0
-                                };
+                                taskDetailsController.searchVehicleController.closeView("");
+                              });
+                            },
+                            icon: const Icon(Icons.clear))
+                      ],
+                      builder: (context, controller) {
+                        return TextFormField(
+                          readOnly: true,
+                          onTap: () {
+                            controller.openView();
+                          },
+                          controller: controller,
+                          decoration: InputDecoration(
+                            alignLabelWithHint: true,
+                            hintText: edit ? vehicle : "Vehicle",
+                            labelText: "Vehicle",
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: const BorderRadius.all(Radius.circular(10)),
+                              borderSide: BorderSide(color: ColorConstant().baseColor),
+                            ),
+                            border: const OutlineInputBorder(
+                              borderRadius: BorderRadius.all(Radius.circular(12.0)),
+                            ),
+                            focusedBorder: const OutlineInputBorder(
+                              borderRadius: BorderRadius.all(Radius.circular(12.0)),
+                              borderSide: BorderSide(color: Colors.purple, width: 0.5),
+                            ),
+                          ),
+                        );
+                      },
+                      suggestionsBuilder: (context, controller) {
+                        return [
+                          SizedBox(
+                            height: MediaQuery.of(context).size.height / 1.5,
+                            child: Scrollbar(
+                              thickness: 10,
+                              child: ListView.builder(
+                                  itemCount: taskDetailsController.filteredVechileList.isEmpty
+                                      ? taskDetailsController.vehiclesList.length
+                                      : taskDetailsController.filteredVechileList.length,
+                                  itemBuilder: (context, index) {
+                                    VehicleData vehicle =
+                                        taskDetailsController.filteredVechileList.isEmpty
+                                            ? taskDetailsController.vehiclesList[index]
+                                            : taskDetailsController.filteredVechileList[index];
+                                    return InkWell(
+                                      onTap: () {
+                                        taskDetailsController.selectedVehicleId.value =
+                                            vehicle.key ?? 0;
+                                        taskDetailsController.searchVehicleController
+                                            .closeView(vehicle.value);
+                                      },
+                                      child: Container(
+                                        color: index == 0
+                                            ? Colors.blue.withOpacity(0.1)
+                                            : Colors.transparent,
+                                        height: 50,
+                                        child: Padding(
+                                          padding:
+                                              const EdgeInsets.only(left: 16.0, right: 16, top: 16),
+                                          child: Text(
+                                            "${vehicle.value}",
+                                            style: const TextStyle(
+                                              fontSize: 16,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  }),
+                            ),
+                          )
+                        ];
+                      }),
+                  Visibility(
+                    visible: taskDetailsController.showVehicleValidate.value == "true" &&
+                            taskDetailsController.searchVehicleController.text == ""
+                        ? true
+                        : false,
+                    child: const Text(
+                      "Please fill required field",
+                      style: TextStyle(color: Colors.red),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  TextFormField(
+                    keyboardType: TextInputType.number,
+                    controller: taskDetailsController.fareTextEditingController,
+                    onTap: () {
+                      taskDetailsController.fareCloseIcon.value = true;
+                    },
+                    onChanged: (value) {
+                      if (taskDetailsController.fareTextEditingController.text != "") {
+                        taskDetailsController.fareCloseIcon.value = true;
+                        taskDetailsController.showFareValidate.value = "false";
+                      } else {
+                        taskDetailsController.fareCloseIcon.value = false;
+                      }
+
+                      mystate(() {
+                        taskDetailsController.showFareValidate.value = "false";
+                      });
+                    },
+                    decoration: InputDecoration(
+                      suffixIcon: taskDetailsController.fareCloseIcon.value
+                          ? InkWell(
+                              onTap: () {
+                                mystate(() {
+                                  taskDetailsController.fareTextEditingController.clear();
+                                  taskDetailsController.fareCloseIcon.value = false;
+                                });
+                              },
+                              child: const Padding(
+                                padding: EdgeInsets.only(right: 18.0),
+                                child: Icon(Icons.close),
+                              ),
+                            )
+                          : const SizedBox.shrink(),
+                      hintText: edit ? fare : "Fare",
+                      labelText: 'Fare',
+                      alignLabelWithHint: true,
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: const BorderRadius.all(Radius.circular(10)),
+                        borderSide: BorderSide(color: ColorConstant().baseColor),
+                      ),
+                      border: const OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(12.0)),
+                      ),
+                      focusedBorder: const OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(12.0)),
+                        borderSide: BorderSide(color: Colors.purple, width: 0.5),
+                      ),
+                    ),
+                  ),
+                  Visibility(
+                    visible: taskDetailsController.showFareValidate.value == "true" &&
+                            taskDetailsController.fareTextEditingController.text == ""
+                        ? true
+                        : false,
+                    child: const Text(
+                      "Please fill required field",
+                      style: TextStyle(color: Colors.red),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  TextFormField(
+                    controller: taskDetailsController.remarkTextEditingController,
+                    onTap: () {
+                      taskDetailsController.remarkCloseIcon.value = true;
+                    },
+                    onChanged: (value) {
+                      if (taskDetailsController.remarkTextEditingController.text != "") {
+                        taskDetailsController.remarkCloseIcon.value = true;
+                      } else {
+                        taskDetailsController.remarkCloseIcon.value = false;
+                      }
+                    },
+                    decoration: InputDecoration(
+                      suffixIcon: taskDetailsController.remarkCloseIcon.value
+                          ? InkWell(
+                              onTap: () {
+                                mystate(() {
+                                  taskDetailsController.remarkTextEditingController.clear();
+                                  taskDetailsController.remarkCloseIcon.value = false;
+                                });
+                              },
+                              child: const Padding(
+                                padding: EdgeInsets.only(right: 18.0),
+                                child: Icon(Icons.close),
+                              ),
+                            )
+                          : const SizedBox.shrink(),
+                      hintText: edit ? remark : "Remark",
+                      labelText: 'Remark',
+                      alignLabelWithHint: true,
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: const BorderRadius.all(Radius.circular(10)),
+                        borderSide: BorderSide(
+                            color: ColorConstant().baseColor), // Change underline color here
+                      ),
+                      border: const OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(12.0)),
+                      ),
+                      focusedBorder: const OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(12.0)),
+                        borderSide: BorderSide(color: Colors.purple, width: 0.5),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  SizedBox(
+                    width: 120,
+                    height: 50,
+                    child: ElevatedButton(
+                      onPressed: !edit
+                          ? () async {
+                              AuthController authController = Get.put(AuthController());
+                              if (taskDetailsController.searchFromController.text != "" &&
+                                  taskDetailsController.searchToController.text != "" &&
+                                  taskDetailsController.searchVehicleController.text != "" &&
+                                  taskDetailsController.fareTextEditingController.text != "") {
                                 if (!await authController.handleLocationPermission()) {
                                   authController.logout();
                                 } else {
-                                  taskDetailsController.editTransport(
-                                      endPoint: ApiUrl().updateTransportation, data: request);
+                                  taskDetailsController.addTransport();
                                   Get.back();
                                 }
-                              },
-                        style: ButtonStyle(
-                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(0.0),
-                            ),
+                              } else {
+                                mystate(() {
+                                  taskDetailsController.showFromValidate.value = "true";
+                                  taskDetailsController.showToValidate.value = "true";
+                                  taskDetailsController.showVehicleValidate.value = "true";
+                                  taskDetailsController.showFareValidate.value = "true";
+                                });
+                              }
+                            }
+                          : () async {
+                              AuthController authController = Get.put(AuthController());
+
+                              var request = {
+                                // "taskId": taskDetailsController.taskId.value,
+                                "taskTransportationAutoId": autoId ?? "",
+                                "taskTransportationCost":
+                                    taskDetailsController.fareTextEditingController.text == ""
+                                        ? fare
+                                        : taskDetailsController.fareTextEditingController.text,
+                                "taskTransportationEndLat": null,
+                                "taskTransportationEndLocation":
+                                    taskDetailsController.searchToController.text == ""
+                                        ? to
+                                        : taskDetailsController.searchToController.text,
+                                "taskTransportationEndLong": null,
+                                "taskTransportationRemarks":
+                                    taskDetailsController.remarkTextEditingController.text == ""
+                                        ? remark
+                                        : taskDetailsController.remarkTextEditingController.text,
+                                "taskTransportationStartLat": authController.latitude.value,
+                                "taskTransportationStartLocation":
+                                    taskDetailsController.searchFromController.text == ""
+                                        ? from
+                                        : taskDetailsController.searchFromController.text,
+                                "taskTransportationStartLong": authController.longitude.value,
+                                "taskTransportationVehicleId":
+                                    taskDetailsController.selectedVehicleId.value == 0
+                                        ? vehicleId
+                                        : taskDetailsController.selectedVehicleId.value,
+                                "taskTransporationWayStatus": 0
+                              };
+                              if (!await authController.handleLocationPermission()) {
+                                authController.logout();
+                              } else {
+                                taskDetailsController.editTransport(
+                                    endPoint: ApiUrl().updateTransportation, data: request);
+                                Get.back();
+                              }
+                            },
+                      style: ButtonStyle(
+                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(0.0),
                           ),
-                          backgroundColor: const MaterialStatePropertyAll(Colors.green),
                         ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Text(
-                              !edit ? "Add" : "Update",
-                              style: const TextStyle(color: Colors.white),
-                            ),
-                            const Spacer(),
-                            const Icon(
-                              Icons.add_circle_outline,
-                              color: Colors.white,
-                            )
-                          ],
-                        ),
+                        backgroundColor: const MaterialStatePropertyAll(Colors.green),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text(
+                            !edit ? "Add" : "Update",
+                            style: const TextStyle(color: Colors.white),
+                          ),
+                          const Spacer(),
+                          const Icon(
+                            Icons.add_circle_outline,
+                            color: Colors.white,
+                          )
+                        ],
                       ),
                     ),
-                    const SizedBox(
-                      height: 500,
-                    ),
-                  ],
-                ),
+                  ),
+                  const SizedBox(
+                    height: 500,
+                  ),
+                ],
               ),
             ),
           );

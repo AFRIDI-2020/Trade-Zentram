@@ -547,7 +547,6 @@ class MobileNumberVerifyPage extends GetView<UpActivityTaskController> {
                           },
                           child: const Text(
                             "Verify",
-                            style: TextStyle(color: Colors.white),
                           ),
                         ),
                       ),

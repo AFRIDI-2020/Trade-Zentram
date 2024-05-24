@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:TradeZentrum/app/controller/home_controller.dart';
+import 'package:TradeZentrum/app/utils/color_const.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -102,7 +103,7 @@ void popUpStatus(
                   child: Text(
                     firstActionButtonTitle!,
                     style: const TextStyle(
-                      color: Colors.black,
+                      color: ColorConstant.secondaryThemeColor,
                       fontSize: 12,
                       fontWeight: FontWeight.normal,
                     ),
