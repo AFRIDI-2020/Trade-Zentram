@@ -5,6 +5,7 @@ import 'package:TradeZentrum/app/controller/up_activity_task_controller.dart';
 import 'package:TradeZentrum/app/model/locations_model.dart';
 import 'package:TradeZentrum/app/model/vehicles_model.dart';
 import 'package:TradeZentrum/app/screens/checklist_page.dart';
+import 'package:TradeZentrum/app/screens/connectivity/internet_connectivity.dart';
 import 'package:TradeZentrum/app/screens/upActivityTask/widgets/task_detail_widget.dart';
 import 'package:TradeZentrum/app/screens/upActivityTask/widgets/transport_list_item.dart';
 import 'package:TradeZentrum/app/services/api_env.dart';
@@ -62,11 +63,7 @@ class UpActivityTaskPage extends GetView<UpActivityTaskController> {
                     authController.logout();
                   } else {
                     taskDetailsController.taskDetailsData.value.taskChecklistsData!.isNotEmpty
-                        ? Get.to(
-                            () => CheckListPage(
-                              pageTitle: pageTitle,
-                            ),
-                          )
+                        ? await  Get.to(() => CheckListPage(pageTitle: pageTitle,))
                         : null;
                   }
                 },

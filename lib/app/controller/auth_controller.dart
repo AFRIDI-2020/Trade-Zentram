@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'package:TradeZentrum/app/controller/home_controller.dart';
+import 'package:TradeZentrum/app/screens/connectivity/internet_connectivity.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -163,7 +164,7 @@ class AuthController extends GetxController {
     if (status.isDenied) {
       data = await storageService.readData(storageKey.token);
       if (data != null) {
-        Get.off(() => const LoginPage());
+        Get.off(() =>const LoginPage());
       } else {
         Get.off(() => const LoginPage());
       }

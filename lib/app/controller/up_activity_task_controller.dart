@@ -343,9 +343,12 @@ class UpActivityTaskController extends GetxController {
 
   getOtp({String? endPoint, String? number}) async {
     startLoading();
+    var authController = Get.put(AuthController());
     Map<String, dynamic> request = {
       "taskId": taskId.value,
-      "deliveryReceiverContactNo": number
+      "deliveryReceiverContactNo": number,
+      "otpFromLat" : authController.latitude.value,
+      "otpFromLong" : authController.longitude.value,
     };
 
     Map<String, dynamic> response =

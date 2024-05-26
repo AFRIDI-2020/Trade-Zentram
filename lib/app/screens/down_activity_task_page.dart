@@ -5,6 +5,7 @@ import 'package:TradeZentrum/app/controller/auth_controller.dart';
 import 'package:TradeZentrum/app/controller/down_Activity_controller.dart';
 import 'package:TradeZentrum/app/model/locations_model.dart';
 import 'package:TradeZentrum/app/model/vehicles_model.dart';
+import 'package:TradeZentrum/app/screens/connectivity/internet_connectivity.dart';
 import 'package:TradeZentrum/app/screens/home/home_page.dart';
 import 'package:TradeZentrum/app/screens/upActivityTask/widgets/task_detail_widget.dart';
 import 'package:TradeZentrum/app/screens/upActivityTask/widgets/transport_list_item.dart';
@@ -49,718 +50,703 @@ class DownActivityTaskPage extends GetView<DownActivityTaskController> {
           Get.back();
         }
       },
-      child: Scaffold(
-          backgroundColor: ColorConstant.primaryBackground,
-          appBar: PreferredSize(
-            preferredSize: const Size.fromHeight(50.0),
-            child: CustomAppBar(
-              toPage: "UpActivityTaskPage",
-              pageTitle: pageTitle,
+      child: InternetConnectivity(
+        child: Scaffold(
+            backgroundColor: ColorConstant.primaryBackground,
+            appBar: PreferredSize(
+              preferredSize: const Size.fromHeight(50.0),
+              child: CustomAppBar(
+                toPage: "UpActivityTaskPage",
+                pageTitle: pageTitle,
+              ),
             ),
-          ),
-          //floatingActionButtonLocation: FloatingActionButtonLocation.,
-          body: Obx(
-            () => Padding(
-              padding: const EdgeInsets.only(top: 15, right: 15, left: 15),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  /*Container(
-                    padding: const EdgeInsets.fromLTRB(
-                      32.0,
-                      32.0,
-                      32.0,
-                      0,
-                    ),
-                    color: ColorConstant().baseColor.withOpacity(0.2),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 12.0),
-                          child: RichText(
-                            text: TextSpan(
-                              text: 'TaskId: ',
-                              style: const TextStyle(
-                                fontWeight: FontWeight.normal,
-                                color: Colors.black,
-                                fontSize: 12.0,
-                              ),
-                              children: <TextSpan>[
-                                TextSpan(
-                                  text: taskDetailsController.taskDetailsData.value.taskId.toString(),
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.red,
-                                    fontSize: 12.0,
-                                  ),
+            //floatingActionButtonLocation: FloatingActionButtonLocation.,
+            body: Obx(
+              () => Padding(
+                padding: const EdgeInsets.only(top: 15, right: 15, left: 15),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    /*Container(
+                      padding: const EdgeInsets.fromLTRB(
+                        32.0,
+                        32.0,
+                        32.0,
+                        0,
+                      ),
+                      color: ColorConstant().baseColor.withOpacity(0.2),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 12.0),
+                            child: RichText(
+                              text: TextSpan(
+                                text: 'TaskId: ',
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.normal,
+                                  color: Colors.black,
+                                  fontSize: 12.0,
                                 ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 12.0),
-                          child: RichText(
-                            text: TextSpan(
-                              text: 'Invoice: ',
-                              style: const TextStyle(
-                                fontWeight: FontWeight.normal,
-                                color: Colors.black,
-                                fontSize: 12.0,
-                              ),
-                              children: <TextSpan>[
-                                TextSpan(
-                                  text: taskDetailsController.taskDetailsData.value.soSystemNo,
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.red,
-                                    fontSize: 12.0,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 12.0),
-                          child: RichText(
-                            text: TextSpan(
-                              text: 'Destination: ',
-                              style: const TextStyle(
-                                fontWeight: FontWeight.normal,
-                                color: Colors.black,
-                                fontSize: 12.0,
-                              ),
-                              children: <TextSpan>[
-                                TextSpan(
-                                  text: taskDetailsController.taskDetailsData.value.taskDestination,
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.red,
-                                    fontSize: 12.0,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 12.0),
-                          child: RichText(
-                            text: TextSpan(
-                              text: 'Address: ',
-                              style: const TextStyle(
-                                fontWeight: FontWeight.normal,
-                                color: Colors.black,
-                                fontSize: 12.0,
-                              ),
-                              children: <TextSpan>[
-                                TextSpan(
-                                  text: taskDetailsController
-                                          .taskDetailsData.value.taskDestinationAddress ??
-                                      "N/A",
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.red,
-                                    fontSize: 12.0,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width,
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 100.0),
-                            child: ElevatedButton(
-                              onPressed: () {
-                                taskDetailsController.taskDetailsData.value.taskStartTime == null &&
-                                        taskDetailsController.taskDetailsData.value.taskEndTime ==
-                                            null
-                                    ? popUpStatus(
-                                        context,
-                                        title: "WANNA START?",
-                                        subtitle:
-                                            "Are you sure that you want to start Task - Task # ${taskDetailsController.taskDetailsData.value.taskId}?",
-                                        firstActionButtonTitle: "No",
-                                        firstActionButtonColor: const Color(0xFF9c27b0),
-                                        secondActionButtonTitle: "Yes",
-                                        secondActionButtonColor: const Color(0xFFC62828),
-                                        secondActionButtonOnTap: () {
-                                          taskDetailsController.declearTaskStart(
-                                            endPoint: ApiUrl().declearTaskStart,
-                                            taskId: taskDetailsController.taskId.value,
-                                          );
-                                          Get.back();
-                                        },
-                                      )
-                                    : null;
-                              },
-                              style: ButtonStyle(
-                                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                    RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(15.0),
+                                children: <TextSpan>[
+                                  TextSpan(
+                                    text: taskDetailsController.taskDetailsData.value.taskId.toString(),
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.red,
+                                      fontSize: 12.0,
                                     ),
                                   ),
-                                  backgroundColor: MaterialStatePropertyAll(taskDetailsController
-                                                  .taskDetailsData.value.taskStartTime ==
-                                              null &&
+                                ],
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 12.0),
+                            child: RichText(
+                              text: TextSpan(
+                                text: 'Invoice: ',
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.normal,
+                                  color: Colors.black,
+                                  fontSize: 12.0,
+                                ),
+                                children: <TextSpan>[
+                                  TextSpan(
+                                    text: taskDetailsController.taskDetailsData.value.soSystemNo,
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.red,
+                                      fontSize: 12.0,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 12.0),
+                            child: RichText(
+                              text: TextSpan(
+                                text: 'Destination: ',
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.normal,
+                                  color: Colors.black,
+                                  fontSize: 12.0,
+                                ),
+                                children: <TextSpan>[
+                                  TextSpan(
+                                    text: taskDetailsController.taskDetailsData.value.taskDestination,
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.red,
+                                      fontSize: 12.0,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 12.0),
+                            child: RichText(
+                              text: TextSpan(
+                                text: 'Address: ',
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.normal,
+                                  color: Colors.black,
+                                  fontSize: 12.0,
+                                ),
+                                children: <TextSpan>[
+                                  TextSpan(
+                                    text: taskDetailsController
+                                            .taskDetailsData.value.taskDestinationAddress ??
+                                        "N/A",
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.red,
+                                      fontSize: 12.0,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width,
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 100.0),
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  taskDetailsController.taskDetailsData.value.taskStartTime == null &&
                                           taskDetailsController.taskDetailsData.value.taskEndTime ==
                                               null
-                                      ? ColorConstant().baseColor
-                                      : taskDetailsController.taskDetailsData.value.taskStartTime !=
-                                                  null &&
-                                              taskDetailsController
-                                                      .taskDetailsData.value.taskEndTime ==
-                                                  null
-                                          ? ColorConstant().baseColor.withOpacity(0.3)
-                                          : ColorConstant().baseColor)),
-                              child: Text(
-                                taskDetailsController.taskDetailsData.value.taskStartTime == null &&
-                                        taskDetailsController.taskDetailsData.value.taskEndTime ==
-                                            null
-                                    ? "Start"
-                                    : taskDetailsController.taskDetailsData.value.taskStartTime !=
-                                                null &&
-                                            taskDetailsController.taskDetailsData.value.taskEndTime ==
-                                                null
-                                        ? "Started"
-                                        : "",
-                                style: const TextStyle(color: Colors.white),
-                              ),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 16,
-                        ),
-                      ],
-                    ),
-                  ),*/
-                  TaskDetailWidget(
-                    taskDetailsData: taskDetailsController.taskDetailsData.value,
-                    onPlayPauseButtonTap: () {
-                      taskDetailsController.taskDetailsData.value.taskStartTime == null &&
-                              taskDetailsController.taskDetailsData.value.taskEndTime == null
-                          ? showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return AlertDialog(
-                                  shape: const RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.all(Radius.circular(0.0))),
-                                  content: const SizedBox(
-                                    height: 180,
-                                    child: Column(
-                                      children: [
-                                        Icon(Icons.not_listed_location,
-                                            size: 80, color: Color(0xFFC62828)
-                                            // Color(0xFF9c27b0),
-                                            ),
-                                        SizedBox(
-                                          height: 16,
-                                        ),
-                                        Text(
-                                          "WANNA START?",
-                                          style: TextStyle(
-                                            color: Colors.black,
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                          textAlign: TextAlign.center,
-                                        ),
-                                        Text(
-                                          "Are you sure that you want to start Task - Task # 3647?",
-                                          style: TextStyle(
-                                            color: Colors.black,
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.normal,
-                                          ),
-                                          textAlign: TextAlign.center,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  actions: <Widget>[
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        ElevatedButton(
-                                          onPressed: () {
-                                            Get.back();
-                                          },
-                                          style: ButtonStyle(
-                                              shape:
-                                                  MaterialStateProperty.all<RoundedRectangleBorder>(
-                                                RoundedRectangleBorder(
-                                                  borderRadius: BorderRadius.circular(0.0),
-                                                ),
-                                              ),
-                                              backgroundColor: const MaterialStatePropertyAll(
-                                                  Color(0xFF9c27b0))),
-                                          child: const Text(
-                                            "NO",
-                                            style: TextStyle(color: Colors.white),
-                                          ),
-                                        ),
-                                        const SizedBox(
-                                          width: 20,
-                                        ),
-                                        ElevatedButton(
-                                          onPressed: () {
+                                      ? popUpStatus(
+                                          context,
+                                          title: "WANNA START?",
+                                          subtitle:
+                                              "Are you sure that you want to start Task - Task # ${taskDetailsController.taskDetailsData.value.taskId}?",
+                                          firstActionButtonTitle: "No",
+                                          firstActionButtonColor: const Color(0xFF9c27b0),
+                                          secondActionButtonTitle: "Yes",
+                                          secondActionButtonColor: const Color(0xFFC62828),
+                                          secondActionButtonOnTap: () {
                                             taskDetailsController.declearTaskStart(
                                               endPoint: ApiUrl().declearTaskStart,
                                               taskId: taskDetailsController.taskId.value,
                                             );
                                             Get.back();
                                           },
-                                          style: ButtonStyle(
-                                              shape:
-                                                  MaterialStateProperty.all<RoundedRectangleBorder>(
-                                                RoundedRectangleBorder(
-                                                  borderRadius: BorderRadius.circular(0.0),
-                                                ),
-                                              ),
-                                              backgroundColor: const MaterialStatePropertyAll(
-                                                  Color(0xFFC62828))),
-                                          child: const Text(
-                                            "YES",
-                                            style: TextStyle(color: Colors.white),
-                                          ),
                                         )
-                                      ],
-                                    )
-                                  ],
-                                );
-                              },
-                            )
-                          : null;
-                    },
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        "Down Activity",
-                        style: theme.textTheme.titleLarge?.copyWith(fontSize: 18),
-                      ),
-                      ElevatedButton(
-                        onPressed: () {
-                          taskDetailsController.taskDetailsData.value.taskEndTime == null &&
-                                  taskDetailsController.taskDetailsData.value.taskStartTime == null
-                              ? showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return AlertDialog(
-                                      shape: const RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.all(Radius.circular(0.0))),
-                                      content: const SizedBox(
-                                        height: 180,
-                                        child: Column(
-                                          children: [
-                                            Icon(
-                                              Icons.error_outline,
-                                              size: 80,
-                                              color: Color(0xFFed6c02),
-                                            ),
-                                            SizedBox(
-                                              height: 16,
-                                            ),
-                                            Text(
-                                              "TASK NOT STARTED",
-                                              style: TextStyle(
-                                                color: Colors.black,
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                              textAlign: TextAlign.center,
-                                            ),
-                                            Text(
-                                              "You must have to click the start button and then you can click ADD TRANSPORT!",
-                                              style: TextStyle(
-                                                color: Colors.black,
-                                                fontSize: 12,
-                                                fontWeight: FontWeight.normal,
-                                              ),
-                                              textAlign: TextAlign.center,
-                                            ),
-                                          ],
-                                        ),
+                                      : null;
+                                },
+                                style: ButtonStyle(
+                                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                      RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(15.0),
                                       ),
-                                      actions: <Widget>[
-                                        ElevatedButton(
-                                          onPressed: () {
-                                            Get.back();
-                                          },
-                                          style: ButtonStyle(
-                                              shape:
-                                                  MaterialStateProperty.all<RoundedRectangleBorder>(
-                                                RoundedRectangleBorder(
-                                                  borderRadius: BorderRadius.circular(0.0),
-                                                ),
-                                              ),
-                                              backgroundColor: const MaterialStatePropertyAll(
-                                                  Color(0xFFed6c02))),
-                                          child: const Text(
-                                            "Ok",
-                                            style: TextStyle(color: Colors.white),
-                                          ),
-                                        )
-                                      ],
-                                    );
-                                  },
-                                )
-                              : taskDetailsController
-                                      .taskDetailsData.value.taskTransportationData!.isEmpty
-                                  ? showModal(context, taskDetailsController, false)
-                                  : taskDetailsController
-                                                  .taskDetailsData
-                                                  .value
-                                                  .taskTransportationData![taskDetailsController
-                                                          .taskDetailsData
-                                                          .value
-                                                          .taskTransportationData!
-                                                          .length -
-                                                      1]
-                                                  .taskTransportationEndLat !=
-                                              null &&
-                                          taskDetailsController
-                                                  .taskDetailsData
-                                                  .value
-                                                  .taskTransportationData![taskDetailsController
-                                                          .taskDetailsData
-                                                          .value
-                                                          .taskTransportationData!
-                                                          .length -
-                                                      1]
-                                                  .taskTransportationEndLat !=
+                                    ),
+                                    backgroundColor: MaterialStatePropertyAll(taskDetailsController
+                                                    .taskDetailsData.value.taskStartTime ==
+                                                null &&
+                                            taskDetailsController.taskDetailsData.value.taskEndTime ==
+                                                null
+                                        ? ColorConstant().baseColor
+                                        : taskDetailsController.taskDetailsData.value.taskStartTime !=
+                                                    null &&
+                                                taskDetailsController
+                                                        .taskDetailsData.value.taskEndTime ==
+                                                    null
+                                            ? ColorConstant().baseColor.withOpacity(0.3)
+                                            : ColorConstant().baseColor)),
+                                child: Text(
+                                  taskDetailsController.taskDetailsData.value.taskStartTime == null &&
+                                          taskDetailsController.taskDetailsData.value.taskEndTime ==
                                               null
-                                      ? showModal(context, taskDetailsController, false)
-                                      : showDialog(
-                                          context: context,
-                                          builder: (BuildContext context) {
-                                            return AlertDialog(
-                                              shape: const RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.all(Radius.circular(0.0))),
-                                              content: const SizedBox(
-                                                height: 180,
-                                                child: Column(
-                                                  children: [
-                                                    Icon(
-                                                      Icons.error_outline,
-                                                      size: 80,
-                                                      color: Color(0xFFed6c02),
-                                                    ),
-                                                    SizedBox(
-                                                      height: 16,
-                                                    ),
-                                                    Text(
-                                                      "MISSED END LOCATION",
-                                                      style: TextStyle(
-                                                        color: Colors.black,
-                                                        fontSize: 16,
-                                                        fontWeight: FontWeight.bold,
-                                                      ),
-                                                      textAlign: TextAlign.center,
-                                                    ),
-                                                    Text(
-                                                      "You have not clicked the reach button above!!",
-                                                      style: TextStyle(
-                                                        color: Colors.black,
-                                                        fontSize: 12,
-                                                        fontWeight: FontWeight.normal,
-                                                      ),
-                                                      textAlign: TextAlign.center,
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                              actions: <Widget>[
-                                                ElevatedButton(
-                                                  onPressed: () {
-                                                    Get.back();
-                                                  },
-                                                  style: ButtonStyle(
-                                                      shape: MaterialStateProperty.all<
-                                                          RoundedRectangleBorder>(
-                                                        RoundedRectangleBorder(
-                                                          borderRadius: BorderRadius.circular(0.0),
-                                                        ),
-                                                      ),
-                                                      backgroundColor:
-                                                          const MaterialStatePropertyAll(
-                                                              Color(0xFFed6c02))),
-                                                  child: const Text(
-                                                    "Ok",
-                                                    style: TextStyle(color: Colors.white),
-                                                  ),
-                                                )
-                                              ],
-                                            );
-                                          },
-                                        );
-                        },
-                        child: Row(
-                          children: [
-                            Image.asset(
-                              "assets/ic_add_transport.png",
-                              height: 20,
-                              width: 20,
-                              color: ColorConstant.secondaryThemeColor,
+                                      ? "Start"
+                                      : taskDetailsController.taskDetailsData.value.taskStartTime !=
+                                                  null &&
+                                              taskDetailsController.taskDetailsData.value.taskEndTime ==
+                                                  null
+                                          ? "Started"
+                                          : "",
+                                  style: const TextStyle(color: Colors.white),
+                                ),
+                              ),
                             ),
-                            const SizedBox(
-                              width: 8,
-                            ),
-                            const Text(
-                              "ADD",
-                            ),
-                          ],
-                        ),
+                          ),
+                          const SizedBox(
+                            height: 16,
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  taskDetailsController.taskDetailsData.value.taskTransportationData != null
-                      ? ListView.builder(
-                          shrinkWrap: true,
-                          itemCount: taskDetailsController
-                              .taskDetailsData.value.taskTransportationData?.length,
-                          itemBuilder: (context, index) {
-                            /*  return Card(
-                        elevation: 0,
-                        color: taskDetailsController
-                            .taskDetailsData
-                            .value
-                            .taskTransportationData![index]
-                            .taskTransportationEndLat !=
-                            null &&
-                            taskDetailsController
-                                .taskDetailsData
-                                .value
-                                .taskTransportationData![index]
-                                .taskTransportationEndLong !=
-                                null
-                            ? Colors.grey.withOpacity(0.1)
-                            : Colors.transparent,
-                        child: ListTile(
-                          title: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                    ),*/
+                    TaskDetailWidget(
+                      taskDetailsData: taskDetailsController.taskDetailsData.value,
+                      onPlayPauseButtonTap: () {
+                        taskDetailsController.taskDetailsData.value.taskStartTime == null &&
+                                taskDetailsController.taskDetailsData.value.taskEndTime == null
+                            ? showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    shape: const RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.all(Radius.circular(0.0))),
+                                    content: const SizedBox(
+                                      height: 180,
+                                      child: Column(
+                                        children: [
+                                          Icon(Icons.not_listed_location,
+                                              size: 80, color: Color(0xFFC62828)
+                                              // Color(0xFF9c27b0),
+                                              ),
+                                          SizedBox(
+                                            height: 16,
+                                          ),
+                                          Text(
+                                            "WANNA START?",
+                                            style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                          Text(
+                                            "Are you sure that you want to start Task - Task # 3647?",
+                                            style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.normal,
+                                            ),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    actions: <Widget>[
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          ElevatedButton(
+                                            onPressed: () {
+                                              Get.back();
+                                            },
+                                            style: ButtonStyle(
+                                                shape:
+                                                    MaterialStateProperty.all<RoundedRectangleBorder>(
+                                                  RoundedRectangleBorder(
+                                                    borderRadius: BorderRadius.circular(0.0),
+                                                  ),
+                                                ),
+                                                backgroundColor: const MaterialStatePropertyAll(
+                                                    Color(0xFF9c27b0))),
+                                            child: const Text(
+                                              "NO",
+                                              style: TextStyle(color: Colors.white),
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            width: 20,
+                                          ),
+                                          ElevatedButton(
+                                            onPressed: () {
+                                              taskDetailsController.declearTaskStart(
+                                                endPoint: ApiUrl().declearTaskStart,
+                                                taskId: taskDetailsController.taskId.value,
+                                              );
+                                              Get.back();
+                                            },
+                                            style: ButtonStyle(
+                                                shape:
+                                                    MaterialStateProperty.all<RoundedRectangleBorder>(
+                                                  RoundedRectangleBorder(
+                                                    borderRadius: BorderRadius.circular(0.0),
+                                                  ),
+                                                ),
+                                                backgroundColor: const MaterialStatePropertyAll(
+                                                    Color(0xFFC62828))),
+                                            child: const Text(
+                                              "YES",
+                                              style: TextStyle(color: Colors.white),
+                                            ),
+                                          )
+                                        ],
+                                      )
+                                    ],
+                                  );
+                                },
+                              )
+                            : null;
+                      },
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Down Activity",
+                          style: theme.textTheme.titleLarge?.copyWith(fontSize: 18),
+                        ),
+                        ElevatedButton(
+                          onPressed: () {
+                            taskDetailsController.taskDetailsData.value.taskEndTime == null &&
+                                    taskDetailsController.taskDetailsData.value.taskStartTime == null
+                                ? showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return AlertDialog(
+                                        shape: const RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.all(Radius.circular(0.0))),
+                                        content: const SizedBox(
+                                          height: 180,
+                                          child: Column(
+                                            children: [
+                                              Icon(
+                                                Icons.error_outline,
+                                                size: 80,
+                                                color: Color(0xFFed6c02),
+                                              ),
+                                              SizedBox(
+                                                height: 16,
+                                              ),
+                                              Text(
+                                                "TASK NOT STARTED",
+                                                style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                                textAlign: TextAlign.center,
+                                              ),
+                                              Text(
+                                                "You must have to click the start button and then you can click ADD TRANSPORT!",
+                                                style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 12,
+                                                  fontWeight: FontWeight.normal,
+                                                ),
+                                                textAlign: TextAlign.center,
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        actions: <Widget>[
+                                          ElevatedButton(
+                                            onPressed: () {
+                                              Get.back();
+                                            },
+                                            style: ButtonStyle(
+                                                shape:
+                                                    MaterialStateProperty.all<RoundedRectangleBorder>(
+                                                  RoundedRectangleBorder(
+                                                    borderRadius: BorderRadius.circular(0.0),
+                                                  ),
+                                                ),
+                                                backgroundColor: const MaterialStatePropertyAll(
+                                                    Color(0xFFed6c02))),
+                                            child: const Text(
+                                              "Ok",
+                                              style: TextStyle(color: Colors.white),
+                                            ),
+                                          )
+                                        ],
+                                      );
+                                    },
+                                  )
+                                : taskDetailsController
+                                        .taskDetailsData.value.taskTransportationData!.isEmpty
+                                    ? showModal(context, taskDetailsController, false)
+                                    : taskDetailsController
+                                                    .taskDetailsData
+                                                    .value
+                                                    .taskTransportationData![taskDetailsController
+                                                            .taskDetailsData
+                                                            .value
+                                                            .taskTransportationData!
+                                                            .length -
+                                                        1]
+                                                    .taskTransportationEndLat !=
+                                                null &&
+                                            taskDetailsController
+                                                    .taskDetailsData
+                                                    .value
+                                                    .taskTransportationData![taskDetailsController
+                                                            .taskDetailsData
+                                                            .value
+                                                            .taskTransportationData!
+                                                            .length -
+                                                        1]
+                                                    .taskTransportationEndLat !=
+                                                null
+                                        ? showModal(context, taskDetailsController, false)
+                                        : showDialog(
+                                            context: context,
+                                            builder: (BuildContext context) {
+                                              return AlertDialog(
+                                                shape: const RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.all(Radius.circular(0.0))),
+                                                content: const SizedBox(
+                                                  height: 180,
+                                                  child: Column(
+                                                    children: [
+                                                      Icon(
+                                                        Icons.error_outline,
+                                                        size: 80,
+                                                        color: Color(0xFFed6c02),
+                                                      ),
+                                                      SizedBox(
+                                                        height: 16,
+                                                      ),
+                                                      Text(
+                                                        "MISSED END LOCATION",
+                                                        style: TextStyle(
+                                                          color: Colors.black,
+                                                          fontSize: 16,
+                                                          fontWeight: FontWeight.bold,
+                                                        ),
+                                                        textAlign: TextAlign.center,
+                                                      ),
+                                                      Text(
+                                                        "You have not clicked the reach button above!!",
+                                                        style: TextStyle(
+                                                          color: Colors.black,
+                                                          fontSize: 12,
+                                                          fontWeight: FontWeight.normal,
+                                                        ),
+                                                        textAlign: TextAlign.center,
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                                actions: <Widget>[
+                                                  ElevatedButton(
+                                                    onPressed: () {
+                                                      Get.back();
+                                                    },
+                                                    style: ButtonStyle(
+                                                        shape: MaterialStateProperty.all<
+                                                            RoundedRectangleBorder>(
+                                                          RoundedRectangleBorder(
+                                                            borderRadius: BorderRadius.circular(0.0),
+                                                          ),
+                                                        ),
+                                                        backgroundColor:
+                                                            const MaterialStatePropertyAll(
+                                                                Color(0xFFed6c02))),
+                                                    child: const Text(
+                                                      "Ok",
+                                                      style: TextStyle(color: Colors.white),
+                                                    ),
+                                                  )
+                                                ],
+                                              );
+                                            },
+                                          );
+                          },
+                          child: Row(
                             children: [
-                              RichText(
-                                text: TextSpan(
-                                  text: 'From: ',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.normal,
-                                    color: taskDetailsController
-                                        .taskDetailsData
-                                        .value
-                                        .taskTransportationData![index]
-                                        .taskTransportationEndLat ==
-                                        null &&
-                                        taskDetailsController
-                                            .taskDetailsData
-                                            .value
-                                            .taskTransportationData![index]
-                                            .taskTransportationEndLong ==
-                                            null
-                                        ? Colors.black
-                                        : Colors.grey,
-                                    fontSize: 14.0,
-                                  ),
-                                  children: <TextSpan>[
-                                    TextSpan(
-                                      text:
-                                      "${taskDetailsController.taskDetailsData.value.taskTransportationData![index].taskTransportationStartLocation}",
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        color: taskDetailsController
-                                            .taskDetailsData
-                                            .value
-                                            .taskTransportationData![index]
-                                            .taskTransportationEndLat ==
-                                            null &&
-                                            taskDetailsController
-                                                .taskDetailsData
-                                                .value
-                                                .taskTransportationData![index]
-                                                .taskTransportationEndLong ==
-                                                null
-                                            ? Colors.black
-                                            : Colors.grey,
-                                        fontSize: 14.0,
-                                      ),
-                                    ),
-                                  ],
-                                ),
+                              Image.asset(
+                                "assets/ic_add_transport.png",
+                                height: 20,
+                                width: 20,
+                                color: ColorConstant.secondaryThemeColor,
                               ),
-                              RichText(
-                                text: TextSpan(
-                                  text: 'To: ',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.normal,
-                                    color: taskDetailsController
-                                        .taskDetailsData
-                                        .value
-                                        .taskTransportationData![index]
-                                        .taskTransportationEndLat ==
-                                        null &&
-                                        taskDetailsController
-                                            .taskDetailsData
-                                            .value
-                                            .taskTransportationData![index]
-                                            .taskTransportationEndLong ==
-                                            null
-                                        ? Colors.black
-                                        : Colors.grey,
-                                    fontSize: 14.0,
-                                  ),
-                                  children: <TextSpan>[
-                                    TextSpan(
-                                      text:
-                                      "${taskDetailsController.taskDetailsData.value.taskTransportationData![index].taskTransportationEndLocation}",
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        color: taskDetailsController
-                                            .taskDetailsData
-                                            .value
-                                            .taskTransportationData![index]
-                                            .taskTransportationEndLat ==
-                                            null &&
-                                            taskDetailsController
-                                                .taskDetailsData
-                                                .value
-                                                .taskTransportationData![index]
-                                                .taskTransportationEndLong ==
-                                                null
-                                            ? Colors.black
-                                            : Colors.grey,
-                                        fontSize: 14.0,
-                                      ),
-                                    ),
-                                  ],
-                                ),
+                              const SizedBox(
+                                width: 8,
                               ),
-                              RichText(
-                                text: TextSpan(
-                                  text: 'Cost: ',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.normal,
-                                    color: taskDetailsController
-                                        .taskDetailsData
-                                        .value
-                                        .taskTransportationData![index]
-                                        .taskTransportationEndLat ==
-                                        null &&
-                                        taskDetailsController
-                                            .taskDetailsData
-                                            .value
-                                            .taskTransportationData![index]
-                                            .taskTransportationEndLong ==
-                                            null
-                                        ? Colors.black
-                                        : Colors.grey,
-                                    fontSize: 14.0,
-                                  ),
-                                  children: <TextSpan>[
-                                    TextSpan(
-                                      text:
-                                      "${taskDetailsController.taskDetailsData.value.taskTransportationData![index].taskTransportationCost}",
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        color: taskDetailsController
-                                            .taskDetailsData
-                                            .value
-                                            .taskTransportationData![index]
-                                            .taskTransportationEndLat ==
-                                            null &&
-                                            taskDetailsController
-                                                .taskDetailsData
-                                                .value
-                                                .taskTransportationData![index]
-                                                .taskTransportationEndLong ==
-                                                null
-                                            ? Colors.black
-                                            : Colors.grey,
-                                        fontSize: 14.0,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              RichText(
-                                text: TextSpan(
-                                  text: 'Remarks: ',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.normal,
-                                    color: taskDetailsController
-                                        .taskDetailsData
-                                        .value
-                                        .taskTransportationData![index]
-                                        .taskTransportationEndLat ==
-                                        null &&
-                                        taskDetailsController
-                                            .taskDetailsData
-                                            .value
-                                            .taskTransportationData![index]
-                                            .taskTransportationEndLong ==
-                                            null
-                                        ? Colors.black
-                                        : Colors.grey,
-                                    fontSize: 14.0,
-                                  ),
-                                  children: <TextSpan>[
-                                    TextSpan(
-                                      text:
-                                      "${taskDetailsController.taskDetailsData.value.taskTransportationData![index].taskTransportationRemarks}",
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        color: taskDetailsController
-                                            .taskDetailsData
-                                            .value
-                                            .taskTransportationData![index]
-                                            .taskTransportationEndLat ==
-                                            null &&
-                                            taskDetailsController
-                                                .taskDetailsData
-                                                .value
-                                                .taskTransportationData![index]
-                                                .taskTransportationEndLong ==
-                                                null
-                                            ? Colors.black
-                                            : Colors.grey,
-                                        fontSize: 14.0,
-                                      ),
-                                    ),
-                                  ],
-                                ),
+                              const Text(
+                                "ADD",
                               ),
                             ],
                           ),
-                          trailing: PopupMenuButton<String>(
-                            enabled: taskDetailsController
-                                .taskDetailsData
-                                .value
-                                .taskTransportationData![index]
-                                .taskTransportationEndLat ==
-                                null &&
-                                taskDetailsController
-                                    .taskDetailsData
-                                    .value
-                                    .taskTransportationData![index]
-                                    .taskTransportationEndLong ==
-                                    null
-                                ? true
-                                : false,
-                            icon: Icon(
-                              Icons.settings,
-                              color: taskDetailsController
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    taskDetailsController.taskDetailsData.value.taskTransportationData != null
+                        ? ListView.builder(
+                            shrinkWrap: true,
+                            itemCount: taskDetailsController
+                                .taskDetailsData.value.taskTransportationData?.length,
+                            itemBuilder: (context, index) {
+                              /*  return Card(
+                          elevation: 0,
+                          color: taskDetailsController
+                              .taskDetailsData
+                              .value
+                              .taskTransportationData![index]
+                              .taskTransportationEndLat !=
+                              null &&
+                              taskDetailsController
+                                  .taskDetailsData
+                                  .value
+                                  .taskTransportationData![index]
+                                  .taskTransportationEndLong !=
+                                  null
+                              ? Colors.grey.withOpacity(0.1)
+                              : Colors.transparent,
+                          child: ListTile(
+                            title: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                RichText(
+                                  text: TextSpan(
+                                    text: 'From: ',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.normal,
+                                      color: taskDetailsController
+                                          .taskDetailsData
+                                          .value
+                                          .taskTransportationData![index]
+                                          .taskTransportationEndLat ==
+                                          null &&
+                                          taskDetailsController
+                                              .taskDetailsData
+                                              .value
+                                              .taskTransportationData![index]
+                                              .taskTransportationEndLong ==
+                                              null
+                                          ? Colors.black
+                                          : Colors.grey,
+                                      fontSize: 14.0,
+                                    ),
+                                    children: <TextSpan>[
+                                      TextSpan(
+                                        text:
+                                        "${taskDetailsController.taskDetailsData.value.taskTransportationData![index].taskTransportationStartLocation}",
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: taskDetailsController
+                                              .taskDetailsData
+                                              .value
+                                              .taskTransportationData![index]
+                                              .taskTransportationEndLat ==
+                                              null &&
+                                              taskDetailsController
+                                                  .taskDetailsData
+                                                  .value
+                                                  .taskTransportationData![index]
+                                                  .taskTransportationEndLong ==
+                                                  null
+                                              ? Colors.black
+                                              : Colors.grey,
+                                          fontSize: 14.0,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                RichText(
+                                  text: TextSpan(
+                                    text: 'To: ',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.normal,
+                                      color: taskDetailsController
+                                          .taskDetailsData
+                                          .value
+                                          .taskTransportationData![index]
+                                          .taskTransportationEndLat ==
+                                          null &&
+                                          taskDetailsController
+                                              .taskDetailsData
+                                              .value
+                                              .taskTransportationData![index]
+                                              .taskTransportationEndLong ==
+                                              null
+                                          ? Colors.black
+                                          : Colors.grey,
+                                      fontSize: 14.0,
+                                    ),
+                                    children: <TextSpan>[
+                                      TextSpan(
+                                        text:
+                                        "${taskDetailsController.taskDetailsData.value.taskTransportationData![index].taskTransportationEndLocation}",
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: taskDetailsController
+                                              .taskDetailsData
+                                              .value
+                                              .taskTransportationData![index]
+                                              .taskTransportationEndLat ==
+                                              null &&
+                                              taskDetailsController
+                                                  .taskDetailsData
+                                                  .value
+                                                  .taskTransportationData![index]
+                                                  .taskTransportationEndLong ==
+                                                  null
+                                              ? Colors.black
+                                              : Colors.grey,
+                                          fontSize: 14.0,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                RichText(
+                                  text: TextSpan(
+                                    text: 'Cost: ',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.normal,
+                                      color: taskDetailsController
+                                          .taskDetailsData
+                                          .value
+                                          .taskTransportationData![index]
+                                          .taskTransportationEndLat ==
+                                          null &&
+                                          taskDetailsController
+                                              .taskDetailsData
+                                              .value
+                                              .taskTransportationData![index]
+                                              .taskTransportationEndLong ==
+                                              null
+                                          ? Colors.black
+                                          : Colors.grey,
+                                      fontSize: 14.0,
+                                    ),
+                                    children: <TextSpan>[
+                                      TextSpan(
+                                        text:
+                                        "${taskDetailsController.taskDetailsData.value.taskTransportationData![index].taskTransportationCost}",
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: taskDetailsController
+                                              .taskDetailsData
+                                              .value
+                                              .taskTransportationData![index]
+                                              .taskTransportationEndLat ==
+                                              null &&
+                                              taskDetailsController
+                                                  .taskDetailsData
+                                                  .value
+                                                  .taskTransportationData![index]
+                                                  .taskTransportationEndLong ==
+                                                  null
+                                              ? Colors.black
+                                              : Colors.grey,
+                                          fontSize: 14.0,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                RichText(
+                                  text: TextSpan(
+                                    text: 'Remarks: ',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.normal,
+                                      color: taskDetailsController
+                                          .taskDetailsData
+                                          .value
+                                          .taskTransportationData![index]
+                                          .taskTransportationEndLat ==
+                                          null &&
+                                          taskDetailsController
+                                              .taskDetailsData
+                                              .value
+                                              .taskTransportationData![index]
+                                              .taskTransportationEndLong ==
+                                              null
+                                          ? Colors.black
+                                          : Colors.grey,
+                                      fontSize: 14.0,
+                                    ),
+                                    children: <TextSpan>[
+                                      TextSpan(
+                                        text:
+                                        "${taskDetailsController.taskDetailsData.value.taskTransportationData![index].taskTransportationRemarks}",
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: taskDetailsController
+                                              .taskDetailsData
+                                              .value
+                                              .taskTransportationData![index]
+                                              .taskTransportationEndLat ==
+                                              null &&
+                                              taskDetailsController
+                                                  .taskDetailsData
+                                                  .value
+                                                  .taskTransportationData![index]
+                                                  .taskTransportationEndLong ==
+                                                  null
+                                              ? Colors.black
+                                              : Colors.grey,
+                                          fontSize: 14.0,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                            trailing: PopupMenuButton<String>(
+                              enabled: taskDetailsController
                                   .taskDetailsData
                                   .value
                                   .taskTransportationData![index]
@@ -772,241 +758,53 @@ class DownActivityTaskPage extends GetView<DownActivityTaskController> {
                                       .taskTransportationData![index]
                                       .taskTransportationEndLong ==
                                       null
-                                  ? Colors.black
-                                  : Colors.grey,
-                            ),
-                            itemBuilder: (context) => [
-                              const PopupMenuItem<String>(
-                                value: 'edit',
-                                child: ListTile(
-                                  leading: Icon(Icons.edit),
-                                  title: Text('Edit'),
-                                ),
+                                  ? true
+                                  : false,
+                              icon: Icon(
+                                Icons.settings,
+                                color: taskDetailsController
+                                    .taskDetailsData
+                                    .value
+                                    .taskTransportationData![index]
+                                    .taskTransportationEndLat ==
+                                    null &&
+                                    taskDetailsController
+                                        .taskDetailsData
+                                        .value
+                                        .taskTransportationData![index]
+                                        .taskTransportationEndLong ==
+                                        null
+                                    ? Colors.black
+                                    : Colors.grey,
                               ),
-                              const PopupMenuItem<String>(
-                                value: 'delete',
-                                child: ListTile(
-                                  leading: Icon(Icons.delete),
-                                  title: Text('Delete'),
+                              itemBuilder: (context) => [
+                                const PopupMenuItem<String>(
+                                  value: 'edit',
+                                  child: ListTile(
+                                    leading: Icon(Icons.edit),
+                                    title: Text('Edit'),
+                                  ),
                                 ),
-                              ),
-                              const PopupMenuItem<String>(
-                                value: 'reached',
-                                child: ListTile(
-                                  leading: Icon(Icons.location_on),
-                                  title: Text('Reached'),
+                                const PopupMenuItem<String>(
+                                  value: 'delete',
+                                  child: ListTile(
+                                    leading: Icon(Icons.delete),
+                                    title: Text('Delete'),
+                                  ),
                                 ),
-                              ),
-                            ],
-                            onSelected: (String value) async {
-                              switch (value) {
-                                case 'edit':
-                                  if (!await AuthController()
-                                      .handleLocationPermission()) {
-                                    AuthController().logout();
-                                  } else {
-                                    if (context.mounted) {
-                                      showModal(context, taskDetailsController, true,
-                                          from: taskDetailsController
-                                              .taskDetailsData
-                                              .value
-                                              .taskTransportationData![index]
-                                              .taskTransportationStartLocation,
-                                          to: taskDetailsController
-                                              .taskDetailsData
-                                              .value
-                                              .taskTransportationData![index]
-                                              .taskTransportationEndLocation,
-                                          vehicle: taskDetailsController
-                                              .taskDetailsData
-                                              .value
-                                              .taskTransportationData![index]
-                                              .vehicleName,
-                                          vehicleId: taskDetailsController
-                                              .taskDetailsData
-                                              .value
-                                              .taskTransportationData![index]
-                                              .vehicleId
-                                              .toString(),
-                                          autoId: taskDetailsController
-                                              .taskDetailsData
-                                              .value
-                                              .taskTransportationData![index]
-                                              .taskTransportationAutoId
-                                              .toString(),
-                                          fare: taskDetailsController
-                                              .taskDetailsData
-                                              .value
-                                              .taskTransportationData![index]
-                                              .taskTransportationCost
-                                              .toString(),
-                                          remark: taskDetailsController
-                                              .taskDetailsData
-                                              .value
-                                              .taskTransportationData![index]
-                                              .taskTransportationRemarks);
-                                    }
-                                  }
-                                  break;
-                                case 'delete':
-                                  if (!await AuthController()
-                                      .handleLocationPermission()) {
-                                    AuthController().logout();
-                                  } else {
-                                    if (context.mounted) {
-                                      taskDetailsController.deleteTransport(
-                                          endPoint: ApiUrl().deleteTransportation,
-                                          taskTransportationAutoId:
-                                          taskDetailsController
-                                              .taskDetailsData
-                                              .value
-                                              .taskTransportationData![index]
-                                              .taskTransportationAutoId
-                                              .toString(),
-                                          taskId: taskDetailsController.taskId.value);
-                                    }
-                                  }
-
-                                  break;
-                                case 'reached':
-                                  if (!await AuthController()
-                                      .handleLocationPermission()) {
-                                    AuthController().logout();
-                                  } else {
-                                    if (context.mounted) {
-                                      showDialog(
-                                        context: context,
-                                        builder: (BuildContext context) {
-                                          return AlertDialog(
-                                            shape: const RoundedRectangleBorder(
-                                                borderRadius: BorderRadius.all(
-                                                    Radius.circular(0.0))),
-                                            content: const SizedBox(
-                                              height: 180,
-                                              child: Column(
-                                                children: [
-                                                  Icon(Icons.not_listed_location,
-                                                      size: 80, color: Color(0xFFC62828)
-                                                    // Color(0xFF9c27b0),
-                                                  ),
-                                                  SizedBox(
-                                                    height: 16,
-                                                  ),
-                                                  Text(
-                                                    "Are you sure that you have reached?",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 16,
-                                                      fontWeight: FontWeight.bold,
-                                                    ),
-                                                    textAlign: TextAlign.center,
-                                                  ),
-                                                  Text(
-                                                    "Once it is updated, you can't change!",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 12,
-                                                      fontWeight: FontWeight.normal,
-                                                    ),
-                                                    textAlign: TextAlign.center,
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            actions: <Widget>[
-                                              Row(
-                                                mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                                children: [
-                                                  ElevatedButton(
-                                                    onPressed: () {
-                                                      Get.back();
-                                                    },
-                                                    style: ButtonStyle(
-                                                        shape:
-                                                        MaterialStateProperty.all<
-                                                            RoundedRectangleBorder>(
-                                                          RoundedRectangleBorder(
-                                                            borderRadius:
-                                                            BorderRadius.circular(
-                                                                0.0),
-                                                          ),
-                                                        ),
-                                                        backgroundColor:
-                                                        const MaterialStatePropertyAll(
-                                                            Color(0xFF9c27b0))),
-                                                    child: const Text(
-                                                      "NO",
-                                                      style: TextStyle(
-                                                          color: Colors.white),
-                                                    ),
-                                                  ),
-                                                  const SizedBox(
-                                                    width: 20,
-                                                  ),
-                                                  ElevatedButton(
-                                                    onPressed: () {
-                                                      taskDetailsController.reachedTransport(
-                                                          endPoint:
-                                                          ApiUrl().reachLocation,
-                                                          taskId: taskDetailsController
-                                                              .taskId.value,
-                                                          taskTransportationAutoId:
-                                                          taskDetailsController
-                                                              .taskDetailsData
-                                                              .value
-                                                              .taskTransportationData![
-                                                          index]
-                                                              .taskTransportationAutoId
-                                                              .toString(),
-                                                          taskTransportationEndLocation:
-                                                          taskDetailsController
-                                                              .taskDetailsData
-                                                              .value
-                                                              .taskTransportationData![
-                                                          index]
-                                                              .taskTransportationEndLocation);
-                                                      Get.back();
-                                                    },
-                                                    style: ButtonStyle(
-                                                        shape:
-                                                        MaterialStateProperty.all<
-                                                            RoundedRectangleBorder>(
-                                                          RoundedRectangleBorder(
-                                                            borderRadius:
-                                                            BorderRadius.circular(
-                                                                0.0),
-                                                          ),
-                                                        ),
-                                                        backgroundColor:
-                                                        const MaterialStatePropertyAll(
-                                                            Color(0xFFC62828))),
-                                                    child: const Text(
-                                                      "YES",
-                                                      style: TextStyle(
-                                                          color: Colors.white),
-                                                    ),
-                                                  )
-                                                ],
-                                              )
-                                            ],
-                                          );
-                                        },
-                                      );
-                                    }
-                                  }
-
-                                  break;
-                              }
-                            },
-                          ),
-                        ),
-                      );*/
-                            return TransportListItem(
+                                const PopupMenuItem<String>(
+                                  value: 'reached',
+                                  child: ListTile(
+                                    leading: Icon(Icons.location_on),
+                                    title: Text('Reached'),
+                                  ),
+                                ),
+                              ],
                               onSelected: (String value) async {
                                 switch (value) {
-                                  case 'Edit':
-                                    if (!await AuthController().handleLocationPermission()) {
+                                  case 'edit':
+                                    if (!await AuthController()
+                                        .handleLocationPermission()) {
                                       AuthController().logout();
                                     } else {
                                       if (context.mounted) {
@@ -1021,10 +819,16 @@ class DownActivityTaskPage extends GetView<DownActivityTaskController> {
                                                 .value
                                                 .taskTransportationData![index]
                                                 .taskTransportationEndLocation,
-                                            vehicle: taskDetailsController.taskDetailsData.value
-                                                .taskTransportationData![index].vehicleName,
-                                            vehicleId: taskDetailsController.taskDetailsData.value
-                                                .taskTransportationData![index].vehicleId
+                                            vehicle: taskDetailsController
+                                                .taskDetailsData
+                                                .value
+                                                .taskTransportationData![index]
+                                                .vehicleName,
+                                            vehicleId: taskDetailsController
+                                                .taskDetailsData
+                                                .value
+                                                .taskTransportationData![index]
+                                                .vehicleId
                                                 .toString(),
                                             autoId: taskDetailsController
                                                 .taskDetailsData
@@ -1046,14 +850,16 @@ class DownActivityTaskPage extends GetView<DownActivityTaskController> {
                                       }
                                     }
                                     break;
-                                  case 'Delete':
-                                    if (!await AuthController().handleLocationPermission()) {
+                                  case 'delete':
+                                    if (!await AuthController()
+                                        .handleLocationPermission()) {
                                       AuthController().logout();
                                     } else {
                                       if (context.mounted) {
                                         taskDetailsController.deleteTransport(
                                             endPoint: ApiUrl().deleteTransportation,
-                                            taskTransportationAutoId: taskDetailsController
+                                            taskTransportationAutoId:
+                                            taskDetailsController
                                                 .taskDetailsData
                                                 .value
                                                 .taskTransportationData![index]
@@ -1064,8 +870,9 @@ class DownActivityTaskPage extends GetView<DownActivityTaskController> {
                                     }
 
                                     break;
-                                  case 'Reached':
-                                    if (!await AuthController().handleLocationPermission()) {
+                                  case 'reached':
+                                    if (!await AuthController()
+                                        .handleLocationPermission()) {
                                       AuthController().logout();
                                     } else {
                                       if (context.mounted) {
@@ -1074,16 +881,16 @@ class DownActivityTaskPage extends GetView<DownActivityTaskController> {
                                           builder: (BuildContext context) {
                                             return AlertDialog(
                                               shape: const RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.all(Radius.circular(0.0))),
+                                                  borderRadius: BorderRadius.all(
+                                                      Radius.circular(0.0))),
                                               content: const SizedBox(
                                                 height: 180,
                                                 child: Column(
                                                   children: [
                                                     Icon(Icons.not_listed_location,
                                                         size: 80, color: Color(0xFFC62828)
-                                                        // Color(0xFF9c27b0),
-                                                        ),
+                                                      // Color(0xFF9c27b0),
+                                                    ),
                                                     SizedBox(
                                                       height: 16,
                                                     ),
@@ -1110,26 +917,30 @@ class DownActivityTaskPage extends GetView<DownActivityTaskController> {
                                               ),
                                               actions: <Widget>[
                                                 Row(
-                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                  mainAxisAlignment:
+                                                  MainAxisAlignment.center,
                                                   children: [
                                                     ElevatedButton(
                                                       onPressed: () {
                                                         Get.back();
                                                       },
                                                       style: ButtonStyle(
-                                                          shape: MaterialStateProperty.all<
+                                                          shape:
+                                                          MaterialStateProperty.all<
                                                               RoundedRectangleBorder>(
                                                             RoundedRectangleBorder(
                                                               borderRadius:
-                                                                  BorderRadius.circular(0.0),
+                                                              BorderRadius.circular(
+                                                                  0.0),
                                                             ),
                                                           ),
                                                           backgroundColor:
-                                                              const MaterialStatePropertyAll(
-                                                                  Color(0xFF9c27b0))),
+                                                          const MaterialStatePropertyAll(
+                                                              Color(0xFF9c27b0))),
                                                       child: const Text(
                                                         "NO",
-                                                        style: TextStyle(color: Colors.white),
+                                                        style: TextStyle(
+                                                            color: Colors.white),
                                                       ),
                                                     ),
                                                     const SizedBox(
@@ -1138,38 +949,44 @@ class DownActivityTaskPage extends GetView<DownActivityTaskController> {
                                                     ElevatedButton(
                                                       onPressed: () {
                                                         taskDetailsController.reachedTransport(
-                                                            endPoint: ApiUrl().reachLocation,
-                                                            taskId:
-                                                                taskDetailsController.taskId.value,
+                                                            endPoint:
+                                                            ApiUrl().reachLocation,
+                                                            taskId: taskDetailsController
+                                                                .taskId.value,
                                                             taskTransportationAutoId:
-                                                                taskDetailsController
-                                                                    .taskDetailsData
-                                                                    .value
-                                                                    .taskTransportationData![index]
-                                                                    .taskTransportationAutoId
-                                                                    .toString(),
+                                                            taskDetailsController
+                                                                .taskDetailsData
+                                                                .value
+                                                                .taskTransportationData![
+                                                            index]
+                                                                .taskTransportationAutoId
+                                                                .toString(),
                                                             taskTransportationEndLocation:
-                                                                taskDetailsController
-                                                                    .taskDetailsData
-                                                                    .value
-                                                                    .taskTransportationData![index]
-                                                                    .taskTransportationEndLocation);
+                                                            taskDetailsController
+                                                                .taskDetailsData
+                                                                .value
+                                                                .taskTransportationData![
+                                                            index]
+                                                                .taskTransportationEndLocation);
                                                         Get.back();
                                                       },
                                                       style: ButtonStyle(
-                                                          shape: MaterialStateProperty.all<
+                                                          shape:
+                                                          MaterialStateProperty.all<
                                                               RoundedRectangleBorder>(
                                                             RoundedRectangleBorder(
                                                               borderRadius:
-                                                                  BorderRadius.circular(0.0),
+                                                              BorderRadius.circular(
+                                                                  0.0),
                                                             ),
                                                           ),
                                                           backgroundColor:
-                                                              const MaterialStatePropertyAll(
-                                                                  Color(0xFFC62828))),
+                                                          const MaterialStatePropertyAll(
+                                                              Color(0xFFC62828))),
                                                       child: const Text(
                                                         "YES",
-                                                        style: TextStyle(color: Colors.white),
+                                                        style: TextStyle(
+                                                            color: Colors.white),
                                                       ),
                                                     )
                                                   ],
@@ -1184,134 +1001,351 @@ class DownActivityTaskPage extends GetView<DownActivityTaskController> {
                                     break;
                                 }
                               },
-                              taskTransportationData: taskDetailsController
-                                  .taskDetailsData.value.taskTransportationData![index],
-                            );
-                          },
-                        )
-                      : const SizedBox.shrink(),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  const Spacer(),
-                  /*Container(
-                      margin: const EdgeInsets.only(bottom: 5),
-                      decoration: const BoxDecoration(boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey,
-                          spreadRadius: 1,
-                          blurRadius: 0,
-                          offset: Offset(0, 1),
-                        ),
-                      ]),
-                      height: 60,
-                      width: MediaQuery.of(context).size.width,
-                      child: ElevatedButton(
-                          style: ButtonStyle(
-                            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                              RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(0.0),
-                              ),
                             ),
                           ),
-                          onPressed: () async {
-                            AuthController authController = AuthController();
-                            if (!await AuthController().handleLocationPermission()) {
-                              authController.logout();
-                            } else {
-                              if (context.mounted) {
-                                if (taskDetailsController.taskDetailsData.value.taskStartTime ==
-                                        null &&
-                                    taskDetailsController.taskDetailsData.value.taskEndTime ==
-                                        null) {
-                                  popUpStatus(
-                                    context,
-                                    leadingIcon: Icons.error_outline,
-                                    title: "Task isn't start yes!",
-                                    subtitle: "Start your task first before going to checklist.",
-                                    firstActionButtonTitle: "OK",
-                                    firstActionButtonColor: const Color(0xFFed6c02),
-                                  );
-                                } else if (taskDetailsController
-                                    .taskDetailsData.value.taskTransportationData!.isEmpty) {
-                                  popUpStatus(context,
-                                      leadingIcon: Icons.not_listed_location,
-                                      title: "Are you sure",
-                                      subtitle: "This will end your task",
-                                      twoButton: true,
-                                      firstActionButtonTitle: "No",
-                                      firstActionButtonColor: const Color(0xFFed6c02),
-                                      secondActionButtonTitle: "Yes",
-                                      secondActionButtonOnTap: () async {
-                                    Map<String, dynamic>? response =
-                                        await taskDetailsController.taskAccomplish(
-                                            endPoint: ApiUrl().taskAccomplish,
-                                            taskId: taskDetailsController
-                                                .taskDetailsData.value.taskId
-                                                .toString());
+                        );*/
+                              return TransportListItem(
+                                onSelected: (String value) async {
+                                  switch (value) {
+                                    case 'Edit':
+                                      if (!await AuthController().handleLocationPermission()) {
+                                        AuthController().logout();
+                                      } else {
+                                        if (context.mounted) {
+                                          showModal(context, taskDetailsController, true,
+                                              from: taskDetailsController
+                                                  .taskDetailsData
+                                                  .value
+                                                  .taskTransportationData![index]
+                                                  .taskTransportationStartLocation,
+                                              to: taskDetailsController
+                                                  .taskDetailsData
+                                                  .value
+                                                  .taskTransportationData![index]
+                                                  .taskTransportationEndLocation,
+                                              vehicle: taskDetailsController.taskDetailsData.value
+                                                  .taskTransportationData![index].vehicleName,
+                                              vehicleId: taskDetailsController.taskDetailsData.value
+                                                  .taskTransportationData![index].vehicleId
+                                                  .toString(),
+                                              autoId: taskDetailsController
+                                                  .taskDetailsData
+                                                  .value
+                                                  .taskTransportationData![index]
+                                                  .taskTransportationAutoId
+                                                  .toString(),
+                                              fare: taskDetailsController
+                                                  .taskDetailsData
+                                                  .value
+                                                  .taskTransportationData![index]
+                                                  .taskTransportationCost
+                                                  .toString(),
+                                              remark: taskDetailsController
+                                                  .taskDetailsData
+                                                  .value
+                                                  .taskTransportationData![index]
+                                                  .taskTransportationRemarks);
+                                        }
+                                      }
+                                      break;
+                                    case 'Delete':
+                                      if (!await AuthController().handleLocationPermission()) {
+                                        AuthController().logout();
+                                      } else {
+                                        if (context.mounted) {
+                                          taskDetailsController.deleteTransport(
+                                              endPoint: ApiUrl().deleteTransportation,
+                                              taskTransportationAutoId: taskDetailsController
+                                                  .taskDetailsData
+                                                  .value
+                                                  .taskTransportationData![index]
+                                                  .taskTransportationAutoId
+                                                  .toString(),
+                                              taskId: taskDetailsController.taskId.value);
+                                        }
+                                      }
 
-                                    if (response != {}) {
-                                      popUpStatus(context,
-                                          barrierDismissible: false,
-                                          twoButton: false,
-                                          leadingIcon: Icons.check_circle_outline,
-                                          leadingIconColor: Colors.green,
-                                          title: "${response!['data']}",
-                                          subtitle: "Your task is complete",
-                                          firstActionButtonTitle: "Goto Home Page",
-                                          firstActionButtonOnTap: () {
-                                        log("PRESSED");
-                                        Get.offAll(() => const HomePage());
-                                      });
-                                    }
-                                  });
-                                } else if (taskDetailsController
-                                    .taskDetailsData.value.taskTransportationData!.isNotEmpty) {
-                                  if (taskDetailsController
-                                              .taskDetailsData
-                                              .value
-                                              .taskTransportationData![taskDetailsController
-                                                      .taskDetailsData
-                                                      .value
-                                                      .taskTransportationData!
-                                                      .length -
-                                                  1]
-                                              .taskTransportationEndLat ==
+                                      break;
+                                    case 'Reached':
+                                      if (!await AuthController().handleLocationPermission()) {
+                                        AuthController().logout();
+                                      } else {
+                                        if (context.mounted) {
+                                          showDialog(
+                                            context: context,
+                                            builder: (BuildContext context) {
+                                              return AlertDialog(
+                                                shape: const RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.all(Radius.circular(0.0))),
+                                                content: const SizedBox(
+                                                  height: 180,
+                                                  child: Column(
+                                                    children: [
+                                                      Icon(Icons.not_listed_location,
+                                                          size: 80, color: Color(0xFFC62828)
+                                                          // Color(0xFF9c27b0),
+                                                          ),
+                                                      SizedBox(
+                                                        height: 16,
+                                                      ),
+                                                      Text(
+                                                        "Are you sure that you have reached?",
+                                                        style: TextStyle(
+                                                          color: Colors.black,
+                                                          fontSize: 16,
+                                                          fontWeight: FontWeight.bold,
+                                                        ),
+                                                        textAlign: TextAlign.center,
+                                                      ),
+                                                      Text(
+                                                        "Once it is updated, you can't change!",
+                                                        style: TextStyle(
+                                                          color: Colors.black,
+                                                          fontSize: 12,
+                                                          fontWeight: FontWeight.normal,
+                                                        ),
+                                                        textAlign: TextAlign.center,
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                                actions: <Widget>[
+                                                  Row(
+                                                    mainAxisAlignment: MainAxisAlignment.center,
+                                                    children: [
+                                                      ElevatedButton(
+                                                        onPressed: () {
+                                                          Get.back();
+                                                        },
+                                                        style: ButtonStyle(
+                                                            shape: MaterialStateProperty.all<
+                                                                RoundedRectangleBorder>(
+                                                              RoundedRectangleBorder(
+                                                                borderRadius:
+                                                                    BorderRadius.circular(0.0),
+                                                              ),
+                                                            ),
+                                                            backgroundColor:
+                                                                const MaterialStatePropertyAll(
+                                                                    Color(0xFF9c27b0))),
+                                                        child: const Text(
+                                                          "NO",
+                                                          style: TextStyle(color: Colors.white),
+                                                        ),
+                                                      ),
+                                                      const SizedBox(
+                                                        width: 20,
+                                                      ),
+                                                      ElevatedButton(
+                                                        onPressed: () {
+                                                          taskDetailsController.reachedTransport(
+                                                              endPoint: ApiUrl().reachLocation,
+                                                              taskId:
+                                                                  taskDetailsController.taskId.value,
+                                                              taskTransportationAutoId:
+                                                                  taskDetailsController
+                                                                      .taskDetailsData
+                                                                      .value
+                                                                      .taskTransportationData![index]
+                                                                      .taskTransportationAutoId
+                                                                      .toString(),
+                                                              taskTransportationEndLocation:
+                                                                  taskDetailsController
+                                                                      .taskDetailsData
+                                                                      .value
+                                                                      .taskTransportationData![index]
+                                                                      .taskTransportationEndLocation);
+                                                          Get.back();
+                                                        },
+                                                        style: ButtonStyle(
+                                                            shape: MaterialStateProperty.all<
+                                                                RoundedRectangleBorder>(
+                                                              RoundedRectangleBorder(
+                                                                borderRadius:
+                                                                    BorderRadius.circular(0.0),
+                                                              ),
+                                                            ),
+                                                            backgroundColor:
+                                                                const MaterialStatePropertyAll(
+                                                                    Color(0xFFC62828))),
+                                                        child: const Text(
+                                                          "YES",
+                                                          style: TextStyle(color: Colors.white),
+                                                        ),
+                                                      )
+                                                    ],
+                                                  )
+                                                ],
+                                              );
+                                            },
+                                          );
+                                        }
+                                      }
+
+                                      break;
+                                  }
+                                },
+                                taskTransportationData: taskDetailsController
+                                    .taskDetailsData.value.taskTransportationData![index],
+                              );
+                            },
+                          )
+                        : const SizedBox.shrink(),
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    const Spacer(),
+                    /*Container(
+                        margin: const EdgeInsets.only(bottom: 5),
+                        decoration: const BoxDecoration(boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey,
+                            spreadRadius: 1,
+                            blurRadius: 0,
+                            offset: Offset(0, 1),
+                          ),
+                        ]),
+                        height: 60,
+                        width: MediaQuery.of(context).size.width,
+                        child: ElevatedButton(
+                            style: ButtonStyle(
+                              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(0.0),
+                                ),
+                              ),
+                            ),
+                            onPressed: () async {
+                              AuthController authController = AuthController();
+                              if (!await AuthController().handleLocationPermission()) {
+                                authController.logout();
+                              } else {
+                                if (context.mounted) {
+                                  if (taskDetailsController.taskDetailsData.value.taskStartTime ==
                                           null &&
-                                      taskDetailsController
-                                              .taskDetailsData
-                                              .value
-                                              .taskTransportationData![taskDetailsController
-                                                      .taskDetailsData
-                                                      .value
-                                                      .taskTransportationData!
-                                                      .length -
-                                                  1]
-                                              .taskTransportationEndLong ==
+                                      taskDetailsController.taskDetailsData.value.taskEndTime ==
                                           null) {
                                     popUpStatus(
                                       context,
                                       leadingIcon: Icons.error_outline,
-                                      title: "MISSED END LOCATION",
-                                      subtitle: "You have not clicked the reach button above!!",
+                                      title: "Task isn't start yes!",
+                                      subtitle: "Start your task first before going to checklist.",
                                       firstActionButtonTitle: "OK",
                                       firstActionButtonColor: const Color(0xFFed6c02),
                                     );
-                                  }
-                                  // else if (!taskDetailsController
-                                  //     .mobileOtpStatus.value) {
-                                  //   popUpStatus(
-                                  //     context,
-                                  //     leadingIcon: Icons.not_listed_location,
-                                  //     title: "Verify mobile number!!",
-                                  //     subtitle:
-                                  //         "You havn't verify mobile number yet",
-                                  //     firstActionButtonTitle: "OK",
-                                  //     firstActionButtonColor:
-                                  //         const Color(0xFFed6c02),
-                                  //   );
-                                  // }
-                                  else {
+                                  } else if (taskDetailsController
+                                      .taskDetailsData.value.taskTransportationData!.isEmpty) {
+                                    popUpStatus(context,
+                                        leadingIcon: Icons.not_listed_location,
+                                        title: "Are you sure",
+                                        subtitle: "This will end your task",
+                                        twoButton: true,
+                                        firstActionButtonTitle: "No",
+                                        firstActionButtonColor: const Color(0xFFed6c02),
+                                        secondActionButtonTitle: "Yes",
+                                        secondActionButtonOnTap: () async {
+                                      Map<String, dynamic>? response =
+                                          await taskDetailsController.taskAccomplish(
+                                              endPoint: ApiUrl().taskAccomplish,
+                                              taskId: taskDetailsController
+                                                  .taskDetailsData.value.taskId
+                                                  .toString());
+
+                                      if (response != {}) {
+                                        popUpStatus(context,
+                                            barrierDismissible: false,
+                                            twoButton: false,
+                                            leadingIcon: Icons.check_circle_outline,
+                                            leadingIconColor: Colors.green,
+                                            title: "${response!['data']}",
+                                            subtitle: "Your task is complete",
+                                            firstActionButtonTitle: "Goto Home Page",
+                                            firstActionButtonOnTap: () {
+                                          log("PRESSED");
+                                          Get.offAll(() => const HomePage());
+                                        });
+                                      }
+                                    });
+                                  } else if (taskDetailsController
+                                      .taskDetailsData.value.taskTransportationData!.isNotEmpty) {
+                                    if (taskDetailsController
+                                                .taskDetailsData
+                                                .value
+                                                .taskTransportationData![taskDetailsController
+                                                        .taskDetailsData
+                                                        .value
+                                                        .taskTransportationData!
+                                                        .length -
+                                                    1]
+                                                .taskTransportationEndLat ==
+                                            null &&
+                                        taskDetailsController
+                                                .taskDetailsData
+                                                .value
+                                                .taskTransportationData![taskDetailsController
+                                                        .taskDetailsData
+                                                        .value
+                                                        .taskTransportationData!
+                                                        .length -
+                                                    1]
+                                                .taskTransportationEndLong ==
+                                            null) {
+                                      popUpStatus(
+                                        context,
+                                        leadingIcon: Icons.error_outline,
+                                        title: "MISSED END LOCATION",
+                                        subtitle: "You have not clicked the reach button above!!",
+                                        firstActionButtonTitle: "OK",
+                                        firstActionButtonColor: const Color(0xFFed6c02),
+                                      );
+                                    }
+                                    // else if (!taskDetailsController
+                                    //     .mobileOtpStatus.value) {
+                                    //   popUpStatus(
+                                    //     context,
+                                    //     leadingIcon: Icons.not_listed_location,
+                                    //     title: "Verify mobile number!!",
+                                    //     subtitle:
+                                    //         "You havn't verify mobile number yet",
+                                    //     firstActionButtonTitle: "OK",
+                                    //     firstActionButtonColor:
+                                    //         const Color(0xFFed6c02),
+                                    //   );
+                                    // }
+                                    else {
+                                      popUpStatus(context,
+                                          leadingIcon: Icons.not_listed_location,
+                                          title: "Are you sure",
+                                          subtitle: "This will end your task",
+                                          twoButton: true,
+                                          firstActionButtonTitle: "No",
+                                          firstActionButtonColor: const Color(0xFFed6c02),
+                                          secondActionButtonTitle: "Yes",
+                                          secondActionButtonOnTap: () async {
+                                        Map<String, dynamic>? response =
+                                            await taskDetailsController.taskAccomplish(
+                                                endPoint: ApiUrl().taskAccomplish,
+                                                taskId: taskDetailsController
+                                                    .taskDetailsData.value.taskId
+                                                    .toString());
+
+                                        if (response != {}) {
+                                          popUpStatus(context,
+                                              barrierDismissible: false,
+                                              twoButton: false,
+                                              leadingIcon: Icons.check_circle_outline,
+                                              title: "${response!['data']}",
+                                              subtitle: "Your task is complete",
+                                              firstActionButtonTitle: "Goto Home Page",
+                                              firstActionButtonOnTap: () {
+                                            log("PRESSED");
+                                            Get.offAll(() => const HomePage());
+                                          });
+                                        }
+                                      });
+                                    }
+                                  } else {
                                     popUpStatus(context,
                                         leadingIcon: Icons.not_listed_location,
                                         title: "Are you sure",
@@ -1343,152 +1377,152 @@ class DownActivityTaskPage extends GetView<DownActivityTaskController> {
                                       }
                                     });
                                   }
-                                } else {
-                                  popUpStatus(context,
-                                      leadingIcon: Icons.not_listed_location,
-                                      title: "Are you sure",
-                                      subtitle: "This will end your task",
-                                      twoButton: true,
-                                      firstActionButtonTitle: "No",
-                                      firstActionButtonColor: const Color(0xFFed6c02),
-                                      secondActionButtonTitle: "Yes",
-                                      secondActionButtonOnTap: () async {
+                                }
+                              }
+                            },
+                            child: const Text("ACCOMPLISH"))),*/
+                    SlideAction(
+                      key: _key,
+                      height: 42,
+                      text: "Accomplish",
+                      textStyle: theme.textTheme.titleMedium
+                          ?.copyWith(color: ColorConstant.secondaryThemeColor),
+                      outerColor: ColorConstant().baseColor,
+                      innerColor: ColorConstant.secondaryThemeColor,
+                      sliderButtonIcon: const Icon(Icons.arrow_forward),
+                      sliderButtonIconSize: 24,
+                      sliderButtonIconPadding: 4,
+                      animationDuration: const Duration(milliseconds: 500),
+                      onSubmit: () async {
+                        AuthController authController = AuthController();
+                        if (!await AuthController().handleLocationPermission()) {
+                          authController.logout();
+                        } else {
+                          if (context.mounted) {
+                            if (taskDetailsController.taskDetailsData.value.taskStartTime ==
+                                null &&
+                                taskDetailsController.taskDetailsData.value.taskEndTime ==
+                                    null) {
+                              popUpStatus(
+                                context,
+                                leadingIcon: Icons.error_outline,
+                                title: "Task isn't start yes!",
+                                subtitle: "Start your task first before going to checklist.",
+                                firstActionButtonTitle: "OK",
+                                firstActionButtonColor: const Color(0xFFed6c02),
+                              );
+                            } else if (taskDetailsController
+                                .taskDetailsData.value.taskTransportationData!.isEmpty) {
+                              popUpStatus(context,
+                                  leadingIcon: Icons.not_listed_location,
+                                  title: "Are you sure",
+                                  subtitle: "This will end your task",
+                                  twoButton: true,
+                                  firstActionButtonTitle: "No",
+                                  firstActionButtonColor: const Color(0xFFed6c02),
+                                  secondActionButtonTitle: "Yes",
+                                  secondActionButtonOnTap: () async {
                                     Map<String, dynamic>? response =
-                                        await taskDetailsController.taskAccomplish(
-                                            endPoint: ApiUrl().taskAccomplish,
-                                            taskId: taskDetailsController
-                                                .taskDetailsData.value.taskId
-                                                .toString());
+                                    await taskDetailsController.taskAccomplish(
+                                        endPoint: ApiUrl().taskAccomplish,
+                                        taskId: taskDetailsController
+                                            .taskDetailsData.value.taskId
+                                            .toString());
 
                                     if (response != {}) {
                                       popUpStatus(context,
                                           barrierDismissible: false,
                                           twoButton: false,
                                           leadingIcon: Icons.check_circle_outline,
+                                          leadingIconColor: Colors.green,
                                           title: "${response!['data']}",
                                           subtitle: "Your task is complete",
                                           firstActionButtonTitle: "Goto Home Page",
                                           firstActionButtonOnTap: () {
-                                        log("PRESSED");
-                                        Get.offAll(() => const HomePage());
-                                      });
+                                            log("PRESSED");
+                                            Get.offAll(() => const HomePage());
+                                          });
                                     }
                                   });
-                                }
+                            } else if (taskDetailsController
+                                .taskDetailsData.value.taskTransportationData!.isNotEmpty) {
+                              if (taskDetailsController
+                                  .taskDetailsData
+                                  .value
+                                  .taskTransportationData![taskDetailsController
+                                  .taskDetailsData
+                                  .value
+                                  .taskTransportationData!
+                                  .length -
+                                  1]
+                                  .taskTransportationEndLat ==
+                                  null &&
+                                  taskDetailsController
+                                      .taskDetailsData
+                                      .value
+                                      .taskTransportationData![taskDetailsController
+                                      .taskDetailsData
+                                      .value
+                                      .taskTransportationData!
+                                      .length -
+                                      1]
+                                      .taskTransportationEndLong ==
+                                      null) {
+                                popUpStatus(
+                                  context,
+                                  leadingIcon: Icons.error_outline,
+                                  title: "MISSED END LOCATION",
+                                  subtitle: "You have not clicked the reach button above!!",
+                                  firstActionButtonTitle: "OK",
+                                  firstActionButtonColor: const Color(0xFFed6c02),
+                                );
                               }
-                            }
-                          },
-                          child: const Text("ACCOMPLISH"))),*/
-                  SlideAction(
-                    key: _key,
-                    height: 42,
-                    text: "Accomplish",
-                    textStyle: theme.textTheme.titleMedium
-                        ?.copyWith(color: ColorConstant.secondaryThemeColor),
-                    outerColor: ColorConstant().baseColor,
-                    innerColor: ColorConstant.secondaryThemeColor,
-                    sliderButtonIcon: const Icon(Icons.arrow_forward),
-                    sliderButtonIconSize: 24,
-                    sliderButtonIconPadding: 4,
-                    animationDuration: const Duration(milliseconds: 500),
-                    onSubmit: () async {
-                      AuthController authController = AuthController();
-                      if (!await AuthController().handleLocationPermission()) {
-                        authController.logout();
-                      } else {
-                        if (context.mounted) {
-                          if (taskDetailsController.taskDetailsData.value.taskStartTime ==
-                              null &&
-                              taskDetailsController.taskDetailsData.value.taskEndTime ==
-                                  null) {
-                            popUpStatus(
-                              context,
-                              leadingIcon: Icons.error_outline,
-                              title: "Task isn't start yes!",
-                              subtitle: "Start your task first before going to checklist.",
-                              firstActionButtonTitle: "OK",
-                              firstActionButtonColor: const Color(0xFFed6c02),
-                            );
-                          } else if (taskDetailsController
-                              .taskDetailsData.value.taskTransportationData!.isEmpty) {
-                            popUpStatus(context,
-                                leadingIcon: Icons.not_listed_location,
-                                title: "Are you sure",
-                                subtitle: "This will end your task",
-                                twoButton: true,
-                                firstActionButtonTitle: "No",
-                                firstActionButtonColor: const Color(0xFFed6c02),
-                                secondActionButtonTitle: "Yes",
-                                secondActionButtonOnTap: () async {
-                                  Map<String, dynamic>? response =
-                                  await taskDetailsController.taskAccomplish(
-                                      endPoint: ApiUrl().taskAccomplish,
-                                      taskId: taskDetailsController
-                                          .taskDetailsData.value.taskId
-                                          .toString());
+                              // else if (!taskDetailsController
+                              //     .mobileOtpStatus.value) {
+                              //   popUpStatus(
+                              //     context,
+                              //     leadingIcon: Icons.not_listed_location,
+                              //     title: "Verify mobile number!!",
+                              //     subtitle:
+                              //         "You havn't verify mobile number yet",
+                              //     firstActionButtonTitle: "OK",
+                              //     firstActionButtonColor:
+                              //         const Color(0xFFed6c02),
+                              //   );
+                              // }
+                              else {
+                                popUpStatus(context,
+                                    leadingIcon: Icons.not_listed_location,
+                                    title: "Are you sure",
+                                    subtitle: "This will end your task",
+                                    twoButton: true,
+                                    firstActionButtonTitle: "No",
+                                    firstActionButtonColor: const Color(0xFFed6c02),
+                                    secondActionButtonTitle: "Yes",
+                                    secondActionButtonOnTap: () async {
+                                      Map<String, dynamic>? response =
+                                      await taskDetailsController.taskAccomplish(
+                                          endPoint: ApiUrl().taskAccomplish,
+                                          taskId: taskDetailsController
+                                              .taskDetailsData.value.taskId
+                                              .toString());
 
-                                  if (response != {}) {
-                                    popUpStatus(context,
-                                        barrierDismissible: false,
-                                        twoButton: false,
-                                        leadingIcon: Icons.check_circle_outline,
-                                        leadingIconColor: Colors.green,
-                                        title: "${response!['data']}",
-                                        subtitle: "Your task is complete",
-                                        firstActionButtonTitle: "Goto Home Page",
-                                        firstActionButtonOnTap: () {
-                                          log("PRESSED");
-                                          Get.offAll(() => const HomePage());
-                                        });
-                                  }
-                                });
-                          } else if (taskDetailsController
-                              .taskDetailsData.value.taskTransportationData!.isNotEmpty) {
-                            if (taskDetailsController
-                                .taskDetailsData
-                                .value
-                                .taskTransportationData![taskDetailsController
-                                .taskDetailsData
-                                .value
-                                .taskTransportationData!
-                                .length -
-                                1]
-                                .taskTransportationEndLat ==
-                                null &&
-                                taskDetailsController
-                                    .taskDetailsData
-                                    .value
-                                    .taskTransportationData![taskDetailsController
-                                    .taskDetailsData
-                                    .value
-                                    .taskTransportationData!
-                                    .length -
-                                    1]
-                                    .taskTransportationEndLong ==
-                                    null) {
-                              popUpStatus(
-                                context,
-                                leadingIcon: Icons.error_outline,
-                                title: "MISSED END LOCATION",
-                                subtitle: "You have not clicked the reach button above!!",
-                                firstActionButtonTitle: "OK",
-                                firstActionButtonColor: const Color(0xFFed6c02),
-                              );
-                            }
-                            // else if (!taskDetailsController
-                            //     .mobileOtpStatus.value) {
-                            //   popUpStatus(
-                            //     context,
-                            //     leadingIcon: Icons.not_listed_location,
-                            //     title: "Verify mobile number!!",
-                            //     subtitle:
-                            //         "You havn't verify mobile number yet",
-                            //     firstActionButtonTitle: "OK",
-                            //     firstActionButtonColor:
-                            //         const Color(0xFFed6c02),
-                            //   );
-                            // }
-                            else {
+                                      if (response != {}) {
+                                        popUpStatus(context,
+                                            barrierDismissible: false,
+                                            twoButton: false,
+                                            leadingIcon: Icons.check_circle_outline,
+                                            title: "${response!['data']}",
+                                            subtitle: "Your task is complete",
+                                            firstActionButtonTitle: "Goto Home Page",
+                                            firstActionButtonOnTap: () {
+                                              log("PRESSED");
+                                              Get.offAll(() => const HomePage());
+                                            });
+                                      }
+                                    });
+                              }
+                            } else {
                               popUpStatus(context,
                                   leadingIcon: Icons.not_listed_location,
                                   title: "Are you sure",
@@ -1513,6 +1547,7 @@ class DownActivityTaskPage extends GetView<DownActivityTaskController> {
                                           title: "${response!['data']}",
                                           subtitle: "Your task is complete",
                                           firstActionButtonTitle: "Goto Home Page",
+                                          firstActionButtonColor: ColorConstant().baseColor,
                                           firstActionButtonOnTap: () {
                                             log("PRESSED");
                                             Get.offAll(() => const HomePage());
@@ -1520,50 +1555,18 @@ class DownActivityTaskPage extends GetView<DownActivityTaskController> {
                                     }
                                   });
                             }
-                          } else {
-                            popUpStatus(context,
-                                leadingIcon: Icons.not_listed_location,
-                                title: "Are you sure",
-                                subtitle: "This will end your task",
-                                twoButton: true,
-                                firstActionButtonTitle: "No",
-                                firstActionButtonColor: const Color(0xFFed6c02),
-                                secondActionButtonTitle: "Yes",
-                                secondActionButtonOnTap: () async {
-                                  Map<String, dynamic>? response =
-                                  await taskDetailsController.taskAccomplish(
-                                      endPoint: ApiUrl().taskAccomplish,
-                                      taskId: taskDetailsController
-                                          .taskDetailsData.value.taskId
-                                          .toString());
-
-                                  if (response != {}) {
-                                    popUpStatus(context,
-                                        barrierDismissible: false,
-                                        twoButton: false,
-                                        leadingIcon: Icons.check_circle_outline,
-                                        title: "${response!['data']}",
-                                        subtitle: "Your task is complete",
-                                        firstActionButtonTitle: "Goto Home Page",
-                                        firstActionButtonColor: ColorConstant().baseColor,
-                                        firstActionButtonOnTap: () {
-                                          log("PRESSED");
-                                          Get.offAll(() => const HomePage());
-                                        });
-                                  }
-                                });
                           }
                         }
-                      }
-                    },
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                ],
+                      },
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                  ],
+                ),
               ),
-            ),
-          )),
+            )),
+      ),
     );
   }
 

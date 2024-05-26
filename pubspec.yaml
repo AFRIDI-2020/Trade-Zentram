@@ -46,6 +46,7 @@ dependencies:
   double_tap_to_exit: ^1.0.1
   dotted_line: ^3.2.2
   slide_to_act: ^2.0.2
+  connectivity_plus: ^5.0.0
  
 
 dev_dependencies:

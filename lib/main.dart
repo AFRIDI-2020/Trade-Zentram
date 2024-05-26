@@ -1,3 +1,4 @@
+import 'package:TradeZentrum/app/screens/connectivity/internet_connectivity.dart';
 import 'package:TradeZentrum/app/utils/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -48,7 +49,9 @@ class MyApp extends StatelessWidget {
         ),
       ),
       builder: EasyLoading.init(),
-      home: const SplashPage(),
+      home: const InternetConnectivity(
+        child: SplashPage(),
+      ),
     );
   }
 }
