@@ -16,6 +16,13 @@ class AuthRepository {
     }
   }
 
+  Future<Map<String, dynamic>> sendDeviceToken(
+      {String? endPoint, Map<String, dynamic>? data}) async {
+    ApiResponse response =
+    await apiService.postData(endpoint: endPoint, data: data);
+    return {"data": response, "status": true};
+  }
+
   Future<Map<String, dynamic>> updatePassword(
       {String? endPoint, Map<String, dynamic>? data}) async {
     ApiResponse response =

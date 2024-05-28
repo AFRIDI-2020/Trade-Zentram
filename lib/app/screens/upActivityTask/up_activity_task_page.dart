@@ -63,7 +63,9 @@ class UpActivityTaskPage extends GetView<UpActivityTaskController> {
                     authController.logout();
                   } else {
                     taskDetailsController.taskDetailsData.value.taskChecklistsData!.isNotEmpty
-                        ? await  Get.to(() => CheckListPage(pageTitle: pageTitle,))
+                        ? await Get.to(() => CheckListPage(
+                              pageTitle: pageTitle,
+                            ))
                         : null;
                   }
                 },
@@ -1150,38 +1152,31 @@ class UpActivityTaskPage extends GetView<UpActivityTaskController> {
                                             return AlertDialog(
                                               shape: const RoundedRectangleBorder(
                                                   borderRadius:
-                                                      BorderRadius.all(Radius.circular(0.0))),
-                                              content: const SizedBox(
-                                                height: 180,
-                                                child: Column(
-                                                  children: [
-                                                    Icon(Icons.not_listed_location,
-                                                        size: 80, color: Color(0xFFC62828)
-                                                        // Color(0xFF9c27b0),
-                                                        ),
-                                                    SizedBox(
-                                                      height: 16,
-                                                    ),
-                                                    Text(
-                                                      "Are you sure that you have reached?",
-                                                      style: TextStyle(
-                                                        color: Colors.black,
-                                                        fontSize: 16,
-                                                        fontWeight: FontWeight.bold,
-                                                      ),
-                                                      textAlign: TextAlign.center,
-                                                    ),
-                                                    Text(
-                                                      "Once it is updated, you can't change!",
-                                                      style: TextStyle(
-                                                        color: Colors.black,
-                                                        fontSize: 12,
-                                                        fontWeight: FontWeight.normal,
-                                                      ),
-                                                      textAlign: TextAlign.center,
-                                                    ),
-                                                  ],
-                                                ),
+                                                      BorderRadius.all(Radius.circular(8.0))),
+                                              content: Column(
+                                                mainAxisSize: MainAxisSize.min,
+                                                children: [
+                                                  const Icon(
+                                                    Icons.not_listed_location,
+                                                    size: 60,
+                                                  ),
+                                                  const SizedBox(
+                                                    height: 4,
+                                                  ),
+                                                  Text(
+                                                    "Are you sure that you have reached?",
+                                                    style: theme.textTheme.titleLarge,
+                                                    textAlign: TextAlign.center,
+                                                  ),
+                                                  const SizedBox(
+                                                    height: 16,
+                                                  ),
+                                                  Text(
+                                                    "Once it is updated, you can't change!",
+                                                    style: theme.textTheme.bodyMedium,
+                                                    textAlign: TextAlign.center,
+                                                  ),
+                                                ],
                                               ),
                                               actions: <Widget>[
                                                 Row(
@@ -1192,16 +1187,9 @@ class UpActivityTaskPage extends GetView<UpActivityTaskController> {
                                                         Get.back();
                                                       },
                                                       style: ButtonStyle(
-                                                          shape: MaterialStateProperty.all<
-                                                              RoundedRectangleBorder>(
-                                                            RoundedRectangleBorder(
-                                                              borderRadius:
-                                                                  BorderRadius.circular(0.0),
-                                                            ),
-                                                          ),
-                                                          backgroundColor:
-                                                              const MaterialStatePropertyAll(
-                                                                  Color(0xFF9c27b0))),
+                                                          backgroundColor: MaterialStatePropertyAll(
+                                                        Colors.red.shade900,
+                                                      )),
                                                       child: const Text(
                                                         "NO",
                                                         style: TextStyle(color: Colors.white),
@@ -1231,20 +1219,8 @@ class UpActivityTaskPage extends GetView<UpActivityTaskController> {
                                                                     .taskTransportationEndLocation);
                                                         Get.back();
                                                       },
-                                                      style: ButtonStyle(
-                                                          shape: MaterialStateProperty.all<
-                                                              RoundedRectangleBorder>(
-                                                            RoundedRectangleBorder(
-                                                              borderRadius:
-                                                                  BorderRadius.circular(0.0),
-                                                            ),
-                                                          ),
-                                                          backgroundColor:
-                                                              const MaterialStatePropertyAll(
-                                                                  Color(0xFFC62828))),
                                                       child: const Text(
                                                         "YES",
-                                                        style: TextStyle(color: Colors.white),
                                                       ),
                                                     )
                                                   ],

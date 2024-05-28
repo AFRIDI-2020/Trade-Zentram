@@ -15,6 +15,7 @@ import 'package:TradeZentrum/app/utils/color_const.dart';
 import 'package:TradeZentrum/app/utils/const_funtion.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:slide_to_act/slide_to_act.dart';
@@ -45,7 +46,8 @@ class CheckListPage extends GetView<UpActivityTaskController> {
   @override
   Widget build(BuildContext context) {
     final GlobalKey<SlideActionState> _key = GlobalKey();
-    final formKey = GlobalKey<FormState>();
+    final formKey1 = GlobalKey<FormState>();
+    final formKey2 = GlobalKey<FormState>();
     final theme = Theme.of(context);
     final taskDetailsController = Get.put(UpActivityTaskController());
 
@@ -125,7 +127,8 @@ class CheckListPage extends GetView<UpActivityTaskController> {
                                           Get.back();
                                         },
                                         style: ButtonStyle(
-                                            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                            shape:
+                                                MaterialStateProperty.all<RoundedRectangleBorder>(
                                               RoundedRectangleBorder(
                                                 borderRadius: BorderRadius.circular(0.0),
                                               ),
@@ -152,61 +155,45 @@ class CheckListPage extends GetView<UpActivityTaskController> {
                             context: context,
                             builder: (BuildContext context) {
                               return AlertDialog(
+                                backgroundColor: Colors.white,
                                 shape: const RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.all(Radius.circular(0.0))),
-                                content: const SizedBox(
-                                  height: 180,
-                                  child: Column(
-                                    children: [
-                                      Icon(Icons.not_listed_location,
-                                          size: 80, color: Color(0xFFC62828)
-                                          // Color(0xFF9c27b0),
-                                          ),
-                                      SizedBox(
-                                        height: 16,
-                                      ),
-                                      Text(
-                                        "Empty Transport!!",
-                                        style: TextStyle(
-                                            color: Colors.black,
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 16),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                      Text(
-                                        "You havn't add any transport yet",
-                                        style: TextStyle(
-                                            color: Colors.black,
-                                            fontWeight: FontWeight.normal,
-                                            fontSize: 12),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    ],
-                                  ),
+                                    borderRadius: BorderRadius.all(Radius.circular(8))),
+                                content: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Image.asset(
+                                      "assets/ic_empty_transport.png",
+                                      width: 80,
+                                      height: 80,
+                                    ),
+                                    const SizedBox(
+                                      height: 4,
+                                    ),
+                                    Text("Empty Transport", style: theme.textTheme.titleLarge),
+                                    const SizedBox(
+                                      height: 16,
+                                    ),
+                                    Text(
+                                      "You have not added any transport yet",
+                                      style: theme.textTheme.bodyMedium,
+                                    ),
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                  ],
                                 ),
                                 actions: <Widget>[
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      ElevatedButton(
-                                        onPressed: () {
-                                          Get.back();
-                                        },
-                                        style: ButtonStyle(
-                                            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                              RoundedRectangleBorder(
-                                                borderRadius: BorderRadius.circular(0.0),
-                                              ),
-                                            ),
-                                            backgroundColor:
-                                                const MaterialStatePropertyAll(Color(0xFF9c27b0))),
-                                        child: const Text(
-                                          "Okay",
-                                          style: TextStyle(color: Colors.white),
-                                        ),
+                                  Align(
+                                    alignment: Alignment.center,
+                                    child: ElevatedButton(
+                                      onPressed: () {
+                                        Get.back();
+                                      },
+                                      child: const Text(
+                                        "Okay",
                                       ),
-                                    ],
-                                  )
+                                    ),
+                                  ),
                                 ],
                               );
                             },
@@ -232,56 +219,91 @@ class CheckListPage extends GetView<UpActivityTaskController> {
                             builder: (BuildContext context) {
                               return AlertDialog(
                                 shape: const RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.all(Radius.circular(0.0))),
-                                content: const SizedBox(
-                                  height: 180,
-                                  child: Column(
-                                    children: [
-                                      Icon(
-                                        Icons.error_outline,
-                                        size: 80,
-                                        color: Color(0xFFed6c02),
-                                      ),
-                                      SizedBox(
-                                        height: 16,
-                                      ),
-                                      Text(
-                                        "MISSED END LOCATION!!!",
-                                        style: TextStyle(
-                                            color: Colors.black,
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 16),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                      Text(
-                                        "You have not clicked the reach button above!!",
-                                        style: TextStyle(
-                                            color: Colors.black,
-                                            fontWeight: FontWeight.normal,
-                                            fontSize: 12),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    ],
-                                  ),
+                                    borderRadius: BorderRadius.all(Radius.circular(8.0))),
+                                content: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    const Icon(
+                                      Icons.location_off,
+                                      size: 60,
+                                    ),
+                                    const SizedBox(
+                                      height: 4,
+                                    ),
+                                    Text("Missed End Location", style: theme.textTheme.titleLarge),
+                                    const SizedBox(
+                                      height: 16,
+                                    ),
+                                    Text(
+                                      "You have not clicked the reach button",
+                                      style: theme.textTheme.bodyMedium,
+                                    ),
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                  ],
                                 ),
                                 actions: <Widget>[
                                   ElevatedButton(
                                     onPressed: () {
                                       Get.back();
                                     },
-                                    style: ButtonStyle(
-                                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                          RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.circular(0.0),
-                                          ),
-                                        ),
-                                        backgroundColor:
-                                            const MaterialStatePropertyAll(Color(0xFFed6c02))),
                                     child: const Text(
                                       "Ok",
-                                      style: TextStyle(color: Colors.white),
                                     ),
                                   )
+                                ],
+                              );
+                            },
+                          );
+                        } else if (!taskDetailsController.verifyOtpStatus.value) {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                shape: const RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.all(Radius.circular(8))),
+                                content: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 15),
+                                      child: Image.asset(
+                                        "assets/ic_verify_mobile.png",
+                                        height: 60,
+                                        width: 60,
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 4,
+                                    ),
+                                    Text(
+                                      "Verify mobile number!!",
+                                      style: theme.textTheme.titleLarge,
+                                      textAlign: TextAlign.center,
+                                    ),
+                                    const SizedBox(
+                                      height: 16,
+                                    ),
+                                    Text(
+                                      "You haven't verify mobile number yet",
+                                      style: theme.textTheme.bodyMedium,
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ],
+                                ),
+                                actions: <Widget>[
+                                  Align(
+                                    alignment: Alignment.center,
+                                    child: ElevatedButton(
+                                      onPressed: () {
+                                        Get.back();
+                                      },
+                                      child: const Text(
+                                        "Okay",
+                                      ),
+                                    ),
+                                  ),
                                 ],
                               );
                             },
@@ -367,32 +389,25 @@ class CheckListPage extends GetView<UpActivityTaskController> {
                               builder: (BuildContext context) {
                                 return AlertDialog(
                                   shape: const RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.all(Radius.circular(0.0))),
+                                      borderRadius: BorderRadius.all(Radius.circular(8))),
                                   content: Column(
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
                                       const Icon(
-                                        Icons.error_outline,
-                                        size: 80,
-                                        color: Color(0xFFed6c02),
+                                        Icons.checklist,
+                                        size: 60,
                                       ),
                                       const SizedBox(
-                                        height: 16,
+                                        height: 10,
                                       ),
-                                      const Text(
+                                      Text(
                                         "MISSED A CHECKLIST!!!",
-                                        style: TextStyle(
-                                            color: Colors.black,
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 16),
+                                        style: theme.textTheme.titleLarge,
                                         textAlign: TextAlign.center,
                                       ),
-                                      const Text(
+                                      Text(
                                         "You have Pending a checkList list!!",
-                                        style: TextStyle(
-                                            color: Colors.black,
-                                            fontWeight: FontWeight.normal,
-                                            fontSize: 12),
+                                        style: theme.textTheme.bodyMedium,
                                         textAlign: TextAlign.center,
                                       ),
                                       for (int i = 0; i < statusTitle.length; i++)
@@ -430,17 +445,8 @@ class CheckListPage extends GetView<UpActivityTaskController> {
                                                 .taskDetailsData.value.taskId
                                                 .toString());
                                       },
-                                      style: ButtonStyle(
-                                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                            RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.circular(0.0),
-                                            ),
-                                          ),
-                                          backgroundColor:
-                                              const MaterialStatePropertyAll(Color(0xFFed6c02))),
                                       child: const Text(
                                         "Continue",
-                                        style: TextStyle(color: Colors.white),
                                       ),
                                     )
                                   ],
@@ -877,264 +883,282 @@ class CheckListPage extends GetView<UpActivityTaskController> {
             ),
           ),*/
           bottomNavigationBar: _isReturnOptionVisible(taskDetailsController)
-              ? Form(
-                  key: formKey,
-                  child: Container(
-                    height: 60,
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: Obx(
-                      () => !taskDetailsController.taskReturned.value
-                          ? SlideAction(
-                              key: _key,
-                              height: 42,
-                              text: "Slide to Return",
-                              textStyle: theme.textTheme.titleMedium
-                                  ?.copyWith(color: ColorConstant.secondaryThemeColor),
-                              outerColor: ColorConstant().baseColor,
-                              innerColor: ColorConstant.secondaryThemeColor,
-                              sliderButtonIcon: const Icon(Icons.arrow_forward),
-                              sliderButtonIconSize: 24,
-                              sliderButtonIconPadding: 4,
-                              animationDuration: const Duration(milliseconds: 500),
-                              onSubmit: () async {
-                                if (!await AuthController().handleLocationPermission()) {
-                                  AuthController().logout();
-                                } else {
-                                  if (context.mounted) {
-                                    if (taskDetailsController.taskDetailsData.value.taskStartTime ==
-                                            null &&
-                                        taskDetailsController.taskDetailsData.value.taskEndTime ==
-                                            null) {
-                                      showDialog(
-                                        context: context,
-                                        builder: (BuildContext context) {
-                                          return AlertDialog(
-                                            shape: const RoundedRectangleBorder(
-                                                borderRadius: BorderRadius.all(Radius.circular(0.0))),
-                                            content: const SizedBox(
-                                              height: 180,
-                                              child: Column(
-                                                children: [
-                                                  Icon(Icons.not_listed_location,
-                                                      size: 80, color: Color(0xFFed6c02)
-                                                      // Color(0xFF9c27b0),
-                                                      ),
-                                                  SizedBox(
-                                                    height: 16,
-                                                  ),
-                                                  Text(
-                                                    "Task isn't start yes!",
-                                                    style: TextStyle(
-                                                        color: Colors.black,
-                                                        fontWeight: FontWeight.bold,
-                                                        fontSize: 16),
-                                                    textAlign: TextAlign.center,
-                                                  ),
-                                                  Text(
-                                                    "Start your task first before going to checklist.",
-                                                    style: TextStyle(
-                                                        color: Colors.black,
-                                                        fontWeight: FontWeight.normal,
-                                                        fontSize: 12),
-                                                    textAlign: TextAlign.center,
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            actions: <Widget>[
-                                              Row(
-                                                mainAxisAlignment: MainAxisAlignment.center,
-                                                children: [
-                                                  ElevatedButton(
-                                                    onPressed: () {
-                                                      Get.back();
-                                                    },
-                                                    style: ButtonStyle(
-                                                        shape: MaterialStateProperty.all<
-                                                            RoundedRectangleBorder>(
-                                                          RoundedRectangleBorder(
-                                                            borderRadius: BorderRadius.circular(0.0),
-                                                          ),
-                                                        ),
-                                                        backgroundColor:
-                                                            const MaterialStatePropertyAll(
-                                                                Color(0xFFed6c02))),
-                                                    child: const Text(
-                                                      "Ok",
-                                                      style: TextStyle(color: Colors.white),
+              ? Container(
+                  height: 60,
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Obx(
+                    () => !taskDetailsController.taskReturned.value
+                        ? SlideAction(
+                            key: _key,
+                            height: 42,
+                            text: "Slide to Return",
+                            textStyle: theme.textTheme.titleMedium
+                                ?.copyWith(color: ColorConstant.secondaryThemeColor),
+                            outerColor: ColorConstant().baseColor,
+                            innerColor: ColorConstant.secondaryThemeColor,
+                            sliderButtonIcon: const Icon(Icons.arrow_forward),
+                            sliderButtonIconSize: 24,
+                            sliderButtonIconPadding: 4,
+                            animationDuration: const Duration(milliseconds: 500),
+                            onSubmit: () async {
+                              if (!await AuthController().handleLocationPermission()) {
+                                AuthController().logout();
+                              } else {
+                                if (context.mounted) {
+                                  if (taskDetailsController.taskDetailsData.value.taskStartTime ==
+                                          null &&
+                                      taskDetailsController.taskDetailsData.value.taskEndTime ==
+                                          null) {
+                                    showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return AlertDialog(
+                                          shape: const RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.all(Radius.circular(0.0))),
+                                          content: const SizedBox(
+                                            height: 180,
+                                            child: Column(
+                                              children: [
+                                                Icon(Icons.not_listed_location,
+                                                    size: 80, color: Color(0xFFed6c02)
+                                                    // Color(0xFF9c27b0),
                                                     ),
-                                                  ),
-                                                  const SizedBox(
-                                                    width: 20,
-                                                  ),
-                                                ],
-                                              )
-                                            ],
-                                          );
-                                        },
-                                      );
-                                    } else if (taskDetailsController
-                                        .taskDetailsData.value.taskTransportationData!.isEmpty) {
-                                      showDialog(
-                                        context: context,
-                                        builder: (BuildContext context) {
-                                          return AlertDialog(
-                                            shape: const RoundedRectangleBorder(
-                                                borderRadius: BorderRadius.all(Radius.circular(0.0))),
-                                            content: const SizedBox(
-                                              height: 180,
-                                              child: Column(
-                                                children: [
-                                                  Icon(Icons.not_listed_location,
-                                                      size: 80, color: Color(0xFFC62828)
-                                                      // Color(0xFF9c27b0),
-                                                      ),
-                                                  SizedBox(
-                                                    height: 16,
-                                                  ),
-                                                  Text(
-                                                    "Empty Transport!!",
-                                                    style: TextStyle(
-                                                        color: Colors.black,
-                                                        fontWeight: FontWeight.bold,
-                                                        fontSize: 16),
-                                                    textAlign: TextAlign.center,
-                                                  ),
-                                                  Text(
-                                                    "You havn't add any transport yet",
-                                                    style: TextStyle(
-                                                        color: Colors.black,
-                                                        fontWeight: FontWeight.normal,
-                                                        fontSize: 12),
-                                                    textAlign: TextAlign.center,
-                                                  ),
-                                                ],
-                                              ),
+                                                SizedBox(
+                                                  height: 16,
+                                                ),
+                                                Text(
+                                                  "Task isn't start yes!",
+                                                  style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontWeight: FontWeight.bold,
+                                                      fontSize: 16),
+                                                  textAlign: TextAlign.center,
+                                                ),
+                                                Text(
+                                                  "Start your task first before going to checklist.",
+                                                  style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontWeight: FontWeight.normal,
+                                                      fontSize: 12),
+                                                  textAlign: TextAlign.center,
+                                                ),
+                                              ],
                                             ),
-                                            actions: <Widget>[
-                                              Row(
-                                                mainAxisAlignment: MainAxisAlignment.center,
-                                                children: [
-                                                  ElevatedButton(
-                                                    onPressed: () {
-                                                      Get.back();
-                                                    },
-                                                    style: ButtonStyle(
-                                                        shape: MaterialStateProperty.all<
-                                                            RoundedRectangleBorder>(
-                                                          RoundedRectangleBorder(
-                                                            borderRadius: BorderRadius.circular(0.0),
-                                                          ),
+                                          ),
+                                          actions: <Widget>[
+                                            Row(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                ElevatedButton(
+                                                  onPressed: () {
+                                                    Get.back();
+                                                  },
+                                                  style: ButtonStyle(
+                                                      shape: MaterialStateProperty.all<
+                                                          RoundedRectangleBorder>(
+                                                        RoundedRectangleBorder(
+                                                          borderRadius: BorderRadius.circular(0.0),
                                                         ),
-                                                        backgroundColor:
-                                                            const MaterialStatePropertyAll(
-                                                                Color(0xFF9c27b0))),
-                                                    child: const Text(
-                                                      "Okay",
-                                                      style: TextStyle(color: Colors.white),
-                                                    ),
+                                                      ),
+                                                      backgroundColor:
+                                                          const MaterialStatePropertyAll(
+                                                              Color(0xFFed6c02))),
+                                                  child: const Text(
+                                                    "Ok",
+                                                    style: TextStyle(color: Colors.white),
                                                   ),
-                                                ],
-                                              )
-                                            ],
-                                          );
-                                        },
-                                      );
-                                    } else if (taskDetailsController
-                                                .taskDetailsData
-                                                .value
-                                                .taskTransportationData![taskDetailsController
-                                                        .taskDetailsData
-                                                        .value
-                                                        .taskTransportationData!
-                                                        .length -
-                                                    1]
-                                                .taskTransportationEndLat ==
-                                            null &&
-                                        taskDetailsController
-                                                .taskDetailsData
-                                                .value
-                                                .taskTransportationData![taskDetailsController
-                                                        .taskDetailsData
-                                                        .value
-                                                        .taskTransportationData!
-                                                        .length -
-                                                    1]
-                                                .taskTransportationEndLat ==
-                                            null) {
-                                      showDialog(
-                                        context: context,
-                                        builder: (BuildContext context) {
-                                          return AlertDialog(
-                                            shape: const RoundedRectangleBorder(
-                                                borderRadius: BorderRadius.all(Radius.circular(0.0))),
-                                            content: const SizedBox(
-                                              height: 180,
-                                              child: Column(
-                                                children: [
-                                                  Icon(
-                                                    Icons.error_outline,
-                                                    size: 80,
-                                                    color: Color(0xFFed6c02),
-                                                  ),
-                                                  SizedBox(
-                                                    height: 16,
-                                                  ),
-                                                  Text(
-                                                    "MISSED END LOCATION",
-                                                    style: TextStyle(
-                                                        color: Colors.black,
-                                                        fontWeight: FontWeight.bold,
-                                                        fontSize: 16),
-                                                    textAlign: TextAlign.center,
-                                                  ),
-                                                  Text(
-                                                    "You have not clicked the reach button above!!",
-                                                    style: TextStyle(
-                                                        color: Colors.black,
-                                                        fontWeight: FontWeight.normal,
-                                                        fontSize: 12),
-                                                    textAlign: TextAlign.center,
-                                                  ),
-                                                ],
+                                                ),
+                                                const SizedBox(
+                                                  width: 20,
+                                                ),
+                                              ],
+                                            )
+                                          ],
+                                        );
+                                      },
+                                    );
+                                  } else if (taskDetailsController
+                                      .taskDetailsData.value.taskTransportationData!.isEmpty) {
+                                    showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return AlertDialog(
+                                          backgroundColor: Colors.white,
+                                          shape: const RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.all(Radius.circular(8))),
+                                          content: Column(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Image.asset(
+                                                "assets/ic_empty_transport.png",
+                                                width: 80,
+                                                height: 80,
                                               ),
-                                            ),
-                                            actions: <Widget>[
-                                              ElevatedButton(
+                                              const SizedBox(
+                                                height: 4,
+                                              ),
+                                              Text("Empty Transport",
+                                                  style: theme.textTheme.titleLarge),
+                                              const SizedBox(
+                                                height: 16,
+                                              ),
+                                              Text(
+                                                "You have not added any transport yet",
+                                                style: theme.textTheme.bodyMedium,
+                                              ),
+                                              const SizedBox(
+                                                height: 10,
+                                              ),
+                                            ],
+                                          ),
+                                          actions: <Widget>[
+                                            Align(
+                                              alignment: Alignment.center,
+                                              child: ElevatedButton(
                                                 onPressed: () {
                                                   Get.back();
                                                 },
-                                                style: ButtonStyle(
-                                                    shape: MaterialStateProperty.all<
-                                                        RoundedRectangleBorder>(
-                                                      RoundedRectangleBorder(
-                                                        borderRadius: BorderRadius.circular(0.0),
-                                                      ),
-                                                    ),
-                                                    backgroundColor: const MaterialStatePropertyAll(
-                                                        Color(0xFFed6c02))),
                                                 child: const Text(
-                                                  "Ok",
-                                                  style: TextStyle(color: Colors.white),
+                                                  "Okay",
                                                 ),
-                                              )
+                                              ),
+                                            ),
+                                          ],
+                                        );
+                                      },
+                                    );
+                                  } else if (taskDetailsController
+                                              .taskDetailsData
+                                              .value
+                                              .taskTransportationData![taskDetailsController
+                                                      .taskDetailsData
+                                                      .value
+                                                      .taskTransportationData!
+                                                      .length -
+                                                  1]
+                                              .taskTransportationEndLat ==
+                                          null &&
+                                      taskDetailsController
+                                              .taskDetailsData
+                                              .value
+                                              .taskTransportationData![taskDetailsController
+                                                      .taskDetailsData
+                                                      .value
+                                                      .taskTransportationData!
+                                                      .length -
+                                                  1]
+                                              .taskTransportationEndLat ==
+                                          null) {
+                                    showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return AlertDialog(
+                                          shape: const RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.all(Radius.circular(8.0))),
+                                          content: Column(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              const Icon(
+                                                Icons.location_off,
+                                                size: 60,
+                                              ),
+                                              const SizedBox(
+                                                height: 4,
+                                              ),
+                                              Text("Missed End Location",
+                                                  style: theme.textTheme.titleLarge),
+                                              const SizedBox(
+                                                height: 16,
+                                              ),
+                                              Text(
+                                                "You have not clicked the reach button",
+                                                style: theme.textTheme.bodyMedium,
+                                              ),
+                                              const SizedBox(
+                                                height: 10,
+                                              ),
                                             ],
-                                          );
-                                        },
-                                      );
-                                    } else {
-                                      showDialog(
-                                        context: context,
-                                        builder: (BuildContext context) {
-                                          taskDetailsController.instructedNameTextEditingController
-                                              .clear();
-                                          taskDetailsController.instructedReasonTextEditingController
-                                              .clear();
-                                          return AlertDialog(
-                                            backgroundColor: Colors.white,
-                                            shape: const RoundedRectangleBorder(
-                                                borderRadius: BorderRadius.all(Radius.circular(8))),
-                                            content: Column(
+                                          ),
+                                          actions: <Widget>[
+                                            ElevatedButton(
+                                              onPressed: () {
+                                                Get.back();
+                                              },
+                                              child: const Text(
+                                                "Ok",
+                                              ),
+                                            )
+                                          ],
+                                        );
+                                      },
+                                    );
+                                  } else if (!taskDetailsController.verifyOtpStatus.value) {
+                                    showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return AlertDialog(
+                                          shape: const RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.all(Radius.circular(8))),
+                                          content: Column(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Padding(
+                                                padding: const EdgeInsets.only(left: 15),
+                                                child: Image.asset(
+                                                  "assets/ic_verify_mobile.png",
+                                                  height: 60,
+                                                  width: 60,
+                                                ),
+                                              ),
+                                              const SizedBox(
+                                                height: 4,
+                                              ),
+                                              Text(
+                                                "Verify mobile number!!",
+                                                style: theme.textTheme.titleLarge,
+                                                textAlign: TextAlign.center,
+                                              ),
+                                              const SizedBox(
+                                                height: 16,
+                                              ),
+                                              Text(
+                                                "You haven't verify mobile number yet",
+                                                style: theme.textTheme.bodyMedium,
+                                                textAlign: TextAlign.center,
+                                              ),
+                                            ],
+                                          ),
+                                          actions: <Widget>[
+                                            Align(
+                                              alignment: Alignment.center,
+                                              child: ElevatedButton(
+                                                onPressed: () {
+                                                  Get.back();
+                                                },
+                                                child: const Text(
+                                                  "Okay",
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        );
+                                      },
+                                    );
+                                  } else {
+                                    showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        taskDetailsController.instructedNameTextEditingController
+                                            .clear();
+                                        taskDetailsController.instructedReasonTextEditingController
+                                            .clear();
+                                        return AlertDialog(
+                                          backgroundColor: Colors.white,
+                                          shape: const RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.all(Radius.circular(8))),
+                                          content: Form(
+                                            key: formKey1,
+                                            child: Column(
                                               mainAxisSize: MainAxisSize.min,
                                               children: [
                                                 Image.asset(
@@ -1190,20 +1214,23 @@ class CheckListPage extends GetView<UpActivityTaskController> {
                                                 ),
                                               ],
                                             ),
-                                            actions: <Widget>[
-                                              ElevatedButton(
-                                                onPressed: () async {
-                                                  if (formKey.currentState!.validate()) {
-                                                    Get.back();
-                                                    showDialog(
-                                                      context: context,
-                                                      builder: (BuildContext context) {
-                                                        return AlertDialog(
-                                                          backgroundColor: Colors.white,
-                                                          shape: const RoundedRectangleBorder(
-                                                              borderRadius: BorderRadius.all(
-                                                                  Radius.circular(8))),
-                                                          content: Column(
+                                          ),
+                                          actions: <Widget>[
+                                            ElevatedButton(
+                                              onPressed: () async {
+                                                if (formKey1.currentState!.validate()) {
+                                                  Get.back();
+                                                  showDialog(
+                                                    context: context,
+                                                    builder: (BuildContext context) {
+                                                      return AlertDialog(
+                                                        backgroundColor: Colors.white,
+                                                        shape: const RoundedRectangleBorder(
+                                                            borderRadius: BorderRadius.all(
+                                                                Radius.circular(8))),
+                                                        content: Form(
+                                                          key: formKey2,
+                                                          child: Column(
                                                             mainAxisSize: MainAxisSize.min,
                                                             children: [
                                                               Image.asset(
@@ -1261,123 +1288,131 @@ class CheckListPage extends GetView<UpActivityTaskController> {
                                                               ),
                                                             ],
                                                           ),
-                                                          actions: <Widget>[
-                                                            ElevatedButton(
-                                                              onPressed: () async {
-                                                                if (formKey.currentState!
-                                                                    .validate()) {
-                                                                  Map<String, dynamic>? response =
-                                                                      await taskDetailsController
-                                                                          .returnTask(
-                                                                              endPoint:
-                                                                                  ApiUrl().returnTask,
-                                                                              taskIdForReturn:
-                                                                                  taskDetailsController
-                                                                                      .taskDetailsData
-                                                                                      .value
-                                                                                      .taskId
-                                                                                      .toString());
-                                                                  await taskDetailsController.getTaskDetails(
-                                                                    endPoint: ApiUrl().getTaskDetails,
-                                                                    taskId: taskDetailsController
-                                                                        .taskDetailsData
-                                                                        .value
-                                                                        .taskId
-                                                                        .toString(),
-                                                                  );
+                                                        ),
+                                                        actions: <Widget>[
+                                                          ElevatedButton(
+                                                            onPressed: () async {
+                                                              if (formKey2.currentState!
+                                                                  .validate()) {
+                                                                Map<String, dynamic>? response =
+                                                                    await taskDetailsController
+                                                                        .returnTask(
+                                                                            endPoint:
+                                                                                ApiUrl().returnTask,
+                                                                            taskIdForReturn:
+                                                                                taskDetailsController
+                                                                                    .taskDetailsData
+                                                                                    .value
+                                                                                    .taskId
+                                                                                    .toString());
+                                                                // await taskDetailsController
+                                                                //     .getTaskDetails(
+                                                                //   endPoint: ApiUrl().getTaskDetails,
+                                                                //   taskId: taskDetailsController
+                                                                //       .taskDetailsData.value.taskId
+                                                                //       .toString(),
+                                                                // );
 
-                                                                  if (response != {}) {
-                                                                    showDialog(
-                                                                      context: context,
-                                                                      barrierDismissible: false,
-                                                                      builder: (context) {
-                                                                        return PopScope(
-                                                                          canPop: false,
-                                                                          child: AlertDialog(
-                                                                            shape:
-                                                                                const RoundedRectangleBorder(
-                                                                              borderRadius:
-                                                                                  BorderRadius.all(
-                                                                                Radius.circular(0.0),
-                                                                              ),
-                                                                            ),
-                                                                            title: Icon(
-                                                                              response['status'] == true
-                                                                                  ? Icons
-                                                                                      .check_circle_outline
-                                                                                  : Icons
-                                                                                      .error_outline_outlined,
-                                                                              color:
-                                                                                  response['status'] ==
-                                                                                          true
-                                                                                      ? Colors.green
-                                                                                      : Colors.red,
-                                                                              size: 44,
-                                                                            ),
-                                                                            content: Column(
-                                                                              children: [
-                                                                                Text(
-                                                                                  response['status'] == true
-                                                                                      ? "Product Successfully returned."
-                                                                                      : "Product return failed. Try again later.",
-                                                                                  style: const TextStyle(
-                                                                                      color: Colors.black,
-                                                                                      fontWeight:
-                                                                                          FontWeight.bold,
-                                                                                      fontSize: 16),
-                                                                                  textAlign:
-                                                                                      TextAlign.center,
-                                                                                ),
-
-                                                                                if(response['status'] == true)
-                                                                                  ElevatedButton(
-                                                                                    onPressed: (){
-                                                                                      Get.offAll(() => const HomePage());
-                                                                                    },
-                                                                                    child: const Text("OK"),
-                                                                                  ),
-
-
-                                                                              ],
+                                                                if (response != {}) {
+                                                                  showDialog(
+                                                                    context: context,
+                                                                    barrierDismissible: false,
+                                                                    builder: (context) {
+                                                                      return PopScope(
+                                                                        canPop: false,
+                                                                        child: AlertDialog(
+                                                                          shape:
+                                                                              const RoundedRectangleBorder(
+                                                                            borderRadius:
+                                                                                BorderRadius.all(
+                                                                              Radius.circular(8),
                                                                             ),
                                                                           ),
-                                                                        );
-                                                                      },
-                                                                    );
-                                                                  }
+                                                                          title: Icon(
+                                                                            response['status'] ==
+                                                                                    true
+                                                                                ? Icons
+                                                                                    .check_circle_outline
+                                                                                : Icons
+                                                                                    .error_outline_outlined,
+                                                                            color: response[
+                                                                                        'status'] ==
+                                                                                    true
+                                                                                ? Colors.green
+                                                                                : Colors.black,
+                                                                            size: 44,
+                                                                          ),
+                                                                          content: Column(
+                                                                            mainAxisSize:
+                                                                                MainAxisSize.min,
+                                                                            children: [
+                                                                              Text(
+                                                                                response['status'] ==
+                                                                                        true
+                                                                                    ? "Product Successfully returned."
+                                                                                    : "Product return failed. Try again later.",
+                                                                                style: const TextStyle(
+                                                                                    color: Colors
+                                                                                        .black,
+                                                                                    fontWeight:
+                                                                                        FontWeight
+                                                                                            .bold,
+                                                                                    fontSize: 16),
+                                                                                textAlign: TextAlign
+                                                                                    .center,
+                                                                              ),
+                                                                              ElevatedButton(
+                                                                                onPressed: () {
+                                                                                  if (response[
+                                                                                          'status'] ==
+                                                                                      true) {
+                                                                                    Get.offAll(() =>
+                                                                                        const HomePage());
+                                                                                  } else {
+                                                                                    Get.back();
+                                                                                  }
+                                                                                },
+                                                                                child: const Text(
+                                                                                    "OK"),
+                                                                              ),
+                                                                            ],
+                                                                          ),
+                                                                        ),
+                                                                      );
+                                                                    },
+                                                                  );
                                                                 }
-                                                              },
-                                                              child: const Text(
-                                                                "Confirm",
-                                                              ),
-                                                            )
-                                                          ],
-                                                        );
-                                                      },
-                                                    );
-                                                  }
-                                                },
-                                                child: const Text(
-                                                  "Next",
-                                                  style: TextStyle(color: Colors.white),
-                                                ),
-                                              )
-                                            ],
-                                          );
-                                        },
-                                      );
-                                    }
+                                                              }
+                                                            },
+                                                            child: const Text(
+                                                              "Confirm",
+                                                            ),
+                                                          )
+                                                        ],
+                                                      );
+                                                    },
+                                                  );
+                                                }
+                                              },
+                                              child: const Text(
+                                                "Next",
+                                              ),
+                                            )
+                                          ],
+                                        );
+                                      },
+                                    );
                                   }
                                 }
-                              },
-                            )
-                          : const Text(
-                              "Returned",
-                              style: TextStyle(
-                                  color: Colors.black, fontWeight: FontWeight.bold, fontSize: 18),
-                              textAlign: TextAlign.center,
-                            ),
-                    ),
+                              }
+                            },
+                          )
+                        : const Text(
+                            "Returned",
+                            style: TextStyle(
+                                color: Colors.black, fontWeight: FontWeight.bold, fontSize: 18),
+                            textAlign: TextAlign.center,
+                          ),
                   ),
                 )
               : const SizedBox(),
@@ -1682,8 +1717,8 @@ class CheckListPage extends GetView<UpActivityTaskController> {
                                                   borderRadius: BorderRadius.circular(0.0),
                                                 ),
                                               ),
-                                              backgroundColor:
-                                                  const MaterialStatePropertyAll(Color(0xFF9c27b0))),
+                                              backgroundColor: const MaterialStatePropertyAll(
+                                                  Color(0xFF9c27b0))),
                                           child: const Text(
                                             "NO",
                                             style: TextStyle(color: Colors.white),
@@ -1707,8 +1742,8 @@ class CheckListPage extends GetView<UpActivityTaskController> {
                                                   borderRadius: BorderRadius.circular(0.0),
                                                 ),
                                               ),
-                                              backgroundColor:
-                                                  const MaterialStatePropertyAll(Color(0xFFC62828))),
+                                              backgroundColor: const MaterialStatePropertyAll(
+                                                  Color(0xFFC62828))),
                                           child: const Text(
                                             "YES",
                                             style: TextStyle(color: Colors.white),
@@ -1736,8 +1771,125 @@ class CheckListPage extends GetView<UpActivityTaskController> {
                         children: [
                           ListTile(
                             onTap: () {
-                              if (!taskDetailsController.verifyOtpStatus.value) {
-                                Get.to(() => const MobileNumberVerifyPage());
+                              if (taskDetailsController
+                                  .taskDetailsData.value.taskTransportationData!.isEmpty) {
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      backgroundColor: Colors.white,
+                                      shape: const RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.all(Radius.circular(8))),
+                                      content: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Image.asset(
+                                            "assets/ic_empty_transport.png",
+                                            width: 80,
+                                            height: 80,
+                                          ),
+                                          const SizedBox(
+                                            height: 4,
+                                          ),
+                                          Text("Empty Transport",
+                                              style: theme.textTheme.titleLarge),
+                                          const SizedBox(
+                                            height: 16,
+                                          ),
+                                          Text(
+                                            "You have not added any transport yet",
+                                            style: theme.textTheme.bodyMedium,
+                                          ),
+                                          const SizedBox(
+                                            height: 10,
+                                          ),
+                                        ],
+                                      ),
+                                      actions: <Widget>[
+                                        Align(
+                                          alignment: Alignment.center,
+                                          child: ElevatedButton(
+                                            onPressed: () {
+                                              Get.back();
+                                            },
+                                            child: const Text(
+                                              "Okay",
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
+                              } else if (taskDetailsController
+                                          .taskDetailsData
+                                          .value
+                                          .taskTransportationData![taskDetailsController
+                                                  .taskDetailsData
+                                                  .value
+                                                  .taskTransportationData!
+                                                  .length -
+                                              1]
+                                          .taskTransportationEndLat ==
+                                      null &&
+                                  taskDetailsController
+                                          .taskDetailsData
+                                          .value
+                                          .taskTransportationData![taskDetailsController
+                                                  .taskDetailsData
+                                                  .value
+                                                  .taskTransportationData!
+                                                  .length -
+                                              1]
+                                          .taskTransportationEndLat ==
+                                      null) {
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      shape: const RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.all(Radius.circular(8.0))),
+                                      content: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          const Icon(
+                                            Icons.location_off,
+                                            size: 60,
+                                          ),
+                                          const SizedBox(
+                                            height: 4,
+                                          ),
+                                          Text("Missed End Location",
+                                              style: theme.textTheme.titleLarge),
+                                          const SizedBox(
+                                            height: 16,
+                                          ),
+                                          Text(
+                                            "You have not clicked the reach button",
+                                            style: theme.textTheme.bodyMedium,
+                                          ),
+                                          const SizedBox(
+                                            height: 10,
+                                          ),
+                                        ],
+                                      ),
+                                      actions: <Widget>[
+                                        ElevatedButton(
+                                          onPressed: () {
+                                            Get.back();
+                                          },
+                                          child: const Text(
+                                            "Ok",
+                                          ),
+                                        )
+                                      ],
+                                    );
+                                  },
+                                );
+                              } else {
+                                if (!taskDetailsController.verifyOtpStatus.value) {
+                                  Get.to(() => const MobileNumberVerifyPage());
+                                }
                               }
                             }
                             /*() async {
@@ -2044,8 +2196,8 @@ class CheckListPage extends GetView<UpActivityTaskController> {
                                                   builder: (BuildContext context) {
                                                     return AlertDialog(
                                                       shape: const RoundedRectangleBorder(
-                                                          borderRadius:
-                                                              BorderRadius.all(Radius.circular(0.0))),
+                                                          borderRadius: BorderRadius.all(
+                                                              Radius.circular(0.0))),
                                                       content: const SizedBox(
                                                         height: 180,
                                                         child: Column(
@@ -2079,7 +2231,8 @@ class CheckListPage extends GetView<UpActivityTaskController> {
                                                       ),
                                                       actions: <Widget>[
                                                         Row(
-                                                          mainAxisAlignment: MainAxisAlignment.center,
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment.center,
                                                           children: [
                                                             ElevatedButton(
                                                               onPressed: () {
@@ -2090,7 +2243,8 @@ class CheckListPage extends GetView<UpActivityTaskController> {
                                                                       RoundedRectangleBorder>(
                                                                     RoundedRectangleBorder(
                                                                       borderRadius:
-                                                                          BorderRadius.circular(0.0),
+                                                                          BorderRadius.circular(
+                                                                              0.0),
                                                                     ),
                                                                   ),
                                                                   backgroundColor:
@@ -2098,7 +2252,8 @@ class CheckListPage extends GetView<UpActivityTaskController> {
                                                                           Color(0xFFed6c02))),
                                                               child: const Text(
                                                                 "Ok",
-                                                                style: TextStyle(color: Colors.white),
+                                                                style:
+                                                                    TextStyle(color: Colors.white),
                                                               ),
                                                             ),
                                                             const SizedBox(
@@ -2117,8 +2272,8 @@ class CheckListPage extends GetView<UpActivityTaskController> {
                                                   builder: (BuildContext context) {
                                                     return AlertDialog(
                                                       shape: const RoundedRectangleBorder(
-                                                          borderRadius:
-                                                              BorderRadius.all(Radius.circular(0.0))),
+                                                          borderRadius: BorderRadius.all(
+                                                              Radius.circular(0.0))),
                                                       content: const SizedBox(
                                                         height: 180,
                                                         child: Column(
@@ -2151,7 +2306,8 @@ class CheckListPage extends GetView<UpActivityTaskController> {
                                                       ),
                                                       actions: <Widget>[
                                                         Row(
-                                                          mainAxisAlignment: MainAxisAlignment.center,
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment.center,
                                                           children: [
                                                             ElevatedButton(
                                                               onPressed: () {
@@ -2162,7 +2318,8 @@ class CheckListPage extends GetView<UpActivityTaskController> {
                                                                       RoundedRectangleBorder>(
                                                                     RoundedRectangleBorder(
                                                                       borderRadius:
-                                                                          BorderRadius.circular(0.0),
+                                                                          BorderRadius.circular(
+                                                                              0.0),
                                                                     ),
                                                                   ),
                                                                   backgroundColor:
@@ -2170,7 +2327,8 @@ class CheckListPage extends GetView<UpActivityTaskController> {
                                                                           Color(0xFF9c27b0))),
                                                               child: const Text(
                                                                 "Okay",
-                                                                style: TextStyle(color: Colors.white),
+                                                                style:
+                                                                    TextStyle(color: Colors.white),
                                                               ),
                                                             ),
                                                           ],
@@ -2208,58 +2366,39 @@ class CheckListPage extends GetView<UpActivityTaskController> {
                                                   builder: (BuildContext context) {
                                                     return AlertDialog(
                                                       shape: const RoundedRectangleBorder(
-                                                          borderRadius:
-                                                              BorderRadius.all(Radius.circular(0.0))),
-                                                      content: const SizedBox(
-                                                        height: 180,
-                                                        child: Column(
-                                                          children: [
-                                                            Icon(
-                                                              Icons.error_outline,
-                                                              size: 80,
-                                                              color: Color(0xFFed6c02),
-                                                            ),
-                                                            SizedBox(
-                                                              height: 16,
-                                                            ),
-                                                            Text(
-                                                              "MISSED END LOCATION",
-                                                              style: TextStyle(
-                                                                  color: Colors.black,
-                                                                  fontWeight: FontWeight.bold,
-                                                                  fontSize: 16),
-                                                              textAlign: TextAlign.center,
-                                                            ),
-                                                            Text(
-                                                              "You have not clicked the reach button above!!",
-                                                              style: TextStyle(
-                                                                  color: Colors.black,
-                                                                  fontWeight: FontWeight.bold,
-                                                                  fontSize: 12),
-                                                              textAlign: TextAlign.center,
-                                                            ),
-                                                          ],
-                                                        ),
+                                                          borderRadius: BorderRadius.all(
+                                                              Radius.circular(8.0))),
+                                                      content: Column(
+                                                        mainAxisSize: MainAxisSize.min,
+                                                        children: [
+                                                          const Icon(
+                                                            Icons.location_off,
+                                                            size: 60,
+                                                          ),
+                                                          const SizedBox(
+                                                            height: 4,
+                                                          ),
+                                                          Text("Missed End Location",
+                                                              style: theme.textTheme.titleLarge),
+                                                          const SizedBox(
+                                                            height: 16,
+                                                          ),
+                                                          Text(
+                                                            "You have not clicked the reach button",
+                                                            style: theme.textTheme.bodyMedium,
+                                                          ),
+                                                          const SizedBox(
+                                                            height: 10,
+                                                          ),
+                                                        ],
                                                       ),
                                                       actions: <Widget>[
                                                         ElevatedButton(
                                                           onPressed: () {
                                                             Get.back();
                                                           },
-                                                          style: ButtonStyle(
-                                                              shape: MaterialStateProperty.all<
-                                                                  RoundedRectangleBorder>(
-                                                                RoundedRectangleBorder(
-                                                                  borderRadius:
-                                                                      BorderRadius.circular(0.0),
-                                                                ),
-                                                              ),
-                                                              backgroundColor:
-                                                                  const MaterialStatePropertyAll(
-                                                                      Color(0xFFed6c02))),
                                                           child: const Text(
                                                             "Ok",
-                                                            style: TextStyle(color: Colors.white),
                                                           ),
                                                         )
                                                       ],
@@ -2274,63 +2413,49 @@ class CheckListPage extends GetView<UpActivityTaskController> {
                                                     return AlertDialog(
                                                       shape: const RoundedRectangleBorder(
                                                           borderRadius:
-                                                              BorderRadius.all(Radius.circular(0.0))),
-                                                      content: const SizedBox(
-                                                        height: 180,
-                                                        child: Column(
-                                                          children: [
-                                                            Icon(Icons.not_listed_location,
-                                                                size: 80, color: Color(0xFFC62828)
-                                                                // Color(0xFF9c27b0),
-                                                                ),
-                                                            SizedBox(
-                                                              height: 16,
+                                                              BorderRadius.all(Radius.circular(8))),
+                                                      content: Column(
+                                                        mainAxisSize: MainAxisSize.min,
+                                                        children: [
+                                                          Padding(
+                                                            padding:
+                                                                const EdgeInsets.only(left: 15),
+                                                            child: Image.asset(
+                                                              "assets/ic_verify_mobile.png",
+                                                              height: 60,
+                                                              width: 60,
                                                             ),
-                                                            Text(
-                                                              "Verify mobile number!!",
-                                                              style: TextStyle(
-                                                                  color: Colors.black,
-                                                                  fontWeight: FontWeight.bold,
-                                                                  fontSize: 16),
-                                                              textAlign: TextAlign.center,
-                                                            ),
-                                                            Text(
-                                                              "You haven't verify mobile number yet",
-                                                              style: TextStyle(
-                                                                  color: Colors.black,
-                                                                  fontWeight: FontWeight.normal,
-                                                                  fontSize: 12),
-                                                              textAlign: TextAlign.center,
-                                                            ),
-                                                          ],
-                                                        ),
+                                                          ),
+                                                          const SizedBox(
+                                                            height: 4,
+                                                          ),
+                                                          Text(
+                                                            "Verify mobile number!!",
+                                                            style: theme.textTheme.titleLarge,
+                                                            textAlign: TextAlign.center,
+                                                          ),
+                                                          const SizedBox(
+                                                            height: 16,
+                                                          ),
+                                                          Text(
+                                                            "You haven't verify mobile number yet",
+                                                            style: theme.textTheme.bodyMedium,
+                                                            textAlign: TextAlign.center,
+                                                          ),
+                                                        ],
                                                       ),
                                                       actions: <Widget>[
-                                                        Row(
-                                                          mainAxisAlignment: MainAxisAlignment.center,
-                                                          children: [
-                                                            ElevatedButton(
-                                                              onPressed: () {
-                                                                Get.back();
-                                                              },
-                                                              style: ButtonStyle(
-                                                                  shape: MaterialStateProperty.all<
-                                                                      RoundedRectangleBorder>(
-                                                                    RoundedRectangleBorder(
-                                                                      borderRadius:
-                                                                          BorderRadius.circular(0.0),
-                                                                    ),
-                                                                  ),
-                                                                  backgroundColor:
-                                                                      const MaterialStatePropertyAll(
-                                                                          Color(0xFF9c27b0))),
-                                                              child: const Text(
-                                                                "Okay",
-                                                                style: TextStyle(color: Colors.white),
-                                                              ),
+                                                        Align(
+                                                          alignment: Alignment.center,
+                                                          child: ElevatedButton(
+                                                            onPressed: () {
+                                                              Get.back();
+                                                            },
+                                                            child: const Text(
+                                                              "Okay",
                                                             ),
-                                                          ],
-                                                        )
+                                                          ),
+                                                        ),
                                                       ],
                                                     );
                                                   },
