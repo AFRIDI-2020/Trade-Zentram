@@ -29,8 +29,7 @@ endLoading() {
 }
 
 String emailPattern = r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$';
-String passwordPattern =
-    r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_])[A-Za-z\d\W_]{8,}$';
+String passwordPattern = r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_])[A-Za-z\d\W_]{8,}$';
 
 void popUpStatus(
   context, {
@@ -52,61 +51,35 @@ void popUpStatus(
     context: context,
     builder: (BuildContext context) {
       return AlertDialog(
-        shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(0.0))),
-        content: SizedBox(
-          height: 180,
-          child: Column(
-            children: [
-              Icon(
-                leadingIcon!,
-                size: 80,
-                color: leadingIconColor ?? const Color(0xFFed6c02),
-              ),
-              const SizedBox(
-                height: 16,
-              ),
-              Text(
-                title!,
-                style: const TextStyle(
-                  color: Colors.black,
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                ),
-                textAlign: TextAlign.center,
-              ),
-              Text(
-                subtitle!,
-                style: const TextStyle(
-                  color: Colors.black,
-                  fontSize: 12,
-                  fontWeight: FontWeight.normal,
-                ),
-                textAlign: TextAlign.center,
-              ),
-            ],
-          ),
+        shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(8))),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(
+              leadingIcon!,
+              size: 80,
+            ),
+            const SizedBox(
+              height: 16,
+            ),
+            Text(
+              title!,
+              style: Theme.of(context).textTheme.titleLarge,
+              textAlign: TextAlign.center,
+            ),
+            Text(
+              subtitle!,
+              style: Theme.of(context).textTheme.bodySmall,
+              textAlign: TextAlign.center,
+            ),
+          ],
         ),
         actions: !twoButton
             ? <Widget>[
                 ElevatedButton(
                   onPressed: firstActionButtonOnTap ?? () => Get.back(),
-                  style: ButtonStyle(
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(0.0),
-                      ),
-                    ),
-                    backgroundColor:
-                        MaterialStatePropertyAll(firstActionButtonColor),
-                  ),
                   child: Text(
                     firstActionButtonTitle!,
-                    style: const TextStyle(
-                      color: ColorConstant.secondaryThemeColor,
-                      fontSize: 12,
-                      fontWeight: FontWeight.normal,
-                    ),
                     textAlign: TextAlign.center,
                   ),
                 )
@@ -116,16 +89,9 @@ void popUpStatus(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     ElevatedButton(
-                      onPressed:firstActionButtonOnTap ?? () => Get.back(),
+                      onPressed: firstActionButtonOnTap ?? () => Get.back(),
                       style: ButtonStyle(
-                          shape:
-                              MaterialStateProperty.all<RoundedRectangleBorder>(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(0.0),
-                            ),
-                          ),
-                          backgroundColor: const MaterialStatePropertyAll(
-                              Color(0xFF9c27b0))),
+                          backgroundColor: MaterialStatePropertyAll(Colors.red.shade900)),
                       child: const Text(
                         "NO",
                         style: TextStyle(color: Colors.white),
@@ -136,18 +102,9 @@ void popUpStatus(
                     ),
                     ElevatedButton(
                       onPressed: secondActionButtonOnTap,
-                      style: ButtonStyle(
-                          shape:
-                              MaterialStateProperty.all<RoundedRectangleBorder>(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(0.0),
-                            ),
-                          ),
-                          backgroundColor: const MaterialStatePropertyAll(
-                              Color(0xFFC62828))),
                       child: const Text(
                         "YES",
-                        style: TextStyle(color: Colors.white),
+
                       ),
                     )
                   ],
@@ -166,7 +123,7 @@ void listenToLocationUpdates({required String control, HomeController? homeContr
     distanceFilter: 10,
   );
   positionStream = Geolocator.getPositionStream(locationSettings: locationOptions).listen(
-        (Position? position) async {
+    (Position? position) async {
       log(position == null
           ? 'Unknown'
           : 'Positions :::  ${position.latitude.toString()}, ${position.longitude.toString()}');
@@ -188,14 +145,13 @@ void listenToLocationUpdates({required String control, HomeController? homeContr
                 ),
                 Text(
                   "TURN ON LOCATION!",
-                  style:
-                  TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 16),
+                  style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 16),
                   textAlign: TextAlign.center,
                 ),
                 Text(
                   "You need to turn on your location or you will be logged out!",
                   style:
-                  TextStyle(color: Colors.black, fontWeight: FontWeight.normal, fontSize: 12),
+                      TextStyle(color: Colors.black, fontWeight: FontWeight.normal, fontSize: 12),
                   textAlign: TextAlign.center,
                 ),
               ],
@@ -216,12 +172,19 @@ void listenToLocationUpdates({required String control, HomeController? homeContr
                             borderRadius: BorderRadius.circular(4.0),
                           ),
                         ),
-                        padding: MaterialStateProperty.all<EdgeInsets>(const EdgeInsets.symmetric(horizontal:8, vertical: 4)),
+                        padding: MaterialStateProperty.all<EdgeInsets>(
+                            const EdgeInsets.symmetric(horizontal: 8, vertical: 4)),
                         backgroundColor: const MaterialStatePropertyAll(Colors.red)),
                     child: const Row(
                       children: [
-                        Icon(Icons.logout, color: Colors.white, size: 16,),
-                        SizedBox(width: 4,),
+                        Icon(
+                          Icons.logout,
+                          color: Colors.white,
+                          size: 16,
+                        ),
+                        SizedBox(
+                          width: 4,
+                        ),
                         Text(
                           "No Thanks!",
                           style: TextStyle(color: Colors.white),
@@ -244,12 +207,19 @@ void listenToLocationUpdates({required String control, HomeController? homeContr
                             borderRadius: BorderRadius.circular(4.0),
                           ),
                         ),
-                        padding: MaterialStateProperty.all<EdgeInsets>(const EdgeInsets.symmetric(horizontal:8, vertical: 4)),
+                        padding: MaterialStateProperty.all<EdgeInsets>(
+                            const EdgeInsets.symmetric(horizontal: 8, vertical: 4)),
                         backgroundColor: const MaterialStatePropertyAll(Color(0xFF9c27b0))),
                     child: const Row(
                       children: [
-                        Icon(Icons.location_on_outlined, color: Colors.white,size: 16,),
-                        SizedBox(width: 4,),
+                        Icon(
+                          Icons.location_on_outlined,
+                          color: Colors.white,
+                          size: 16,
+                        ),
+                        SizedBox(
+                          width: 4,
+                        ),
                         Text(
                           "Turn On",
                           style: TextStyle(color: Colors.white),

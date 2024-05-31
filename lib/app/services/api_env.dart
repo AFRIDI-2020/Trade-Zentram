@@ -1,6 +1,7 @@
 class ApiUrl {
-  final String baseUrl = "https://octopi.algologix.com.bd/api/";
-  final String signInUrl ="Auth/Login"; 
+ // final String baseUrl = "https://octopi.algologix.com.bd/api/";
+  final String baseUrl = "http://api.tradezentrum.com/";
+  final String signInUrl ="Auth/Login";
   final String updatePasswordUrl = "User/ChangePassword";
   final String getTasks= "Task/GetTasks/${0}/${-1}";
   final String declearTaskStart = "Task/DeclareTaskStart/";

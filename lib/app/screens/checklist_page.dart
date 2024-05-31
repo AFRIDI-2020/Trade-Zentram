@@ -86,63 +86,51 @@ class CheckListPage extends GetView<UpActivityTaskController> {
                             context: context,
                             builder: (BuildContext context) {
                               return AlertDialog(
+                                backgroundColor: Colors.white,
+                                contentPadding:
+                                const EdgeInsets.symmetric(horizontal: 8, vertical: 20),
                                 shape: const RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.all(Radius.circular(0.0))),
-                                content: const SizedBox(
-                                  height: 180,
-                                  child: Column(
-                                    children: [
-                                      Icon(Icons.not_listed_location,
-                                          size: 80, color: Color(0xFFed6c02)
-                                          // Color(0xFF9c27b0),
-                                          ),
-                                      SizedBox(
-                                        height: 16,
-                                      ),
-                                      Text(
-                                        "Task isn't start yes!",
-                                        style: TextStyle(
-                                            color: Colors.black,
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 16),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                      Text(
-                                        "Start your task first before going to checklist.",
-                                        style: TextStyle(
-                                            color: Colors.black,
-                                            fontWeight: FontWeight.normal,
-                                            fontSize: 12),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    ],
-                                  ),
+                                    borderRadius: BorderRadius.all(
+                                        Radius.circular(8))),
+                                content: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    const Icon(Icons.play_circle_outline, size: 80,
+                                    ),
+                                    const SizedBox(
+                                      height: 16,
+                                    ),
+                                    Text(
+                                      "Task isn't start yes!",
+                                      style: theme.textTheme.titleLarge,
+                                      textAlign: TextAlign.center,
+                                    ),
+                                    const SizedBox(
+                                      height: 4,
+                                    ),
+                                    Text(
+                                      "Start your task first before going to checklist.",
+                                      style: theme.textTheme.bodySmall,
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ],
                                 ),
                                 actions: <Widget>[
                                   Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    mainAxisAlignment:
+                                    MainAxisAlignment.center,
                                     children: [
                                       ElevatedButton(
                                         onPressed: () {
                                           Get.back();
                                         },
-                                        style: ButtonStyle(
-                                            shape:
-                                                MaterialStateProperty.all<RoundedRectangleBorder>(
-                                              RoundedRectangleBorder(
-                                                borderRadius: BorderRadius.circular(0.0),
-                                              ),
-                                            ),
-                                            backgroundColor:
-                                                const MaterialStatePropertyAll(Color(0xFFed6c02))),
+
                                         child: const Text(
                                           "Ok",
-                                          style: TextStyle(color: Colors.white),
+
                                         ),
                                       ),
-                                      const SizedBox(
-                                        width: 20,
-                                      ),
+
                                     ],
                                   )
                                 ],
@@ -423,10 +411,7 @@ class CheckListPage extends GetView<UpActivityTaskController> {
                                               ),
                                               Text(
                                                 statusTitle[i].title!,
-                                                style: const TextStyle(
-                                                    color: Colors.black,
-                                                    fontWeight: FontWeight.normal,
-                                                    fontSize: 16),
+                                                style: theme.textTheme.bodyMedium,
                                                 textAlign: TextAlign.center,
                                               ),
                                             ],
@@ -435,20 +420,26 @@ class CheckListPage extends GetView<UpActivityTaskController> {
                                     ],
                                   ),
                                   actions: <Widget>[
-                                    ElevatedButton(
+                                    Obx(() => ElevatedButton(
+                                      style: ButtonStyle(
+                                          backgroundColor: MaterialStateProperty.all<Color>(taskDetailsController.warningCheckList.value? ColorConstant.primaryThemeColor : ColorConstant.primaryThemeColor.withOpacity(0.5))
+                                      ),
                                       onPressed: () {
-                                        Get.off(
-                                            () => DownActivityTaskPage(
-                                                  pageTitle: pageTitle,
-                                                ),
-                                            arguments: taskDetailsController
-                                                .taskDetailsData.value.taskId
-                                                .toString());
+                                        if(taskDetailsController.warningCheckList.value) {
+                                          Get.off(
+                                                  () => DownActivityTaskPage(
+                                                pageTitle: pageTitle,
+                                              ),
+                                              arguments: taskDetailsController
+                                                  .taskDetailsData.value.taskId
+                                                  .toString());
+                                        }
                                       },
                                       child: const Text(
                                         "Continue",
                                       ),
-                                    )
+                                    ))
+
                                   ],
                                 );
                               },
@@ -913,64 +904,52 @@ class CheckListPage extends GetView<UpActivityTaskController> {
                                       context: context,
                                       builder: (BuildContext context) {
                                         return AlertDialog(
+                                          backgroundColor: Colors.white,
+                                          contentPadding:
+                                          const EdgeInsets.symmetric(horizontal: 8, vertical: 20),
                                           shape: const RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.all(Radius.circular(0.0))),
-                                          content: const SizedBox(
-                                            height: 180,
-                                            child: Column(
-                                              children: [
-                                                Icon(Icons.not_listed_location,
-                                                    size: 80, color: Color(0xFFed6c02)
-                                                    // Color(0xFF9c27b0),
-                                                    ),
-                                                SizedBox(
-                                                  height: 16,
-                                                ),
-                                                Text(
-                                                  "Task isn't start yes!",
-                                                  style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontWeight: FontWeight.bold,
-                                                      fontSize: 16),
-                                                  textAlign: TextAlign.center,
-                                                ),
-                                                Text(
-                                                  "Start your task first before going to checklist.",
-                                                  style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontWeight: FontWeight.normal,
-                                                      fontSize: 12),
-                                                  textAlign: TextAlign.center,
-                                                ),
-                                              ],
-                                            ),
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(8))),
+                                          content: Column(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              const Icon(Icons.play_circle_outline, size: 80,
+                                                // Color(0xFF9c27b0),
+                                              ),
+                                              const SizedBox(
+                                                height: 16,
+                                              ),
+                                              Text(
+                                                "Task isn't start yes!",
+                                                style: theme.textTheme.titleLarge,
+                                                textAlign: TextAlign.center,
+                                              ),
+                                              const SizedBox(
+                                                height: 4,
+                                              ),
+                                              Text(
+                                                "Start your task first before going to checklist.",
+                                                style: theme.textTheme.bodySmall,
+                                                textAlign: TextAlign.center,
+                                              ),
+                                            ],
                                           ),
                                           actions: <Widget>[
                                             Row(
-                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              mainAxisAlignment:
+                                              MainAxisAlignment.center,
                                               children: [
                                                 ElevatedButton(
                                                   onPressed: () {
                                                     Get.back();
                                                   },
-                                                  style: ButtonStyle(
-                                                      shape: MaterialStateProperty.all<
-                                                          RoundedRectangleBorder>(
-                                                        RoundedRectangleBorder(
-                                                          borderRadius: BorderRadius.circular(0.0),
-                                                        ),
-                                                      ),
-                                                      backgroundColor:
-                                                          const MaterialStatePropertyAll(
-                                                              Color(0xFFed6c02))),
+
                                                   child: const Text(
                                                     "Ok",
-                                                    style: TextStyle(color: Colors.white),
+
                                                   ),
                                                 ),
-                                                const SizedBox(
-                                                  width: 20,
-                                                ),
+
                                               ],
                                             )
                                           ],
@@ -2195,39 +2174,35 @@ class CheckListPage extends GetView<UpActivityTaskController> {
                                                   context: context,
                                                   builder: (BuildContext context) {
                                                     return AlertDialog(
+                                                      backgroundColor: Colors.white,
+                                                      contentPadding:
+                                                      const EdgeInsets.symmetric(horizontal: 8, vertical: 20),
                                                       shape: const RoundedRectangleBorder(
                                                           borderRadius: BorderRadius.all(
-                                                              Radius.circular(0.0))),
-                                                      content: const SizedBox(
-                                                        height: 180,
-                                                        child: Column(
-                                                          children: [
-                                                            Icon(Icons.not_listed_location,
-                                                                size: 80, color: Color(0xFFed6c02)
-                                                                // Color(0xFF9c27b0),
-                                                                ),
-                                                            SizedBox(
-                                                              height: 16,
-                                                            ),
-                                                            Text(
-                                                              "Task isn't start yes!",
-                                                              style: TextStyle(
-                                                                  color: Colors.black,
-                                                                  fontWeight: FontWeight.bold,
-                                                                  fontSize: 16),
-                                                              textAlign: TextAlign.center,
-                                                            ),
-                                                            Text(
-                                                              "Start your task first before going to checklist.",
-                                                              style: TextStyle(
-                                                                color: Colors.black,
-                                                                fontWeight: FontWeight.normal,
-                                                                fontSize: 12,
+                                                              Radius.circular(8))),
+                                                      content: Column(
+                                                        mainAxisSize: MainAxisSize.min,
+                                                        children: [
+                                                          const Icon(Icons.play_circle_outline, size: 80,
+                                                              // Color(0xFF9c27b0),
                                                               ),
-                                                              textAlign: TextAlign.center,
-                                                            ),
-                                                          ],
-                                                        ),
+                                                          const SizedBox(
+                                                            height: 16,
+                                                          ),
+                                                          Text(
+                                                            "Task isn't start yes!",
+                                                            style: theme.textTheme.titleLarge,
+                                                            textAlign: TextAlign.center,
+                                                          ),
+                                                          const SizedBox(
+                                                            height: 4,
+                                                          ),
+                                                          Text(
+                                                            "Start your task first before going to checklist.",
+                                                            style: theme.textTheme.bodySmall,
+                                                            textAlign: TextAlign.center,
+                                                          ),
+                                                        ],
                                                       ),
                                                       actions: <Widget>[
                                                         Row(
@@ -2238,27 +2213,13 @@ class CheckListPage extends GetView<UpActivityTaskController> {
                                                               onPressed: () {
                                                                 Get.back();
                                                               },
-                                                              style: ButtonStyle(
-                                                                  shape: MaterialStateProperty.all<
-                                                                      RoundedRectangleBorder>(
-                                                                    RoundedRectangleBorder(
-                                                                      borderRadius:
-                                                                          BorderRadius.circular(
-                                                                              0.0),
-                                                                    ),
-                                                                  ),
-                                                                  backgroundColor:
-                                                                      const MaterialStatePropertyAll(
-                                                                          Color(0xFFed6c02))),
+
                                                               child: const Text(
                                                                 "Ok",
-                                                                style:
-                                                                    TextStyle(color: Colors.white),
+
                                                               ),
                                                             ),
-                                                            const SizedBox(
-                                                              width: 20,
-                                                            ),
+
                                                           ],
                                                         )
                                                       ],

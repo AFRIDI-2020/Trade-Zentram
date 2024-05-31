@@ -402,7 +402,7 @@ class UpActivityTaskPage extends GetView<UpActivityTaskController> {
                                       height: 4,
                                     ),
                                     Text(
-                                      "Are you sure that you want to start Task - Task # 3647?",
+                                      "Are you sure that you want to start this Task",
                                       style: theme.textTheme.bodySmall,
                                       textAlign: TextAlign.center,
                                     ),
@@ -1757,94 +1757,83 @@ class UpActivityTaskPage extends GetView<UpActivityTaskController> {
                   const SizedBox(
                     height: 16,
                   ),
-                  SizedBox(
-                    width: 120,
-                    height: 50,
-                    child: ElevatedButton(
-                      onPressed: !edit
-                          ? () async {
-                              AuthController authController = Get.put(AuthController());
-                              if (taskDetailsController.searchFromController.text != "" &&
-                                  taskDetailsController.searchToController.text != "" &&
-                                  taskDetailsController.searchVehicleController.text != "" &&
-                                  taskDetailsController.fareTextEditingController.text != "") {
-                                if (!await authController.handleLocationPermission()) {
-                                  authController.logout();
-                                } else {
-                                  taskDetailsController.addTransport();
-                                  Get.back();
-                                }
-                              } else {
-                                mystate(() {
-                                  taskDetailsController.showFromValidate.value = "true";
-                                  taskDetailsController.showToValidate.value = "true";
-                                  taskDetailsController.showVehicleValidate.value = "true";
-                                  taskDetailsController.showFareValidate.value = "true";
-                                });
-                              }
-                            }
-                          : () async {
-                              AuthController authController = Get.put(AuthController());
-
-                              var request = {
-                                // "taskId": taskDetailsController.taskId.value,
-                                "taskTransportationAutoId": autoId ?? "",
-                                "taskTransportationCost":
-                                    taskDetailsController.fareTextEditingController.text == ""
-                                        ? fare
-                                        : taskDetailsController.fareTextEditingController.text,
-                                "taskTransportationEndLat": null,
-                                "taskTransportationEndLocation":
-                                    taskDetailsController.searchToController.text == ""
-                                        ? to
-                                        : taskDetailsController.searchToController.text,
-                                "taskTransportationEndLong": null,
-                                "taskTransportationRemarks":
-                                    taskDetailsController.remarkTextEditingController.text == ""
-                                        ? remark
-                                        : taskDetailsController.remarkTextEditingController.text,
-                                "taskTransportationStartLat": authController.latitude.value,
-                                "taskTransportationStartLocation":
-                                    taskDetailsController.searchFromController.text == ""
-                                        ? from
-                                        : taskDetailsController.searchFromController.text,
-                                "taskTransportationStartLong": authController.longitude.value,
-                                "taskTransportationVehicleId":
-                                    taskDetailsController.selectedVehicleId.value == 0
-                                        ? vehicleId
-                                        : taskDetailsController.selectedVehicleId.value,
-                                "taskTransporationWayStatus": 0
-                              };
+                  ElevatedButton(
+                    onPressed: !edit
+                        ? () async {
+                            AuthController authController = Get.put(AuthController());
+                            if (taskDetailsController.searchFromController.text != "" &&
+                                taskDetailsController.searchToController.text != "" &&
+                                taskDetailsController.searchVehicleController.text != "" &&
+                                taskDetailsController.fareTextEditingController.text != "") {
                               if (!await authController.handleLocationPermission()) {
                                 authController.logout();
                               } else {
-                                taskDetailsController.editTransport(
-                                    endPoint: ApiUrl().updateTransportation, data: request);
+                                taskDetailsController.addTransport();
                                 Get.back();
                               }
-                            },
-                      style: ButtonStyle(
-                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                          RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(0.0),
-                          ),
+                            } else {
+                              mystate(() {
+                                taskDetailsController.showFromValidate.value = "true";
+                                taskDetailsController.showToValidate.value = "true";
+                                taskDetailsController.showVehicleValidate.value = "true";
+                                taskDetailsController.showFareValidate.value = "true";
+                              });
+                            }
+                          }
+                        : () async {
+                            AuthController authController = Get.put(AuthController());
+
+                            var request = {
+                              // "taskId": taskDetailsController.taskId.value,
+                              "taskTransportationAutoId": autoId ?? "",
+                              "taskTransportationCost":
+                                  taskDetailsController.fareTextEditingController.text == ""
+                                      ? fare
+                                      : taskDetailsController.fareTextEditingController.text,
+                              "taskTransportationEndLat": null,
+                              "taskTransportationEndLocation":
+                                  taskDetailsController.searchToController.text == ""
+                                      ? to
+                                      : taskDetailsController.searchToController.text,
+                              "taskTransportationEndLong": null,
+                              "taskTransportationRemarks":
+                                  taskDetailsController.remarkTextEditingController.text == ""
+                                      ? remark
+                                      : taskDetailsController.remarkTextEditingController.text,
+                              "taskTransportationStartLat": authController.latitude.value,
+                              "taskTransportationStartLocation":
+                                  taskDetailsController.searchFromController.text == ""
+                                      ? from
+                                      : taskDetailsController.searchFromController.text,
+                              "taskTransportationStartLong": authController.longitude.value,
+                              "taskTransportationVehicleId":
+                                  taskDetailsController.selectedVehicleId.value == 0
+                                      ? vehicleId
+                                      : taskDetailsController.selectedVehicleId.value,
+                              "taskTransporationWayStatus": 0
+                            };
+                            if (!await authController.handleLocationPermission()) {
+                              authController.logout();
+                            } else {
+                              taskDetailsController.editTransport(
+                                  endPoint: ApiUrl().updateTransportation, data: request);
+                              Get.back();
+                            }
+                          },
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const Icon(
+                          Icons.add_circle_outline,
+                          size: 20,
                         ),
-                        backgroundColor: const MaterialStatePropertyAll(Colors.green),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Text(
-                            !edit ? "Add" : "Update",
-                            style: const TextStyle(color: Colors.white),
-                          ),
-                          const Spacer(),
-                          const Icon(
-                            Icons.add_circle_outline,
-                            color: Colors.white,
-                          )
-                        ],
-                      ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        Text(
+                          !edit ? "Add" : "Update",
+                        ),
+                      ],
                     ),
                   ),
                   const SizedBox(

@@ -293,8 +293,8 @@ class DownActivityTaskPage extends GetView<DownActivityTaskController> {
                                               Get.back();
                                             },
                                             style: ButtonStyle(
-                                                shape:
-                                                    MaterialStateProperty.all<RoundedRectangleBorder>(
+                                                shape: MaterialStateProperty.all<
+                                                    RoundedRectangleBorder>(
                                                   RoundedRectangleBorder(
                                                     borderRadius: BorderRadius.circular(0.0),
                                                   ),
@@ -318,8 +318,8 @@ class DownActivityTaskPage extends GetView<DownActivityTaskController> {
                                               Get.back();
                                             },
                                             style: ButtonStyle(
-                                                shape:
-                                                    MaterialStateProperty.all<RoundedRectangleBorder>(
+                                                shape: MaterialStateProperty.all<
+                                                    RoundedRectangleBorder>(
                                                   RoundedRectangleBorder(
                                                     borderRadius: BorderRadius.circular(0.0),
                                                   ),
@@ -353,7 +353,8 @@ class DownActivityTaskPage extends GetView<DownActivityTaskController> {
                         ElevatedButton(
                           onPressed: () {
                             taskDetailsController.taskDetailsData.value.taskEndTime == null &&
-                                    taskDetailsController.taskDetailsData.value.taskStartTime == null
+                                    taskDetailsController.taskDetailsData.value.taskStartTime ==
+                                        null
                                 ? showDialog(
                                     context: context,
                                     builder: (BuildContext context) {
@@ -399,8 +400,8 @@ class DownActivityTaskPage extends GetView<DownActivityTaskController> {
                                               Get.back();
                                             },
                                             style: ButtonStyle(
-                                                shape:
-                                                    MaterialStateProperty.all<RoundedRectangleBorder>(
+                                                shape: MaterialStateProperty.all<
+                                                    RoundedRectangleBorder>(
                                                   RoundedRectangleBorder(
                                                     borderRadius: BorderRadius.circular(0.0),
                                                   ),
@@ -491,7 +492,8 @@ class DownActivityTaskPage extends GetView<DownActivityTaskController> {
                                                         shape: MaterialStateProperty.all<
                                                             RoundedRectangleBorder>(
                                                           RoundedRectangleBorder(
-                                                            borderRadius: BorderRadius.circular(0.0),
+                                                            borderRadius:
+                                                                BorderRadius.circular(0.0),
                                                           ),
                                                         ),
                                                         backgroundColor:
@@ -1077,38 +1079,31 @@ class DownActivityTaskPage extends GetView<DownActivityTaskController> {
                                               return AlertDialog(
                                                 shape: const RoundedRectangleBorder(
                                                     borderRadius:
-                                                        BorderRadius.all(Radius.circular(0.0))),
-                                                content: const SizedBox(
-                                                  height: 180,
-                                                  child: Column(
-                                                    children: [
-                                                      Icon(Icons.not_listed_location,
-                                                          size: 80, color: Color(0xFFC62828)
-                                                          // Color(0xFF9c27b0),
-                                                          ),
-                                                      SizedBox(
-                                                        height: 16,
-                                                      ),
-                                                      Text(
-                                                        "Are you sure that you have reached?",
-                                                        style: TextStyle(
-                                                          color: Colors.black,
-                                                          fontSize: 16,
-                                                          fontWeight: FontWeight.bold,
-                                                        ),
-                                                        textAlign: TextAlign.center,
-                                                      ),
-                                                      Text(
-                                                        "Once it is updated, you can't change!",
-                                                        style: TextStyle(
-                                                          color: Colors.black,
-                                                          fontSize: 12,
-                                                          fontWeight: FontWeight.normal,
-                                                        ),
-                                                        textAlign: TextAlign.center,
-                                                      ),
-                                                    ],
-                                                  ),
+                                                        BorderRadius.all(Radius.circular(8))),
+                                                content: Column(
+                                                  mainAxisSize: MainAxisSize.min,
+                                                  children: [
+                                                    const Icon(
+                                                      Icons.not_listed_location,
+                                                      size: 60,
+                                                    ),
+                                                    const SizedBox(
+                                                      height: 4,
+                                                    ),
+                                                    Text(
+                                                      "Are you sure that you have reached?",
+                                                      style: theme.textTheme.titleLarge,
+                                                      textAlign: TextAlign.center,
+                                                    ),
+                                                    const SizedBox(
+                                                      height: 16,
+                                                    ),
+                                                    Text(
+                                                      "Once it is updated, you can't change!",
+                                                      style: theme.textTheme.bodyMedium,
+                                                      textAlign: TextAlign.center,
+                                                    ),
+                                                  ],
                                                 ),
                                                 actions: <Widget>[
                                                   Row(
@@ -1119,16 +1114,9 @@ class DownActivityTaskPage extends GetView<DownActivityTaskController> {
                                                           Get.back();
                                                         },
                                                         style: ButtonStyle(
-                                                            shape: MaterialStateProperty.all<
-                                                                RoundedRectangleBorder>(
-                                                              RoundedRectangleBorder(
-                                                                borderRadius:
-                                                                    BorderRadius.circular(0.0),
-                                                              ),
-                                                            ),
                                                             backgroundColor:
-                                                                const MaterialStatePropertyAll(
-                                                                    Color(0xFF9c27b0))),
+                                                                MaterialStatePropertyAll(
+                                                                    Colors.red.shade900)),
                                                         child: const Text(
                                                           "NO",
                                                           style: TextStyle(color: Colors.white),
@@ -1141,37 +1129,27 @@ class DownActivityTaskPage extends GetView<DownActivityTaskController> {
                                                         onPressed: () {
                                                           taskDetailsController.reachedTransport(
                                                               endPoint: ApiUrl().reachLocation,
-                                                              taskId:
-                                                                  taskDetailsController.taskId.value,
+                                                              taskId: taskDetailsController
+                                                                  .taskId.value,
                                                               taskTransportationAutoId:
                                                                   taskDetailsController
                                                                       .taskDetailsData
                                                                       .value
-                                                                      .taskTransportationData![index]
+                                                                      .taskTransportationData![
+                                                                          index]
                                                                       .taskTransportationAutoId
                                                                       .toString(),
                                                               taskTransportationEndLocation:
                                                                   taskDetailsController
                                                                       .taskDetailsData
                                                                       .value
-                                                                      .taskTransportationData![index]
+                                                                      .taskTransportationData![
+                                                                          index]
                                                                       .taskTransportationEndLocation);
                                                           Get.back();
                                                         },
-                                                        style: ButtonStyle(
-                                                            shape: MaterialStateProperty.all<
-                                                                RoundedRectangleBorder>(
-                                                              RoundedRectangleBorder(
-                                                                borderRadius:
-                                                                    BorderRadius.circular(0.0),
-                                                              ),
-                                                            ),
-                                                            backgroundColor:
-                                                                const MaterialStatePropertyAll(
-                                                                    Color(0xFFC62828))),
                                                         child: const Text(
                                                           "YES",
-                                                          style: TextStyle(color: Colors.white),
                                                         ),
                                                       )
                                                     ],
@@ -1399,10 +1377,8 @@ class DownActivityTaskPage extends GetView<DownActivityTaskController> {
                           authController.logout();
                         } else {
                           if (context.mounted) {
-                            if (taskDetailsController.taskDetailsData.value.taskStartTime ==
-                                null &&
-                                taskDetailsController.taskDetailsData.value.taskEndTime ==
-                                    null) {
+                            if (taskDetailsController.taskDetailsData.value.taskStartTime == null &&
+                                taskDetailsController.taskDetailsData.value.taskEndTime == null) {
                               popUpStatus(
                                 context,
                                 leadingIcon: Icons.error_outline,
@@ -1422,55 +1398,54 @@ class DownActivityTaskPage extends GetView<DownActivityTaskController> {
                                   firstActionButtonColor: const Color(0xFFed6c02),
                                   secondActionButtonTitle: "Yes",
                                   secondActionButtonOnTap: () async {
-                                    Map<String, dynamic>? response =
+                                Map<String, dynamic>? response =
                                     await taskDetailsController.taskAccomplish(
                                         endPoint: ApiUrl().taskAccomplish,
-                                        taskId: taskDetailsController
-                                            .taskDetailsData.value.taskId
+                                        taskId: taskDetailsController.taskDetailsData.value.taskId
                                             .toString());
 
-                                    if (response != {}) {
-                                      popUpStatus(context,
-                                          barrierDismissible: false,
-                                          twoButton: false,
-                                          leadingIcon: Icons.check_circle_outline,
-                                          leadingIconColor: Colors.green,
-                                          title: "${response!['data']}",
-                                          subtitle: "Your task is complete",
-                                          firstActionButtonTitle: "Goto Home Page",
-                                          firstActionButtonOnTap: () {
-                                            log("PRESSED");
-                                            Get.offAll(() => const HomePage());
-                                          });
-                                    }
+                                if (response != {}) {
+                                  popUpStatus(context,
+                                      barrierDismissible: false,
+                                      twoButton: false,
+                                      leadingIcon: Icons.check_circle_outline,
+                                      leadingIconColor: Colors.green,
+                                      title: "${response!['data']}",
+                                      subtitle: "Your task is complete",
+                                      firstActionButtonTitle: "Goto Home Page",
+                                      firstActionButtonOnTap: () {
+                                    log("PRESSED");
+                                    Get.offAll(() => const HomePage());
                                   });
+                                }
+                              });
                             } else if (taskDetailsController
                                 .taskDetailsData.value.taskTransportationData!.isNotEmpty) {
                               if (taskDetailsController
-                                  .taskDetailsData
-                                  .value
-                                  .taskTransportationData![taskDetailsController
-                                  .taskDetailsData
-                                  .value
-                                  .taskTransportationData!
-                                  .length -
-                                  1]
-                                  .taskTransportationEndLat ==
-                                  null &&
+                                          .taskDetailsData
+                                          .value
+                                          .taskTransportationData![taskDetailsController
+                                                  .taskDetailsData
+                                                  .value
+                                                  .taskTransportationData!
+                                                  .length -
+                                              1]
+                                          .taskTransportationEndLat ==
+                                      null &&
                                   taskDetailsController
-                                      .taskDetailsData
-                                      .value
-                                      .taskTransportationData![taskDetailsController
-                                      .taskDetailsData
-                                      .value
-                                      .taskTransportationData!
-                                      .length -
-                                      1]
-                                      .taskTransportationEndLong ==
+                                          .taskDetailsData
+                                          .value
+                                          .taskTransportationData![taskDetailsController
+                                                  .taskDetailsData
+                                                  .value
+                                                  .taskTransportationData!
+                                                  .length -
+                                              1]
+                                          .taskTransportationEndLong ==
                                       null) {
                                 popUpStatus(
                                   context,
-                                  leadingIcon: Icons.error_outline,
+                                  leadingIcon: Icons.location_off,
                                   title: "MISSED END LOCATION",
                                   subtitle: "You have not clicked the reach button above!!",
                                   firstActionButtonTitle: "OK",
@@ -1500,27 +1475,26 @@ class DownActivityTaskPage extends GetView<DownActivityTaskController> {
                                     firstActionButtonColor: const Color(0xFFed6c02),
                                     secondActionButtonTitle: "Yes",
                                     secondActionButtonOnTap: () async {
-                                      Map<String, dynamic>? response =
+                                  Map<String, dynamic>? response =
                                       await taskDetailsController.taskAccomplish(
                                           endPoint: ApiUrl().taskAccomplish,
-                                          taskId: taskDetailsController
-                                              .taskDetailsData.value.taskId
+                                          taskId: taskDetailsController.taskDetailsData.value.taskId
                                               .toString());
 
-                                      if (response != {}) {
-                                        popUpStatus(context,
-                                            barrierDismissible: false,
-                                            twoButton: false,
-                                            leadingIcon: Icons.check_circle_outline,
-                                            title: "${response!['data']}",
-                                            subtitle: "Your task is complete",
-                                            firstActionButtonTitle: "Goto Home Page",
-                                            firstActionButtonOnTap: () {
-                                              log("PRESSED");
-                                              Get.offAll(() => const HomePage());
-                                            });
-                                      }
+                                  if (response != {}) {
+                                    popUpStatus(context,
+                                        barrierDismissible: false,
+                                        twoButton: false,
+                                        leadingIcon: Icons.check_circle_outline,
+                                        title: "${response!['data']}",
+                                        subtitle: "Your task is complete",
+                                        firstActionButtonTitle: "Goto Home Page",
+                                        firstActionButtonOnTap: () {
+                                      log("PRESSED");
+                                      Get.offAll(() => const HomePage());
                                     });
+                                  }
+                                });
                               }
                             } else {
                               popUpStatus(context,
@@ -1532,28 +1506,27 @@ class DownActivityTaskPage extends GetView<DownActivityTaskController> {
                                   firstActionButtonColor: const Color(0xFFed6c02),
                                   secondActionButtonTitle: "Yes",
                                   secondActionButtonOnTap: () async {
-                                    Map<String, dynamic>? response =
+                                Map<String, dynamic>? response =
                                     await taskDetailsController.taskAccomplish(
                                         endPoint: ApiUrl().taskAccomplish,
-                                        taskId: taskDetailsController
-                                            .taskDetailsData.value.taskId
+                                        taskId: taskDetailsController.taskDetailsData.value.taskId
                                             .toString());
 
-                                    if (response != {}) {
-                                      popUpStatus(context,
-                                          barrierDismissible: false,
-                                          twoButton: false,
-                                          leadingIcon: Icons.check_circle_outline,
-                                          title: "${response!['data']}",
-                                          subtitle: "Your task is complete",
-                                          firstActionButtonTitle: "Goto Home Page",
-                                          firstActionButtonColor: ColorConstant().baseColor,
-                                          firstActionButtonOnTap: () {
-                                            log("PRESSED");
-                                            Get.offAll(() => const HomePage());
-                                          });
-                                    }
+                                if (response != {}) {
+                                  popUpStatus(context,
+                                      barrierDismissible: false,
+                                      twoButton: false,
+                                      leadingIcon: Icons.check_circle_outline,
+                                      title: "${response!['data']}",
+                                      subtitle: "Your task is complete",
+                                      firstActionButtonTitle: "Goto Home Page",
+                                      firstActionButtonColor: ColorConstant().baseColor,
+                                      firstActionButtonOnTap: () {
+                                    log("PRESSED");
+                                    Get.offAll(() => const HomePage());
                                   });
+                                }
+                              });
                             }
                           }
                         }
