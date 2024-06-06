@@ -873,528 +873,528 @@ class CheckListPage extends GetView<UpActivityTaskController> {
               ),
             ),
           ),*/
-          bottomNavigationBar: _isReturnOptionVisible(taskDetailsController)
-              ? Container(
-                  height: 60,
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Obx(
-                    () => !taskDetailsController.taskReturned.value
-                        ? SlideAction(
-                            key: _key,
-                            height: 42,
-                            text: "Slide to Return",
-                            textStyle: theme.textTheme.titleMedium
-                                ?.copyWith(color: ColorConstant.secondaryThemeColor),
-                            outerColor: ColorConstant().baseColor,
-                            innerColor: ColorConstant.secondaryThemeColor,
-                            sliderButtonIcon: const Icon(Icons.arrow_forward),
-                            sliderButtonIconSize: 24,
-                            sliderButtonIconPadding: 4,
-                            animationDuration: const Duration(milliseconds: 500),
-                            onSubmit: () async {
-                              if (!await AuthController().handleLocationPermission()) {
-                                AuthController().logout();
-                              } else {
-                                if (context.mounted) {
-                                  if (taskDetailsController.taskDetailsData.value.taskStartTime ==
-                                          null &&
-                                      taskDetailsController.taskDetailsData.value.taskEndTime ==
-                                          null) {
-                                    showDialog(
-                                      context: context,
-                                      builder: (BuildContext context) {
-                                        return AlertDialog(
-                                          backgroundColor: Colors.white,
-                                          contentPadding:
-                                          const EdgeInsets.symmetric(horizontal: 8, vertical: 20),
-                                          shape: const RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(8))),
-                                          content: Column(
-                                            mainAxisSize: MainAxisSize.min,
-                                            children: [
-                                              const Icon(Icons.play_circle_outline, size: 80,
-                                                // Color(0xFF9c27b0),
-                                              ),
-                                              const SizedBox(
-                                                height: 16,
-                                              ),
-                                              Text(
-                                                "Task isn't start yes!",
-                                                style: theme.textTheme.titleLarge,
-                                                textAlign: TextAlign.center,
-                                              ),
-                                              const SizedBox(
-                                                height: 4,
-                                              ),
-                                              Text(
-                                                "Start your task first before going to checklist.",
-                                                style: theme.textTheme.bodySmall,
-                                                textAlign: TextAlign.center,
-                                              ),
-                                            ],
-                                          ),
-                                          actions: <Widget>[
-                                            Row(
-                                              mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                              children: [
-                                                ElevatedButton(
-                                                  onPressed: () {
-                                                    Get.back();
-                                                  },
-
-                                                  child: const Text(
-                                                    "Ok",
-
-                                                  ),
-                                                ),
-
-                                              ],
-                                            )
-                                          ],
-                                        );
-                                      },
-                                    );
-                                  } else if (taskDetailsController
-                                      .taskDetailsData.value.taskTransportationData!.isEmpty) {
-                                    showDialog(
-                                      context: context,
-                                      builder: (BuildContext context) {
-                                        return AlertDialog(
-                                          backgroundColor: Colors.white,
-                                          shape: const RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.all(Radius.circular(8))),
-                                          content: Column(
-                                            mainAxisSize: MainAxisSize.min,
-                                            children: [
-                                              Image.asset(
-                                                "assets/ic_empty_transport.png",
-                                                width: 80,
-                                                height: 80,
-                                              ),
-                                              const SizedBox(
-                                                height: 4,
-                                              ),
-                                              Text("Empty Transport",
-                                                  style: theme.textTheme.titleLarge),
-                                              const SizedBox(
-                                                height: 16,
-                                              ),
-                                              Text(
-                                                "You have not added any transport yet",
-                                                style: theme.textTheme.bodyMedium,
-                                              ),
-                                              const SizedBox(
-                                                height: 10,
-                                              ),
-                                            ],
-                                          ),
-                                          actions: <Widget>[
-                                            Align(
-                                              alignment: Alignment.center,
-                                              child: ElevatedButton(
-                                                onPressed: () {
-                                                  Get.back();
-                                                },
-                                                child: const Text(
-                                                  "Okay",
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        );
-                                      },
-                                    );
-                                  } else if (taskDetailsController
-                                              .taskDetailsData
-                                              .value
-                                              .taskTransportationData![taskDetailsController
-                                                      .taskDetailsData
-                                                      .value
-                                                      .taskTransportationData!
-                                                      .length -
-                                                  1]
-                                              .taskTransportationEndLat ==
-                                          null &&
-                                      taskDetailsController
-                                              .taskDetailsData
-                                              .value
-                                              .taskTransportationData![taskDetailsController
-                                                      .taskDetailsData
-                                                      .value
-                                                      .taskTransportationData!
-                                                      .length -
-                                                  1]
-                                              .taskTransportationEndLat ==
-                                          null) {
-                                    showDialog(
-                                      context: context,
-                                      builder: (BuildContext context) {
-                                        return AlertDialog(
-                                          shape: const RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.all(Radius.circular(8.0))),
-                                          content: Column(
-                                            mainAxisSize: MainAxisSize.min,
-                                            children: [
-                                              const Icon(
-                                                Icons.location_off,
-                                                size: 60,
-                                              ),
-                                              const SizedBox(
-                                                height: 4,
-                                              ),
-                                              Text("Missed End Location",
-                                                  style: theme.textTheme.titleLarge),
-                                              const SizedBox(
-                                                height: 16,
-                                              ),
-                                              Text(
-                                                "You have not clicked the reach button",
-                                                style: theme.textTheme.bodyMedium,
-                                              ),
-                                              const SizedBox(
-                                                height: 10,
-                                              ),
-                                            ],
-                                          ),
-                                          actions: <Widget>[
-                                            ElevatedButton(
-                                              onPressed: () {
-                                                Get.back();
-                                              },
-                                              child: const Text(
-                                                "Ok",
-                                              ),
-                                            )
-                                          ],
-                                        );
-                                      },
-                                    );
-                                  } else if (!taskDetailsController.verifyOtpStatus.value) {
-                                    showDialog(
-                                      context: context,
-                                      builder: (BuildContext context) {
-                                        return AlertDialog(
-                                          shape: const RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.all(Radius.circular(8))),
-                                          content: Column(
-                                            mainAxisSize: MainAxisSize.min,
-                                            children: [
-                                              Padding(
-                                                padding: const EdgeInsets.only(left: 15),
-                                                child: Image.asset(
-                                                  "assets/ic_verify_mobile.png",
-                                                  height: 60,
-                                                  width: 60,
-                                                ),
-                                              ),
-                                              const SizedBox(
-                                                height: 4,
-                                              ),
-                                              Text(
-                                                "Verify mobile number!!",
-                                                style: theme.textTheme.titleLarge,
-                                                textAlign: TextAlign.center,
-                                              ),
-                                              const SizedBox(
-                                                height: 16,
-                                              ),
-                                              Text(
-                                                "You haven't verify mobile number yet",
-                                                style: theme.textTheme.bodyMedium,
-                                                textAlign: TextAlign.center,
-                                              ),
-                                            ],
-                                          ),
-                                          actions: <Widget>[
-                                            Align(
-                                              alignment: Alignment.center,
-                                              child: ElevatedButton(
-                                                onPressed: () {
-                                                  Get.back();
-                                                },
-                                                child: const Text(
-                                                  "Okay",
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        );
-                                      },
-                                    );
-                                  } else {
-                                    showDialog(
-                                      context: context,
-                                      builder: (BuildContext context) {
-                                        taskDetailsController.instructedNameTextEditingController
-                                            .clear();
-                                        taskDetailsController.instructedReasonTextEditingController
-                                            .clear();
-                                        return AlertDialog(
-                                          backgroundColor: Colors.white,
-                                          shape: const RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.all(Radius.circular(8))),
-                                          content: Form(
-                                            key: formKey1,
-                                            child: Column(
-                                              mainAxisSize: MainAxisSize.min,
-                                              children: [
-                                                Image.asset(
-                                                  "assets/ic_return_product.png",
-                                                  height: 80,
-                                                  width: 80,
-                                                ),
-                                                const SizedBox(
-                                                  height: 4,
-                                                ),
-                                                Text("Return Product",
-                                                    style: theme.textTheme.titleLarge),
-                                                const SizedBox(
-                                                  height: 16,
-                                                ),
-                                                Text(
-                                                  "Who instructed to return product?",
-                                                  style: theme.textTheme.bodyMedium,
-                                                ),
-                                                const SizedBox(
-                                                  height: 10,
-                                                ),
-                                                TextFormField(
-                                                  readOnly: false,
-                                                  onTap: () {},
-                                                  controller: taskDetailsController
-                                                      .instructedNameTextEditingController,
-                                                  decoration: const InputDecoration(
-                                                    labelText: "Name",
-                                                    isDense: true,
-                                                    contentPadding: EdgeInsets.symmetric(
-                                                        vertical: 8, horizontal: 8),
-                                                    enabledBorder: OutlineInputBorder(
-                                                      borderRadius:
-                                                          BorderRadius.all(Radius.circular(4)),
-                                                    ),
-                                                    border: OutlineInputBorder(
-                                                      borderRadius:
-                                                          BorderRadius.all(Radius.circular(4)),
-                                                    ),
-                                                    focusedBorder: OutlineInputBorder(
-                                                      borderRadius:
-                                                          BorderRadius.all(Radius.circular(4)),
-                                                    ),
-                                                  ),
-                                                  validator: (value) {
-                                                    if (value == null || value.isEmpty) {
-                                                      return "Enter the instructor name";
-                                                    }
-
-                                                    return null;
-                                                  },
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          actions: <Widget>[
-                                            ElevatedButton(
-                                              onPressed: () async {
-                                                if (formKey1.currentState!.validate()) {
-                                                  Get.back();
-                                                  showDialog(
-                                                    context: context,
-                                                    builder: (BuildContext context) {
-                                                      return AlertDialog(
-                                                        backgroundColor: Colors.white,
-                                                        shape: const RoundedRectangleBorder(
-                                                            borderRadius: BorderRadius.all(
-                                                                Radius.circular(8))),
-                                                        content: Form(
-                                                          key: formKey2,
-                                                          child: Column(
-                                                            mainAxisSize: MainAxisSize.min,
-                                                            children: [
-                                                              Image.asset(
-                                                                "assets/ic_return_product.png",
-                                                                height: 80,
-                                                                width: 80,
-                                                              ),
-                                                              const SizedBox(
-                                                                height: 4,
-                                                              ),
-                                                              Text("Return Product",
-                                                                  style:
-                                                                      theme.textTheme.titleLarge),
-                                                              const SizedBox(
-                                                                height: 16,
-                                                              ),
-                                                              Text(
-                                                                "Reason of returning",
-                                                                style: theme.textTheme.bodyMedium,
-                                                              ),
-                                                              const SizedBox(
-                                                                height: 10,
-                                                              ),
-                                                              TextFormField(
-                                                                controller: taskDetailsController
-                                                                    .instructedReasonTextEditingController,
-                                                                decoration: const InputDecoration(
-                                                                  labelText: "Reason",
-                                                                  isDense: true,
-                                                                  contentPadding:
-                                                                      EdgeInsets.symmetric(
-                                                                          horizontal: 8,
-                                                                          vertical: 8),
-                                                                  enabledBorder: OutlineInputBorder(
-                                                                    borderRadius: BorderRadius.all(
-                                                                        Radius.circular(4)),
-                                                                  ),
-                                                                  border: OutlineInputBorder(
-                                                                    borderRadius: BorderRadius.all(
-                                                                        Radius.circular(4)),
-                                                                  ),
-                                                                  focusedBorder: OutlineInputBorder(
-                                                                    borderRadius: BorderRadius.all(
-                                                                        Radius.circular(4)),
-                                                                  ),
-                                                                ),
-                                                                validator: (value) {
-                                                                  if (value == null ||
-                                                                      value.isEmpty) {
-                                                                    return "Write the reason of returning product";
-                                                                  }
-
-                                                                  return null;
-                                                                },
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                        actions: <Widget>[
-                                                          ElevatedButton(
-                                                            onPressed: () async {
-                                                              if (formKey2.currentState!
-                                                                  .validate()) {
-                                                                Map<String, dynamic>? response =
-                                                                    await taskDetailsController
-                                                                        .returnTask(
-                                                                            endPoint:
-                                                                                ApiUrl().returnTask,
-                                                                            taskIdForReturn:
-                                                                                taskDetailsController
-                                                                                    .taskDetailsData
-                                                                                    .value
-                                                                                    .taskId
-                                                                                    .toString());
-                                                                // await taskDetailsController
-                                                                //     .getTaskDetails(
-                                                                //   endPoint: ApiUrl().getTaskDetails,
-                                                                //   taskId: taskDetailsController
-                                                                //       .taskDetailsData.value.taskId
-                                                                //       .toString(),
-                                                                // );
-
-                                                                if (response != {}) {
-                                                                  showDialog(
-                                                                    context: context,
-                                                                    barrierDismissible: false,
-                                                                    builder: (context) {
-                                                                      return PopScope(
-                                                                        canPop: false,
-                                                                        child: AlertDialog(
-                                                                          shape:
-                                                                              const RoundedRectangleBorder(
-                                                                            borderRadius:
-                                                                                BorderRadius.all(
-                                                                              Radius.circular(8),
-                                                                            ),
-                                                                          ),
-                                                                          title: Icon(
-                                                                            response['status'] ==
-                                                                                    true
-                                                                                ? Icons
-                                                                                    .check_circle_outline
-                                                                                : Icons
-                                                                                    .error_outline_outlined,
-                                                                            color: response[
-                                                                                        'status'] ==
-                                                                                    true
-                                                                                ? Colors.green
-                                                                                : Colors.black,
-                                                                            size: 44,
-                                                                          ),
-                                                                          content: Column(
-                                                                            mainAxisSize:
-                                                                                MainAxisSize.min,
-                                                                            children: [
-                                                                              Text(
-                                                                                response['status'] ==
-                                                                                        true
-                                                                                    ? "Product Successfully returned."
-                                                                                    : "Product return failed. Try again later.",
-                                                                                style: const TextStyle(
-                                                                                    color: Colors
-                                                                                        .black,
-                                                                                    fontWeight:
-                                                                                        FontWeight
-                                                                                            .bold,
-                                                                                    fontSize: 16),
-                                                                                textAlign: TextAlign
-                                                                                    .center,
-                                                                              ),
-                                                                              ElevatedButton(
-                                                                                onPressed: () {
-                                                                                  if (response[
-                                                                                          'status'] ==
-                                                                                      true) {
-                                                                                    Get.offAll(() =>
-                                                                                        const HomePage());
-                                                                                  } else {
-                                                                                    Get.back();
-                                                                                  }
-                                                                                },
-                                                                                child: const Text(
-                                                                                    "OK"),
-                                                                              ),
-                                                                            ],
-                                                                          ),
-                                                                        ),
-                                                                      );
-                                                                    },
-                                                                  );
-                                                                }
-                                                              }
-                                                            },
-                                                            child: const Text(
-                                                              "Confirm",
-                                                            ),
-                                                          )
-                                                        ],
-                                                      );
-                                                    },
-                                                  );
-                                                }
-                                              },
-                                              child: const Text(
-                                                "Next",
-                                              ),
-                                            )
-                                          ],
-                                        );
-                                      },
-                                    );
-                                  }
-                                }
-                              }
-                            },
-                          )
-                        : const Text(
-                            "Returned",
-                            style: TextStyle(
-                                color: Colors.black, fontWeight: FontWeight.bold, fontSize: 18),
-                            textAlign: TextAlign.center,
-                          ),
-                  ),
-                )
-              : const SizedBox(),
+          // bottomNavigationBar: _isReturnOptionVisible(taskDetailsController)
+          //     ? Container(
+          //         height: 60,
+          //         padding: const EdgeInsets.symmetric(horizontal: 20),
+          //         child: Obx(
+          //           () => !taskDetailsController.taskReturned.value
+          //               ? SlideAction(
+          //                   key: _key,
+          //                   height: 42,
+          //                   text: "Slide to Return",
+          //                   textStyle: theme.textTheme.titleMedium
+          //                       ?.copyWith(color: ColorConstant.secondaryThemeColor),
+          //                   outerColor: ColorConstant().baseColor,
+          //                   innerColor: ColorConstant.secondaryThemeColor,
+          //                   sliderButtonIcon: const Icon(Icons.arrow_forward),
+          //                   sliderButtonIconSize: 24,
+          //                   sliderButtonIconPadding: 4,
+          //                   animationDuration: const Duration(milliseconds: 500),
+          //                   onSubmit: () async {
+          //                     if (!await AuthController().handleLocationPermission()) {
+          //                       AuthController().logout();
+          //                     } else {
+          //                       if (context.mounted) {
+          //                         if (taskDetailsController.taskDetailsData.value.taskStartTime ==
+          //                                 null &&
+          //                             taskDetailsController.taskDetailsData.value.taskEndTime ==
+          //                                 null) {
+          //                           showDialog(
+          //                             context: context,
+          //                             builder: (BuildContext context) {
+          //                               return AlertDialog(
+          //                                 backgroundColor: Colors.white,
+          //                                 contentPadding:
+          //                                 const EdgeInsets.symmetric(horizontal: 8, vertical: 20),
+          //                                 shape: const RoundedRectangleBorder(
+          //                                     borderRadius: BorderRadius.all(
+          //                                         Radius.circular(8))),
+          //                                 content: Column(
+          //                                   mainAxisSize: MainAxisSize.min,
+          //                                   children: [
+          //                                     const Icon(Icons.play_circle_outline, size: 80,
+          //                                       // Color(0xFF9c27b0),
+          //                                     ),
+          //                                     const SizedBox(
+          //                                       height: 16,
+          //                                     ),
+          //                                     Text(
+          //                                       "Task isn't start yes!",
+          //                                       style: theme.textTheme.titleLarge,
+          //                                       textAlign: TextAlign.center,
+          //                                     ),
+          //                                     const SizedBox(
+          //                                       height: 4,
+          //                                     ),
+          //                                     Text(
+          //                                       "Start your task first before going to checklist.",
+          //                                       style: theme.textTheme.bodySmall,
+          //                                       textAlign: TextAlign.center,
+          //                                     ),
+          //                                   ],
+          //                                 ),
+          //                                 actions: <Widget>[
+          //                                   Row(
+          //                                     mainAxisAlignment:
+          //                                     MainAxisAlignment.center,
+          //                                     children: [
+          //                                       ElevatedButton(
+          //                                         onPressed: () {
+          //                                           Get.back();
+          //                                         },
+          //
+          //                                         child: const Text(
+          //                                           "Ok",
+          //
+          //                                         ),
+          //                                       ),
+          //
+          //                                     ],
+          //                                   )
+          //                                 ],
+          //                               );
+          //                             },
+          //                           );
+          //                         } else if (taskDetailsController
+          //                             .taskDetailsData.value.taskTransportationData!.isEmpty) {
+          //                           showDialog(
+          //                             context: context,
+          //                             builder: (BuildContext context) {
+          //                               return AlertDialog(
+          //                                 backgroundColor: Colors.white,
+          //                                 shape: const RoundedRectangleBorder(
+          //                                     borderRadius: BorderRadius.all(Radius.circular(8))),
+          //                                 content: Column(
+          //                                   mainAxisSize: MainAxisSize.min,
+          //                                   children: [
+          //                                     Image.asset(
+          //                                       "assets/ic_empty_transport.png",
+          //                                       width: 80,
+          //                                       height: 80,
+          //                                     ),
+          //                                     const SizedBox(
+          //                                       height: 4,
+          //                                     ),
+          //                                     Text("Empty Transport",
+          //                                         style: theme.textTheme.titleLarge),
+          //                                     const SizedBox(
+          //                                       height: 16,
+          //                                     ),
+          //                                     Text(
+          //                                       "You have not added any transport yet",
+          //                                       style: theme.textTheme.bodyMedium,
+          //                                     ),
+          //                                     const SizedBox(
+          //                                       height: 10,
+          //                                     ),
+          //                                   ],
+          //                                 ),
+          //                                 actions: <Widget>[
+          //                                   Align(
+          //                                     alignment: Alignment.center,
+          //                                     child: ElevatedButton(
+          //                                       onPressed: () {
+          //                                         Get.back();
+          //                                       },
+          //                                       child: const Text(
+          //                                         "Okay",
+          //                                       ),
+          //                                     ),
+          //                                   ),
+          //                                 ],
+          //                               );
+          //                             },
+          //                           );
+          //                         } else if (taskDetailsController
+          //                                     .taskDetailsData
+          //                                     .value
+          //                                     .taskTransportationData![taskDetailsController
+          //                                             .taskDetailsData
+          //                                             .value
+          //                                             .taskTransportationData!
+          //                                             .length -
+          //                                         1]
+          //                                     .taskTransportationEndLat ==
+          //                                 null &&
+          //                             taskDetailsController
+          //                                     .taskDetailsData
+          //                                     .value
+          //                                     .taskTransportationData![taskDetailsController
+          //                                             .taskDetailsData
+          //                                             .value
+          //                                             .taskTransportationData!
+          //                                             .length -
+          //                                         1]
+          //                                     .taskTransportationEndLat ==
+          //                                 null) {
+          //                           showDialog(
+          //                             context: context,
+          //                             builder: (BuildContext context) {
+          //                               return AlertDialog(
+          //                                 shape: const RoundedRectangleBorder(
+          //                                     borderRadius: BorderRadius.all(Radius.circular(8.0))),
+          //                                 content: Column(
+          //                                   mainAxisSize: MainAxisSize.min,
+          //                                   children: [
+          //                                     const Icon(
+          //                                       Icons.location_off,
+          //                                       size: 60,
+          //                                     ),
+          //                                     const SizedBox(
+          //                                       height: 4,
+          //                                     ),
+          //                                     Text("Missed End Location",
+          //                                         style: theme.textTheme.titleLarge),
+          //                                     const SizedBox(
+          //                                       height: 16,
+          //                                     ),
+          //                                     Text(
+          //                                       "You have not clicked the reach button",
+          //                                       style: theme.textTheme.bodyMedium,
+          //                                     ),
+          //                                     const SizedBox(
+          //                                       height: 10,
+          //                                     ),
+          //                                   ],
+          //                                 ),
+          //                                 actions: <Widget>[
+          //                                   ElevatedButton(
+          //                                     onPressed: () {
+          //                                       Get.back();
+          //                                     },
+          //                                     child: const Text(
+          //                                       "Ok",
+          //                                     ),
+          //                                   )
+          //                                 ],
+          //                               );
+          //                             },
+          //                           );
+          //                         } else if (!taskDetailsController.verifyOtpStatus.value) {
+          //                           showDialog(
+          //                             context: context,
+          //                             builder: (BuildContext context) {
+          //                               return AlertDialog(
+          //                                 shape: const RoundedRectangleBorder(
+          //                                     borderRadius: BorderRadius.all(Radius.circular(8))),
+          //                                 content: Column(
+          //                                   mainAxisSize: MainAxisSize.min,
+          //                                   children: [
+          //                                     Padding(
+          //                                       padding: const EdgeInsets.only(left: 15),
+          //                                       child: Image.asset(
+          //                                         "assets/ic_verify_mobile.png",
+          //                                         height: 60,
+          //                                         width: 60,
+          //                                       ),
+          //                                     ),
+          //                                     const SizedBox(
+          //                                       height: 4,
+          //                                     ),
+          //                                     Text(
+          //                                       "Verify mobile number!!",
+          //                                       style: theme.textTheme.titleLarge,
+          //                                       textAlign: TextAlign.center,
+          //                                     ),
+          //                                     const SizedBox(
+          //                                       height: 16,
+          //                                     ),
+          //                                     Text(
+          //                                       "You haven't verify mobile number yet",
+          //                                       style: theme.textTheme.bodyMedium,
+          //                                       textAlign: TextAlign.center,
+          //                                     ),
+          //                                   ],
+          //                                 ),
+          //                                 actions: <Widget>[
+          //                                   Align(
+          //                                     alignment: Alignment.center,
+          //                                     child: ElevatedButton(
+          //                                       onPressed: () {
+          //                                         Get.back();
+          //                                       },
+          //                                       child: const Text(
+          //                                         "Okay",
+          //                                       ),
+          //                                     ),
+          //                                   ),
+          //                                 ],
+          //                               );
+          //                             },
+          //                           );
+          //                         } else {
+          //                           showDialog(
+          //                             context: context,
+          //                             builder: (BuildContext context) {
+          //                               taskDetailsController.instructedNameTextEditingController
+          //                                   .clear();
+          //                               taskDetailsController.instructedReasonTextEditingController
+          //                                   .clear();
+          //                               return AlertDialog(
+          //                                 backgroundColor: Colors.white,
+          //                                 shape: const RoundedRectangleBorder(
+          //                                     borderRadius: BorderRadius.all(Radius.circular(8))),
+          //                                 content: Form(
+          //                                   key: formKey1,
+          //                                   child: Column(
+          //                                     mainAxisSize: MainAxisSize.min,
+          //                                     children: [
+          //                                       Image.asset(
+          //                                         "assets/ic_return_product.png",
+          //                                         height: 80,
+          //                                         width: 80,
+          //                                       ),
+          //                                       const SizedBox(
+          //                                         height: 4,
+          //                                       ),
+          //                                       Text("Return Product",
+          //                                           style: theme.textTheme.titleLarge),
+          //                                       const SizedBox(
+          //                                         height: 16,
+          //                                       ),
+          //                                       Text(
+          //                                         "Who instructed to return product?",
+          //                                         style: theme.textTheme.bodyMedium,
+          //                                       ),
+          //                                       const SizedBox(
+          //                                         height: 10,
+          //                                       ),
+          //                                       TextFormField(
+          //                                         readOnly: false,
+          //                                         onTap: () {},
+          //                                         controller: taskDetailsController
+          //                                             .instructedNameTextEditingController,
+          //                                         decoration: const InputDecoration(
+          //                                           labelText: "Name",
+          //                                           isDense: true,
+          //                                           contentPadding: EdgeInsets.symmetric(
+          //                                               vertical: 8, horizontal: 8),
+          //                                           enabledBorder: OutlineInputBorder(
+          //                                             borderRadius:
+          //                                                 BorderRadius.all(Radius.circular(4)),
+          //                                           ),
+          //                                           border: OutlineInputBorder(
+          //                                             borderRadius:
+          //                                                 BorderRadius.all(Radius.circular(4)),
+          //                                           ),
+          //                                           focusedBorder: OutlineInputBorder(
+          //                                             borderRadius:
+          //                                                 BorderRadius.all(Radius.circular(4)),
+          //                                           ),
+          //                                         ),
+          //                                         validator: (value) {
+          //                                           if (value == null || value.isEmpty) {
+          //                                             return "Enter the instructor name";
+          //                                           }
+          //
+          //                                           return null;
+          //                                         },
+          //                                       ),
+          //                                     ],
+          //                                   ),
+          //                                 ),
+          //                                 actions: <Widget>[
+          //                                   ElevatedButton(
+          //                                     onPressed: () async {
+          //                                       if (formKey1.currentState!.validate()) {
+          //                                         Get.back();
+          //                                         showDialog(
+          //                                           context: context,
+          //                                           builder: (BuildContext context) {
+          //                                             return AlertDialog(
+          //                                               backgroundColor: Colors.white,
+          //                                               shape: const RoundedRectangleBorder(
+          //                                                   borderRadius: BorderRadius.all(
+          //                                                       Radius.circular(8))),
+          //                                               content: Form(
+          //                                                 key: formKey2,
+          //                                                 child: Column(
+          //                                                   mainAxisSize: MainAxisSize.min,
+          //                                                   children: [
+          //                                                     Image.asset(
+          //                                                       "assets/ic_return_product.png",
+          //                                                       height: 80,
+          //                                                       width: 80,
+          //                                                     ),
+          //                                                     const SizedBox(
+          //                                                       height: 4,
+          //                                                     ),
+          //                                                     Text("Return Product",
+          //                                                         style:
+          //                                                             theme.textTheme.titleLarge),
+          //                                                     const SizedBox(
+          //                                                       height: 16,
+          //                                                     ),
+          //                                                     Text(
+          //                                                       "Reason of returning",
+          //                                                       style: theme.textTheme.bodyMedium,
+          //                                                     ),
+          //                                                     const SizedBox(
+          //                                                       height: 10,
+          //                                                     ),
+          //                                                     TextFormField(
+          //                                                       controller: taskDetailsController
+          //                                                           .instructedReasonTextEditingController,
+          //                                                       decoration: const InputDecoration(
+          //                                                         labelText: "Reason",
+          //                                                         isDense: true,
+          //                                                         contentPadding:
+          //                                                             EdgeInsets.symmetric(
+          //                                                                 horizontal: 8,
+          //                                                                 vertical: 8),
+          //                                                         enabledBorder: OutlineInputBorder(
+          //                                                           borderRadius: BorderRadius.all(
+          //                                                               Radius.circular(4)),
+          //                                                         ),
+          //                                                         border: OutlineInputBorder(
+          //                                                           borderRadius: BorderRadius.all(
+          //                                                               Radius.circular(4)),
+          //                                                         ),
+          //                                                         focusedBorder: OutlineInputBorder(
+          //                                                           borderRadius: BorderRadius.all(
+          //                                                               Radius.circular(4)),
+          //                                                         ),
+          //                                                       ),
+          //                                                       validator: (value) {
+          //                                                         if (value == null ||
+          //                                                             value.isEmpty) {
+          //                                                           return "Write the reason of returning product";
+          //                                                         }
+          //
+          //                                                         return null;
+          //                                                       },
+          //                                                     ),
+          //                                                   ],
+          //                                                 ),
+          //                                               ),
+          //                                               actions: <Widget>[
+          //                                                 ElevatedButton(
+          //                                                   onPressed: () async {
+          //                                                     if (formKey2.currentState!
+          //                                                         .validate()) {
+          //                                                       Map<String, dynamic>? response =
+          //                                                           await taskDetailsController
+          //                                                               .returnTask(
+          //                                                                   endPoint:
+          //                                                                       ApiUrl().returnTask,
+          //                                                                   taskIdForReturn:
+          //                                                                       taskDetailsController
+          //                                                                           .taskDetailsData
+          //                                                                           .value
+          //                                                                           .taskId
+          //                                                                           .toString());
+          //                                                       // await taskDetailsController
+          //                                                       //     .getTaskDetails(
+          //                                                       //   endPoint: ApiUrl().getTaskDetails,
+          //                                                       //   taskId: taskDetailsController
+          //                                                       //       .taskDetailsData.value.taskId
+          //                                                       //       .toString(),
+          //                                                       // );
+          //
+          //                                                       if (response != {}) {
+          //                                                         showDialog(
+          //                                                           context: context,
+          //                                                           barrierDismissible: false,
+          //                                                           builder: (context) {
+          //                                                             return PopScope(
+          //                                                               canPop: false,
+          //                                                               child: AlertDialog(
+          //                                                                 shape:
+          //                                                                     const RoundedRectangleBorder(
+          //                                                                   borderRadius:
+          //                                                                       BorderRadius.all(
+          //                                                                     Radius.circular(8),
+          //                                                                   ),
+          //                                                                 ),
+          //                                                                 title: Icon(
+          //                                                                   response['status'] ==
+          //                                                                           true
+          //                                                                       ? Icons
+          //                                                                           .check_circle_outline
+          //                                                                       : Icons
+          //                                                                           .error_outline_outlined,
+          //                                                                   color: response[
+          //                                                                               'status'] ==
+          //                                                                           true
+          //                                                                       ? Colors.green
+          //                                                                       : Colors.black,
+          //                                                                   size: 44,
+          //                                                                 ),
+          //                                                                 content: Column(
+          //                                                                   mainAxisSize:
+          //                                                                       MainAxisSize.min,
+          //                                                                   children: [
+          //                                                                     Text(
+          //                                                                       response['status'] ==
+          //                                                                               true
+          //                                                                           ? "Product Successfully returned."
+          //                                                                           : "Product return failed. Try again later.",
+          //                                                                       style: const TextStyle(
+          //                                                                           color: Colors
+          //                                                                               .black,
+          //                                                                           fontWeight:
+          //                                                                               FontWeight
+          //                                                                                   .bold,
+          //                                                                           fontSize: 16),
+          //                                                                       textAlign: TextAlign
+          //                                                                           .center,
+          //                                                                     ),
+          //                                                                     ElevatedButton(
+          //                                                                       onPressed: () {
+          //                                                                         if (response[
+          //                                                                                 'status'] ==
+          //                                                                             true) {
+          //                                                                           Get.offAll(() =>
+          //                                                                               const HomePage());
+          //                                                                         } else {
+          //                                                                           Get.back();
+          //                                                                         }
+          //                                                                       },
+          //                                                                       child: const Text(
+          //                                                                           "OK"),
+          //                                                                     ),
+          //                                                                   ],
+          //                                                                 ),
+          //                                                               ),
+          //                                                             );
+          //                                                           },
+          //                                                         );
+          //                                                       }
+          //                                                     }
+          //                                                   },
+          //                                                   child: const Text(
+          //                                                     "Confirm",
+          //                                                   ),
+          //                                                 )
+          //                                               ],
+          //                                             );
+          //                                           },
+          //                                         );
+          //                                       }
+          //                                     },
+          //                                     child: const Text(
+          //                                       "Next",
+          //                                     ),
+          //                                   )
+          //                                 ],
+          //                               );
+          //                             },
+          //                           );
+          //                         }
+          //                       }
+          //                     }
+          //                   },
+          //                 )
+          //               : const Text(
+          //                   "Returned",
+          //                   style: TextStyle(
+          //                       color: Colors.black, fontWeight: FontWeight.bold, fontSize: 18),
+          //                   textAlign: TextAlign.center,
+          //                 ),
+          //         ),
+          //       )
+          //     : const SizedBox(),
           body: SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.only(top: 15, right: 15, left: 15),
