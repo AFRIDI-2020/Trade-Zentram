@@ -88,20 +88,21 @@ class CheckListPage extends GetView<UpActivityTaskController> {
                               return AlertDialog(
                                 backgroundColor: Colors.white,
                                 contentPadding:
-                                const EdgeInsets.symmetric(horizontal: 8, vertical: 20),
+                                    const EdgeInsets.symmetric(horizontal: 8, vertical: 20),
                                 shape: const RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.all(
-                                        Radius.circular(8))),
+                                    borderRadius: BorderRadius.all(Radius.circular(8))),
                                 content: Column(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
-                                    const Icon(Icons.play_circle_outline, size: 80,
+                                    const Icon(
+                                      Icons.play_circle_outline,
+                                      size: 80,
                                     ),
                                     const SizedBox(
                                       height: 16,
                                     ),
                                     Text(
-                                      "Task isn't start yes!",
+                                      "Task isn't start yet!",
                                       style: theme.textTheme.titleLarge,
                                       textAlign: TextAlign.center,
                                     ),
@@ -117,20 +118,16 @@ class CheckListPage extends GetView<UpActivityTaskController> {
                                 ),
                                 actions: <Widget>[
                                   Row(
-                                    mainAxisAlignment:
-                                    MainAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       ElevatedButton(
                                         onPressed: () {
                                           Get.back();
                                         },
-
                                         child: const Text(
                                           "Ok",
-
                                         ),
                                       ),
-
                                     ],
                                   )
                                 ],
@@ -244,7 +241,7 @@ class CheckListPage extends GetView<UpActivityTaskController> {
                               );
                             },
                           );
-                        } else if (!taskDetailsController.verifyOtpStatus.value) {
+                        } else if (_requiredVerifyMobileNumber() && !taskDetailsController.verifyOtpStatus.value && taskDetailsController.taskDetailsData.value.taskGroupId != 'C') {
                           showDialog(
                             context: context,
                             builder: (BuildContext context) {
@@ -281,15 +278,458 @@ class CheckListPage extends GetView<UpActivityTaskController> {
                                   ],
                                 ),
                                 actions: <Widget>[
-                                  Align(
-                                    alignment: Alignment.center,
-                                    child: ElevatedButton(
-                                      onPressed: () {
-                                        Get.back();
+                                  /*if (taskDetailsController.taskDetailsData.value.taskGroupId ==
+                                      "C")
+                                    ElevatedButton(
+                                      style: ButtonStyle(
+                                          backgroundColor:
+                                              WidgetStateProperty.all<Color>(Colors.red.shade900)),
+                                      onPressed: () async {
+                                        AuthController authController = AuthController();
+                                        if (!await AuthController().handleLocationPermission()) {
+                                          authController.logout();
+                                        } else {
+                                          if (context.mounted) {
+                                            if (taskDetailsController
+                                                        .taskDetailsData.value.taskStartTime ==
+                                                    null &&
+                                                taskDetailsController
+                                                        .taskDetailsData.value.taskEndTime ==
+                                                    null) {
+                                              showDialog(
+                                                context: context,
+                                                builder: (BuildContext context) {
+                                                  return AlertDialog(
+                                                    backgroundColor: Colors.white,
+                                                    contentPadding: const EdgeInsets.symmetric(
+                                                        horizontal: 8, vertical: 20),
+                                                    shape: const RoundedRectangleBorder(
+                                                        borderRadius:
+                                                            BorderRadius.all(Radius.circular(8))),
+                                                    content: Column(
+                                                      mainAxisSize: MainAxisSize.min,
+                                                      children: [
+                                                        const Icon(
+                                                          Icons.play_circle_outline,
+                                                          size: 80,
+                                                        ),
+                                                        const SizedBox(
+                                                          height: 16,
+                                                        ),
+                                                        Text(
+                                                          "Task isn't start yet!",
+                                                          style: theme.textTheme.titleLarge,
+                                                          textAlign: TextAlign.center,
+                                                        ),
+                                                        const SizedBox(
+                                                          height: 4,
+                                                        ),
+                                                        Text(
+                                                          "Start your task first before going to checklist.",
+                                                          style: theme.textTheme.bodySmall,
+                                                          textAlign: TextAlign.center,
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    actions: <Widget>[
+                                                      Row(
+                                                        mainAxisAlignment: MainAxisAlignment.center,
+                                                        children: [
+                                                          ElevatedButton(
+                                                            onPressed: () {
+                                                              Get.back();
+                                                            },
+                                                            child: const Text(
+                                                              "Ok",
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      )
+                                                    ],
+                                                  );
+                                                },
+                                              );
+                                            } else if (taskDetailsController.taskDetailsData.value
+                                                .taskTransportationData!.isEmpty) {
+                                              showDialog(
+                                                context: context,
+                                                builder: (BuildContext context) {
+                                                  return AlertDialog(
+                                                    backgroundColor: Colors.white,
+                                                    shape: const RoundedRectangleBorder(
+                                                        borderRadius:
+                                                            BorderRadius.all(Radius.circular(8))),
+                                                    content: Column(
+                                                      mainAxisSize: MainAxisSize.min,
+                                                      children: [
+                                                        Image.asset(
+                                                          "assets/ic_empty_transport.png",
+                                                          width: 80,
+                                                          height: 80,
+                                                        ),
+                                                        const SizedBox(
+                                                          height: 4,
+                                                        ),
+                                                        Text("Empty Transport",
+                                                            style: theme.textTheme.titleLarge),
+                                                        const SizedBox(
+                                                          height: 16,
+                                                        ),
+                                                        Text(
+                                                          "You have not added any transport yet",
+                                                          style: theme.textTheme.bodyMedium,
+                                                        ),
+                                                        const SizedBox(
+                                                          height: 10,
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    actions: <Widget>[
+                                                      Align(
+                                                        alignment: Alignment.center,
+                                                        child: ElevatedButton(
+                                                          onPressed: () {
+                                                            Get.back();
+                                                          },
+                                                          child: const Text(
+                                                            "Okay",
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  );
+                                                },
+                                              );
+                                            } else if (taskDetailsController
+                                                        .taskDetailsData
+                                                        .value
+                                                        .taskTransportationData![
+                                                            taskDetailsController
+                                                                    .taskDetailsData
+                                                                    .value
+                                                                    .taskTransportationData!
+                                                                    .length -
+                                                                1]
+                                                        .taskTransportationEndLat ==
+                                                    null &&
+                                                taskDetailsController
+                                                        .taskDetailsData
+                                                        .value
+                                                        .taskTransportationData![
+                                                            taskDetailsController
+                                                                    .taskDetailsData
+                                                                    .value
+                                                                    .taskTransportationData!
+                                                                    .length -
+                                                                1]
+                                                        .taskTransportationEndLat ==
+                                                    null) {
+                                              showDialog(
+                                                context: context,
+                                                builder: (BuildContext context) {
+                                                  return AlertDialog(
+                                                    shape: const RoundedRectangleBorder(
+                                                        borderRadius:
+                                                            BorderRadius.all(Radius.circular(8.0))),
+                                                    content: Column(
+                                                      mainAxisSize: MainAxisSize.min,
+                                                      children: [
+                                                        const Icon(
+                                                          Icons.location_off,
+                                                          size: 60,
+                                                        ),
+                                                        const SizedBox(
+                                                          height: 4,
+                                                        ),
+                                                        Text("Missed End Location",
+                                                            style: theme.textTheme.titleLarge),
+                                                        const SizedBox(
+                                                          height: 16,
+                                                        ),
+                                                        Text(
+                                                          "You have not clicked the reach button",
+                                                          style: theme.textTheme.bodyMedium,
+                                                        ),
+                                                        const SizedBox(
+                                                          height: 10,
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    actions: <Widget>[
+                                                      ElevatedButton(
+                                                        onPressed: () {
+                                                          Get.back();
+                                                        },
+                                                        child: const Text(
+                                                          "Ok",
+                                                        ),
+                                                      )
+                                                    ],
+                                                  );
+                                                },
+                                              );
+                                            } else if (!taskDetailsController
+                                                .verifyOtpStatus.value) {
+                                              showDialog(
+                                                context: context,
+                                                builder: (BuildContext context) {
+                                                  return AlertDialog(
+                                                    shape: const RoundedRectangleBorder(
+                                                        borderRadius:
+                                                            BorderRadius.all(Radius.circular(8))),
+                                                    content: Column(
+                                                      mainAxisSize: MainAxisSize.min,
+                                                      children: [
+                                                        Padding(
+                                                          padding: const EdgeInsets.only(left: 15),
+                                                          child: Image.asset(
+                                                            "assets/ic_verify_mobile.png",
+                                                            height: 60,
+                                                            width: 60,
+                                                          ),
+                                                        ),
+                                                        const SizedBox(
+                                                          height: 4,
+                                                        ),
+                                                        Text(
+                                                          "Verify mobile number!!",
+                                                          style: theme.textTheme.titleLarge,
+                                                          textAlign: TextAlign.center,
+                                                        ),
+                                                        const SizedBox(
+                                                          height: 16,
+                                                        ),
+                                                        Text(
+                                                          "You haven't verify mobile number yet",
+                                                          style: theme.textTheme.bodyMedium,
+                                                          textAlign: TextAlign.center,
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    actions: <Widget>[
+                                                      if (taskDetailsController
+                                                              .taskDetailsData.value.taskGroupId ==
+                                                          "C")
+                                                        ElevatedButton(
+                                                          style: ButtonStyle(
+                                                              backgroundColor:
+                                                                  WidgetStateProperty.all<Color>(
+                                                                      Colors.red.shade900)),
+                                                          onPressed: () {
+                                                            Get.back();
+                                                          },
+                                                          child: const Text(
+                                                            "Skip",
+                                                            style: TextStyle(color: Colors.white),
+                                                          ),
+                                                        ),
+                                                      ElevatedButton(
+                                                        onPressed: () {
+                                                          Get.back();
+                                                          Get.to(
+                                                              () => const MobileNumberVerifyPage());
+                                                        },
+                                                        child: const Text(
+                                                          "Verify",
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  );
+                                                },
+                                              );
+                                            }
+
+                                            // else if (!taskDetailsController.mobileOtpStatus.value) {
+                                            //   showDialog(
+                                            //     context: context,
+                                            //     builder: (BuildContext context) {
+                                            //       return AlertDialog(
+                                            //         shape: const RoundedRectangleBorder(
+                                            //             borderRadius:
+                                            //                 BorderRadius.all(Radius.circular(0.0))),
+                                            //         content: const SizedBox(
+                                            //           height: 180,
+                                            //           child: Column(
+                                            //             children: [
+                                            //               Icon(Icons.not_listed_location,
+                                            //                   size: 80, color: Color(0xFFC62828)
+                                            //                   // Color(0xFF9c27b0),
+                                            //                   ),
+                                            //               SizedBox(
+                                            //                 height: 16,
+                                            //               ),
+                                            //               Text(
+                                            //                 "Verify mobile number!!",
+                                            //                 style: TextStyle(
+                                            //                   fontSize: 16,
+                                            //                   fontWeight: FontWeight.bold,
+                                            //                 ),
+                                            //               ),
+                                            //               Text(
+                                            //                 "You havn't verify mobile number yet",
+                                            //                 style: TextStyle(fontSize: 12),
+                                            //               ),
+                                            //             ],
+                                            //           ),
+                                            //         ),
+                                            //         actions: <Widget>[
+                                            //           Row(
+                                            //             mainAxisAlignment: MainAxisAlignment.center,
+                                            //             children: [
+                                            //               ElevatedButton(
+                                            //                 onPressed: () {
+                                            //                   Get.back();
+                                            //                 },
+                                            //                 style: ButtonStyle(
+                                            //                     shape: MaterialStateProperty.all<
+                                            //                         RoundedRectangleBorder>(
+                                            //                       RoundedRectangleBorder(
+                                            //                         borderRadius:
+                                            //                             BorderRadius.circular(0.0),
+                                            //                       ),
+                                            //                     ),
+                                            //                     backgroundColor:
+                                            //                         const MaterialStatePropertyAll(
+                                            //                             Color(0xFF9c27b0))),
+                                            //                 child: const Text(
+                                            //                   "Okay",
+                                            //                   style: TextStyle(color: Colors.white),
+                                            //                 ),
+                                            //               ),
+                                            //             ],
+                                            //           )
+                                            //         ],
+                                            //       );
+                                            //     },
+                                            //   );
+                                            // }
+                                            else {
+                                              List<CheckList> statusTitle = [];
+                                              for (var checkList
+                                                  in taskDetailsController.checkListData) {
+                                                for (var statusList in checkList.statusLsit!) {
+                                                  if (statusList.title == "Pending") {
+                                                    statusTitle.add(checkList);
+                                                  }
+                                                }
+                                              }
+                                              if (statusTitle.isNotEmpty) {
+                                                showDialog(
+                                                  context: context,
+                                                  builder: (BuildContext context) {
+                                                    return AlertDialog(
+                                                      shape: const RoundedRectangleBorder(
+                                                          borderRadius:
+                                                              BorderRadius.all(Radius.circular(8))),
+                                                      content: Column(
+                                                        mainAxisSize: MainAxisSize.min,
+                                                        children: [
+                                                          const Icon(
+                                                            Icons.checklist,
+                                                            size: 60,
+                                                          ),
+                                                          const SizedBox(
+                                                            height: 10,
+                                                          ),
+                                                          Text(
+                                                            "MISSED A CHECKLIST!!!",
+                                                            style: theme.textTheme.titleLarge,
+                                                            textAlign: TextAlign.center,
+                                                          ),
+                                                          Text(
+                                                            "You have Pending a checkList list!!",
+                                                            style: theme.textTheme.bodyMedium,
+                                                            textAlign: TextAlign.center,
+                                                          ),
+                                                          for (int i = 0;
+                                                              i < statusTitle.length;
+                                                              i++)
+                                                            Obx(
+                                                              () => Row(
+                                                                children: [
+                                                                  Checkbox(
+                                                                    value: taskDetailsController
+                                                                        .warningCheckList.value,
+                                                                    onChanged: (bool? value) {
+                                                                      taskDetailsController
+                                                                          .warningCheckList
+                                                                          .value = value!;
+                                                                    },
+                                                                  ),
+                                                                  Text(
+                                                                    statusTitle[i].title!,
+                                                                    style:
+                                                                        theme.textTheme.bodyMedium,
+                                                                    textAlign: TextAlign.center,
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                        ],
+                                                      ),
+                                                      actions: <Widget>[
+                                                        Obx(() => ElevatedButton(
+                                                              style: ButtonStyle(
+                                                                  backgroundColor:
+                                                                      MaterialStateProperty.all<
+                                                                              Color>(
+                                                                          taskDetailsController
+                                                                                  .warningCheckList
+                                                                                  .value
+                                                                              ? ColorConstant
+                                                                                  .primaryThemeColor
+                                                                              : ColorConstant
+                                                                                  .primaryThemeColor
+                                                                                  .withOpacity(
+                                                                                      0.5))),
+                                                              onPressed: () {
+                                                                if (taskDetailsController
+                                                                    .warningCheckList.value) {
+                                                                  Get.off(
+                                                                      () => DownActivityTaskPage(
+                                                                            pageTitle: pageTitle,
+                                                                          ),
+                                                                      arguments:
+                                                                          taskDetailsController
+                                                                              .taskDetailsData
+                                                                              .value
+                                                                              .taskId
+                                                                              .toString());
+                                                                }
+                                                              },
+                                                              child: const Text(
+                                                                "Continue",
+                                                              ),
+                                                            ))
+                                                      ],
+                                                    );
+                                                  },
+                                                );
+                                              } else {
+                                                Get.off(
+                                                    () => DownActivityTaskPage(
+                                                          pageTitle: pageTitle,
+                                                        ),
+                                                    arguments: taskDetailsController
+                                                        .taskDetailsData.value.taskId
+                                                        .toString());
+                                              }
+                                            }
+                                          }
+                                        }
                                       },
                                       child: const Text(
-                                        "Okay",
+                                        "Skip",
+                                        style: TextStyle(color: Colors.white),
                                       ),
+                                    ),*/
+                                  ElevatedButton(
+                                    onPressed: () {
+                                      Get.back();
+
+                                    },
+                                    child: const Text(
+                                      "OKay",
                                     ),
                                   ),
                                 ],
@@ -421,25 +861,27 @@ class CheckListPage extends GetView<UpActivityTaskController> {
                                   ),
                                   actions: <Widget>[
                                     Obx(() => ElevatedButton(
-                                      style: ButtonStyle(
-                                          backgroundColor: MaterialStateProperty.all<Color>(taskDetailsController.warningCheckList.value? ColorConstant.primaryThemeColor : ColorConstant.primaryThemeColor.withOpacity(0.5))
-                                      ),
-                                      onPressed: () {
-                                        if(taskDetailsController.warningCheckList.value) {
-                                          Get.off(
+                                          style: ButtonStyle(
+                                              backgroundColor: MaterialStateProperty.all<Color>(
+                                                  taskDetailsController.warningCheckList.value
+                                                      ? ColorConstant.primaryThemeColor
+                                                      : ColorConstant.primaryThemeColor
+                                                          .withOpacity(0.5))),
+                                          onPressed: () {
+                                            if (taskDetailsController.warningCheckList.value) {
+                                              Get.off(
                                                   () => DownActivityTaskPage(
-                                                pageTitle: pageTitle,
-                                              ),
-                                              arguments: taskDetailsController
-                                                  .taskDetailsData.value.taskId
-                                                  .toString());
-                                        }
-                                      },
-                                      child: const Text(
-                                        "Continue",
-                                      ),
-                                    ))
-
+                                                        pageTitle: pageTitle,
+                                                      ),
+                                                  arguments: taskDetailsController
+                                                      .taskDetailsData.value.taskId
+                                                      .toString());
+                                            }
+                                          },
+                                          child: const Text(
+                                            "Continue",
+                                          ),
+                                        ))
                                   ],
                                 );
                               },
@@ -507,7 +949,7 @@ class CheckListPage extends GetView<UpActivityTaskController> {
                                     height: 16,
                                   ),
                                   Text(
-                                    "Task isn't start yes!",
+                                    "Task isn't start yet!",
                                     style: TextStyle(
                                         color: Colors.black,
                                         fontWeight: FontWeight.bold,
@@ -920,7 +1362,7 @@ class CheckListPage extends GetView<UpActivityTaskController> {
           //                                       height: 16,
           //                                     ),
           //                                     Text(
-          //                                       "Task isn't start yes!",
+          //                                       "Task isn't start yet!",
           //                                       style: theme.textTheme.titleLarge,
           //                                       textAlign: TextAlign.center,
           //                                     ),
@@ -1737,141 +2179,142 @@ class CheckListPage extends GetView<UpActivityTaskController> {
                           : null;
                     },
                   ),
-                  Obx(
-                    () => Container(
-                      decoration: BoxDecoration(
-                        color: taskDetailsController.verifyOtpStatus.value
-                            ? ColorConstant.green
-                            : ColorConstant().baseColor,
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      margin: const EdgeInsets.symmetric(vertical: 8),
-                      child: Column(
-                        children: [
-                          ListTile(
-                            onTap: () {
-                              if (taskDetailsController
-                                  .taskDetailsData.value.taskTransportationData!.isEmpty) {
-                                showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return AlertDialog(
-                                      backgroundColor: Colors.white,
-                                      shape: const RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.all(Radius.circular(8))),
-                                      content: Column(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          Image.asset(
-                                            "assets/ic_empty_transport.png",
-                                            width: 80,
-                                            height: 80,
-                                          ),
-                                          const SizedBox(
-                                            height: 4,
-                                          ),
-                                          Text("Empty Transport",
-                                              style: theme.textTheme.titleLarge),
-                                          const SizedBox(
-                                            height: 16,
-                                          ),
-                                          Text(
-                                            "You have not added any transport yet",
-                                            style: theme.textTheme.bodyMedium,
-                                          ),
-                                          const SizedBox(
-                                            height: 10,
+                  if (_requiredVerifyMobileNumber())
+                    Obx(
+                      () => Container(
+                        decoration: BoxDecoration(
+                          color: taskDetailsController.verifyOtpStatus.value
+                              ? ColorConstant.green
+                              : ColorConstant().baseColor,
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        margin: const EdgeInsets.symmetric(vertical: 8),
+                        child: Column(
+                          children: [
+                            ListTile(
+                              onTap: () {
+                                if (taskDetailsController
+                                    .taskDetailsData.value.taskTransportationData!.isEmpty) {
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return AlertDialog(
+                                        backgroundColor: Colors.white,
+                                        shape: const RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.all(Radius.circular(8))),
+                                        content: Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Image.asset(
+                                              "assets/ic_empty_transport.png",
+                                              width: 80,
+                                              height: 80,
+                                            ),
+                                            const SizedBox(
+                                              height: 4,
+                                            ),
+                                            Text("Empty Transport",
+                                                style: theme.textTheme.titleLarge),
+                                            const SizedBox(
+                                              height: 16,
+                                            ),
+                                            Text(
+                                              "You have not added any transport yet",
+                                              style: theme.textTheme.bodyMedium,
+                                            ),
+                                            const SizedBox(
+                                              height: 10,
+                                            ),
+                                          ],
+                                        ),
+                                        actions: <Widget>[
+                                          Align(
+                                            alignment: Alignment.center,
+                                            child: ElevatedButton(
+                                              onPressed: () {
+                                                Get.back();
+                                              },
+                                              child: const Text(
+                                                "Okay",
+                                              ),
+                                            ),
                                           ),
                                         ],
-                                      ),
-                                      actions: <Widget>[
-                                        Align(
-                                          alignment: Alignment.center,
-                                          child: ElevatedButton(
+                                      );
+                                    },
+                                  );
+                                } else if (taskDetailsController
+                                            .taskDetailsData
+                                            .value
+                                            .taskTransportationData![taskDetailsController
+                                                    .taskDetailsData
+                                                    .value
+                                                    .taskTransportationData!
+                                                    .length -
+                                                1]
+                                            .taskTransportationEndLat ==
+                                        null &&
+                                    taskDetailsController
+                                            .taskDetailsData
+                                            .value
+                                            .taskTransportationData![taskDetailsController
+                                                    .taskDetailsData
+                                                    .value
+                                                    .taskTransportationData!
+                                                    .length -
+                                                1]
+                                            .taskTransportationEndLat ==
+                                        null) {
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return AlertDialog(
+                                        shape: const RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.all(Radius.circular(8.0))),
+                                        content: Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            const Icon(
+                                              Icons.location_off,
+                                              size: 60,
+                                            ),
+                                            const SizedBox(
+                                              height: 4,
+                                            ),
+                                            Text("Missed End Location",
+                                                style: theme.textTheme.titleLarge),
+                                            const SizedBox(
+                                              height: 16,
+                                            ),
+                                            Text(
+                                              "You have not clicked the reach button",
+                                              style: theme.textTheme.bodyMedium,
+                                            ),
+                                            const SizedBox(
+                                              height: 10,
+                                            ),
+                                          ],
+                                        ),
+                                        actions: <Widget>[
+                                          ElevatedButton(
                                             onPressed: () {
                                               Get.back();
                                             },
                                             child: const Text(
-                                              "Okay",
+                                              "Ok",
                                             ),
-                                          ),
-                                        ),
-                                      ],
-                                    );
-                                  },
-                                );
-                              } else if (taskDetailsController
-                                          .taskDetailsData
-                                          .value
-                                          .taskTransportationData![taskDetailsController
-                                                  .taskDetailsData
-                                                  .value
-                                                  .taskTransportationData!
-                                                  .length -
-                                              1]
-                                          .taskTransportationEndLat ==
-                                      null &&
-                                  taskDetailsController
-                                          .taskDetailsData
-                                          .value
-                                          .taskTransportationData![taskDetailsController
-                                                  .taskDetailsData
-                                                  .value
-                                                  .taskTransportationData!
-                                                  .length -
-                                              1]
-                                          .taskTransportationEndLat ==
-                                      null) {
-                                showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return AlertDialog(
-                                      shape: const RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.all(Radius.circular(8.0))),
-                                      content: Column(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          const Icon(
-                                            Icons.location_off,
-                                            size: 60,
-                                          ),
-                                          const SizedBox(
-                                            height: 4,
-                                          ),
-                                          Text("Missed End Location",
-                                              style: theme.textTheme.titleLarge),
-                                          const SizedBox(
-                                            height: 16,
-                                          ),
-                                          Text(
-                                            "You have not clicked the reach button",
-                                            style: theme.textTheme.bodyMedium,
-                                          ),
-                                          const SizedBox(
-                                            height: 10,
-                                          ),
+                                          )
                                         ],
-                                      ),
-                                      actions: <Widget>[
-                                        ElevatedButton(
-                                          onPressed: () {
-                                            Get.back();
-                                          },
-                                          child: const Text(
-                                            "Ok",
-                                          ),
-                                        )
-                                      ],
-                                    );
-                                  },
-                                );
-                              } else {
-                                if (!taskDetailsController.verifyOtpStatus.value) {
-                                  Get.to(() => const MobileNumberVerifyPage());
+                                      );
+                                    },
+                                  );
+                                } else {
+                                  if (!taskDetailsController.verifyOtpStatus.value) {
+                                    Get.to(() => const MobileNumberVerifyPage());
+                                  }
                                 }
                               }
-                            }
-                            /*() async {
+                              /*() async {
                               if (!await AuthController()
                                   .handleLocationPermission()) {
                                 AuthController().logout();
@@ -1885,7 +2328,7 @@ class CheckListPage extends GetView<UpActivityTaskController> {
                                   popUpStatus(
                                     context,
                                     leadingIcon: Icons.error_outline,
-                                    title: "Task isn't start yes!",
+                                    title: "Task isn't start yet!",
                                     subtitle:
                                         "Start your task first before going to checklist.",
                                     firstActionButtonTitle: "OK",
@@ -2056,8 +2499,8 @@ class CheckListPage extends GetView<UpActivityTaskController> {
                                 }
                               }
                             }*/
-                            ,
-                            /*title: Row(
+                              ,
+                              /*title: Row(
                               children: [
                                 Text(
                                   taskDetailsController.verifyOtpStatus.value
@@ -2075,51 +2518,51 @@ class CheckListPage extends GetView<UpActivityTaskController> {
                               ],
                             ),*/
 
-                            title: RichText(
-                              text: TextSpan(children: [
-                                WidgetSpan(
-                                    child: Image.asset(
-                                  "assets/ic_verify_mobile.png",
-                                  height: 24,
-                                  width: 24,
-                                  color: ColorConstant.secondaryThemeColor,
-                                )),
-                                const WidgetSpan(
-                                    child: SizedBox(
-                                  width: 15,
-                                )),
-                                TextSpan(
-                                    text: taskDetailsController.verifyOtpStatus.value
-                                        ? "Mobile number verified"
-                                        : "Verify mobile number",
-                                    style: theme.textTheme.titleLarge!.copyWith(
-                                        color: taskDetailsController.verifyOtpStatus.value
-                                            ? Colors.white
-                                            : ColorConstant.secondaryThemeColor)),
-                                /*  if (!taskDetailsController.verifyOtpStatus.value)
+                              title: RichText(
+                                text: TextSpan(children: [
+                                  WidgetSpan(
+                                      child: Image.asset(
+                                    "assets/ic_verify_mobile.png",
+                                    height: 24,
+                                    width: 24,
+                                    color: ColorConstant.secondaryThemeColor,
+                                  )),
+                                  const WidgetSpan(
+                                      child: SizedBox(
+                                    width: 15,
+                                  )),
+                                  TextSpan(
+                                      text: taskDetailsController.verifyOtpStatus.value
+                                          ? "Mobile number verified"
+                                          : "Verify mobile number",
+                                      style: theme.textTheme.titleLarge!.copyWith(
+                                          color: taskDetailsController.verifyOtpStatus.value
+                                              ? Colors.white
+                                              : ColorConstant.secondaryThemeColor)),
+                                  /*  if (!taskDetailsController.verifyOtpStatus.value)
                                   const WidgetSpan(child: SizedBox()),
                                 if (taskDetailsController.verifyOtpStatus.value)
                                   const WidgetSpan(child: Icon(Icons.error_outline, color: ColorConstant.secondaryThemeColor,))*/
-                              ]),
-                            ),
-                            trailing: taskDetailsController.verifyOtpStatus.value
-                                ? const CircleAvatar(
-                                    backgroundColor: Colors.white,
-                                    child: Icon(
-                                      Icons.done,
-                                      color: Colors.green,
+                                ]),
+                              ),
+                              trailing: taskDetailsController.verifyOtpStatus.value
+                                  ? const CircleAvatar(
+                                      backgroundColor: Colors.white,
+                                      child: Icon(
+                                        Icons.done,
+                                        color: Colors.green,
+                                      ),
+                                    )
+                                  : const Icon(
+                                      Icons.arrow_forward_ios_outlined,
+                                      color: ColorConstant.secondaryThemeColor,
+                                      size: 20,
                                     ),
-                                  )
-                                : const Icon(
-                                    Icons.arrow_forward_ios_outlined,
-                                    color: ColorConstant.secondaryThemeColor,
-                                    size: 20,
-                                  ),
-                          ),
-                        ],
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
                   const SizedBox(
                     height: 16,
                   ),
@@ -2175,22 +2618,23 @@ class CheckListPage extends GetView<UpActivityTaskController> {
                                                   builder: (BuildContext context) {
                                                     return AlertDialog(
                                                       backgroundColor: Colors.white,
-                                                      contentPadding:
-                                                      const EdgeInsets.symmetric(horizontal: 8, vertical: 20),
+                                                      contentPadding: const EdgeInsets.symmetric(
+                                                          horizontal: 8, vertical: 20),
                                                       shape: const RoundedRectangleBorder(
-                                                          borderRadius: BorderRadius.all(
-                                                              Radius.circular(8))),
+                                                          borderRadius:
+                                                              BorderRadius.all(Radius.circular(8))),
                                                       content: Column(
                                                         mainAxisSize: MainAxisSize.min,
                                                         children: [
-                                                          const Icon(Icons.play_circle_outline, size: 80,
-                                                              // Color(0xFF9c27b0),
-                                                              ),
+                                                          const Icon(
+                                                            Icons.play_circle_outline, size: 80,
+                                                            // Color(0xFF9c27b0),
+                                                          ),
                                                           const SizedBox(
                                                             height: 16,
                                                           ),
                                                           Text(
-                                                            "Task isn't start yes!",
+                                                            "Task isn't start yet!",
                                                             style: theme.textTheme.titleLarge,
                                                             textAlign: TextAlign.center,
                                                           ),
@@ -2213,13 +2657,10 @@ class CheckListPage extends GetView<UpActivityTaskController> {
                                                               onPressed: () {
                                                                 Get.back();
                                                               },
-
                                                               child: const Text(
                                                                 "Ok",
-
                                                               ),
                                                             ),
-
                                                           ],
                                                         )
                                                       ],
@@ -2366,8 +2807,8 @@ class CheckListPage extends GetView<UpActivityTaskController> {
                                                     );
                                                   },
                                                 );
-                                              } else if (!taskDetailsController
-                                                  .verifyOtpStatus.value) {
+                                              } else if (_requiredVerifyMobileNumber() && !taskDetailsController
+                                                  .verifyOtpStatus.value && taskDetailsController.taskDetailsData.value.taskGroupId != "C") {
                                                 showDialog(
                                                   context: context,
                                                   builder: (BuildContext context) {
@@ -2501,7 +2942,7 @@ class CheckListPage extends GetView<UpActivityTaskController> {
                                                                   height: 16,
                                                                 ),
                                                                 Text(
-                                                                  "Task isn't start yes!",
+                                                                  "Task isn't start yet!",
                                                                   style: TextStyle(
                                                                       color: Colors.black,
                                                                       fontWeight: FontWeight.bold,
@@ -3027,6 +3468,18 @@ class CheckListPage extends GetView<UpActivityTaskController> {
         );
       }
     }
+  }
+
+  bool _requiredVerifyMobileNumber() {
+    final UpActivityTaskController taskDetailsController = Get.find();
+    bool value = false;
+    for (CheckList data in taskDetailsController.checkListData) {
+      if (data.title == "Product_Delivery") {
+        value = true;
+        break;
+      }
+    }
+    return value;
   }
 }
 
