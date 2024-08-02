@@ -1931,6 +1931,7 @@ class DownActivityTaskPage extends GetView<DownActivityTaskController> {
                               }
                             },
                             child: const Text("ACCOMPLISH"))),*/
+                    if(!_isReturnOptionVisible(upActivityTaskDetailsController))
                     SlideAction(
                       key: _key,
                       height: 42,
