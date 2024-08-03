@@ -13,8 +13,12 @@ class HomeRepository {
     ApiResponse response = await apiService.getData(endpoint: endPoint);
      if (response.success) {
       log("Get all task: ${response.data}");
-      var res = GetTasksModel.fromJson(response.data!.data);
-      return {"data": res.dataObj!.data ?? {}, "status": true};
+      if(response.data!.statusCode == 200) {
+        var res = GetTasksModel.fromJson(response.data!.data);
+        return {"data": res.dataObj!.data ?? {}, "status": true};
+      }
+      return {"data": response.error!.data["errMsg"], "status": false};
+
     } else {
       return {"data": response.error!.data["errMsg"], "status": false};
     }

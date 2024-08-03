@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:get/get.dart';
 import 'package:TradeZentrum/app/repository/home_repository.dart';
 import 'package:TradeZentrum/app/services/api_env.dart';
@@ -24,8 +26,11 @@ class HomeController extends GetxController {
     var response = await homeRepository.getTasks(
       endPoint: endPoint!,
     );
-    isFetchTaskData.value = true;
-    taskDataList.value = response["data"];
+    if(response["status"] == true) {
+      log(response["data"].toString());
+      isFetchTaskData.value = true;
+      taskDataList.value = response["data"];
+    }
     endLoading();
   }
 }

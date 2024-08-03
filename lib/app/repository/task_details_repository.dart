@@ -38,7 +38,7 @@ class TaskDetailsRepository {
       log("Locations List: ${response.data}");
       return {"data": response.data ?? {}, "status": true};
     } else {
-      return {"data": response.error!.data["errMsg"], "status": false};
+      return {"data": response.error?.data["errMsg"] ?? "", "status": false};
     }
   }
 
