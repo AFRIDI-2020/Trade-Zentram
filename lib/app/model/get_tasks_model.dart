@@ -61,7 +61,7 @@ class TaskData {
   int? taskStatus;
   int? taskAssignBy;
   int? taskChannelId;
-  int? taskGroupId;
+  String? taskGroupId;
 
   TaskData(
       {taskId,
