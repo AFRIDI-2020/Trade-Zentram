@@ -12,7 +12,6 @@ class HomeRepository {
   }) async {
     ApiResponse response = await apiService.getData(endpoint: endPoint);
      if (response.success) {
-      log("Get all task: ${response.data}");
       if(response.data!.statusCode == 200) {
         var res = GetTasksModel.fromJson(response.data!.data);
         return {"data": res.dataObj!.data ?? {}, "status": true};

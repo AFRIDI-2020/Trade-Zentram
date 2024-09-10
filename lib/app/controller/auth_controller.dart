@@ -82,7 +82,7 @@ class AuthController extends GetxController {
         const Duration(
           milliseconds: 2000,
         ), () async {
-      if (!await handleLocationPermission()) {
+      if (!await checkLocationStatus()) {
         logout();
         Get.to(() => const LoginPage());
       } else {
@@ -160,7 +160,6 @@ class AuthController extends GetxController {
   hasUserLoggedIn() async {
     String? data;
     var status = await Permission.location.status;
-    log("Permission status: $status");
     if (status.isDenied) {
       data = await storageService.readData(storageKey.token);
       if (data != null) {
@@ -310,7 +309,7 @@ class AuthController extends GetxController {
 
         print("...........lll${latitude.value}.........${longitude.value}");
 
-        if (!await handleLocationPermission()) {
+        if (!await checkLocationStatus()) {
           Get.offAll(() => const LoginPage());
         } else {
           Get.offAll(() => const HomePage());
@@ -358,6 +357,18 @@ class AuthController extends GetxController {
       if (kDebugMode) {
         print("Error: $e");
       }
+    }
+  }
+
+  Future<Position?> myLocation() async {
+    try {
+      Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+      return position;
+    } catch (e) {
+      if (kDebugMode) {
+        print("Error: $e");
+      }
+      return null;
     }
   }
 
@@ -466,7 +477,7 @@ class AuthController extends GetxController {
 
   final GeolocatorPlatform _geolocatorPlatform = GeolocatorPlatform.instance;
 
-  Future<bool> handleLocationPermission() async {
+  Future<bool> checkLocationStatus() async {
     bool serviceEnabled;
     LocationPermission permission;
 

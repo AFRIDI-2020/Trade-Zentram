@@ -12,6 +12,7 @@ import 'package:TradeZentrum/app/screens/home/home_page.dart';
 import 'package:TradeZentrum/app/services/api_env.dart';
 import 'package:TradeZentrum/app/utils/const_funtion.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 
 class DownActivityTaskController extends GetxController {
@@ -97,9 +98,12 @@ class DownActivityTaskController extends GetxController {
 
   declearTaskStart({String? endPoint, String? taskId}) async {
     startLoading();
+    AuthController authController = Get.find<AuthController>();
+    Position? position = await authController.myLocation();
+
     Map<String, dynamic> response =
         await taskDetailsRepository.declareTaskStart(
-      endPoint: "${endPoint!}$taskId",
+      endPoint: position != null? "${endPoint!}$taskId/?startLat=${position.latitude}&startLong=${position.longitude}" : "${endPoint!}$taskId",
     );
     declareTaskStartData.value = Data.fromJson(response);
     getTaskDetails(
@@ -282,13 +286,13 @@ class DownActivityTaskController extends GetxController {
       if (checkList[i].checklistCompletionStatus == 0) {
         checkListData.add(
           CheckList(title: checkList[i].taskChecklistName, statusLsit: [
-            StatusLsit(
+            StatusList(
                 title: "Pending",
                 id: checkList[i].taskChecklistAutoId.toString()),
-            StatusLsit(
+            StatusList(
                 title: "Complete",
                 id: checkList[i].taskChecklistAutoId.toString()),
-            StatusLsit(
+            StatusList(
                 title: "Return",
                 id: checkList[i].taskChecklistAutoId.toString())
           ]),
@@ -296,7 +300,7 @@ class DownActivityTaskController extends GetxController {
       } else if (checkList[i].checklistCompletionStatus == 1) {
         checkListData.add(
           CheckList(title: checkList[i].taskChecklistName, statusLsit: [
-            StatusLsit(
+            StatusList(
                 title: "Completed",
                 id: checkList[i].taskChecklistAutoId.toString())
           ]),

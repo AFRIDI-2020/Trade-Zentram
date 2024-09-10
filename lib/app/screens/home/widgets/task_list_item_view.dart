@@ -47,7 +47,7 @@ class _TaskListItemViewState extends State<TaskListItemView> {
                           children: [
                             TaskInfoWidget(
                               icon: "assets/ic_invoice.png",
-                              data: widget.taskData.soSystemNo ?? "",
+                              data: widget.taskData.soSystemNo ?? "N/A",
                             ),
                             TaskInfoWidget(
                               icon: "assets/ic_building.png",

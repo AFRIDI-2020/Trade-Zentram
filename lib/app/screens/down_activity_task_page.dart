@@ -51,7 +51,7 @@ class DownActivityTaskPage extends GetView<DownActivityTaskController> {
         taskDetailsController.remarkTextEditingController.clear();
         taskDetailsController.fareCloseIcon.value = false;
         taskDetailsController.remarkCloseIcon.value = false;
-        if (!await authController.handleLocationPermission()) {
+        if (!await authController.checkLocationStatus()) {
           authController.logout();
         } else {
           Get.back();
@@ -67,187 +67,13 @@ class DownActivityTaskPage extends GetView<DownActivityTaskController> {
                 pageTitle: pageTitle,
               ),
             ),
-            //floatingActionButtonLocation: FloatingActionButtonLocation.,
             body: Obx(
               () => Padding(
                 padding: const EdgeInsets.only(top: 15, right: 15, left: 15),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    /*Container(
-                      padding: const EdgeInsets.fromLTRB(
-                        32.0,
-                        32.0,
-                        32.0,
-                        0,
-                      ),
-                      color: ColorConstant().baseColor.withOpacity(0.2),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 12.0),
-                            child: RichText(
-                              text: TextSpan(
-                                text: 'TaskId: ',
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.normal,
-                                  color: Colors.black,
-                                  fontSize: 12.0,
-                                ),
-                                children: <TextSpan>[
-                                  TextSpan(
-                                    text: taskDetailsController.taskDetailsData.value.taskId.toString(),
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.red,
-                                      fontSize: 12.0,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 12.0),
-                            child: RichText(
-                              text: TextSpan(
-                                text: 'Invoice: ',
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.normal,
-                                  color: Colors.black,
-                                  fontSize: 12.0,
-                                ),
-                                children: <TextSpan>[
-                                  TextSpan(
-                                    text: taskDetailsController.taskDetailsData.value.soSystemNo,
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.red,
-                                      fontSize: 12.0,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 12.0),
-                            child: RichText(
-                              text: TextSpan(
-                                text: 'Destination: ',
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.normal,
-                                  color: Colors.black,
-                                  fontSize: 12.0,
-                                ),
-                                children: <TextSpan>[
-                                  TextSpan(
-                                    text: taskDetailsController.taskDetailsData.value.taskDestination,
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.red,
-                                      fontSize: 12.0,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 12.0),
-                            child: RichText(
-                              text: TextSpan(
-                                text: 'Address: ',
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.normal,
-                                  color: Colors.black,
-                                  fontSize: 12.0,
-                                ),
-                                children: <TextSpan>[
-                                  TextSpan(
-                                    text: taskDetailsController
-                                            .taskDetailsData.value.taskDestinationAddress ??
-                                        "N/A",
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.red,
-                                      fontSize: 12.0,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            width: MediaQuery.of(context).size.width,
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 100.0),
-                              child: ElevatedButton(
-                                onPressed: () {
-                                  taskDetailsController.taskDetailsData.value.taskStartTime == null &&
-                                          taskDetailsController.taskDetailsData.value.taskEndTime ==
-                                              null
-                                      ? popUpStatus(
-                                          context,
-                                          title: "WANNA START?",
-                                          subtitle:
-                                              "Are you sure that you want to start Task - Task # ${taskDetailsController.taskDetailsData.value.taskId}?",
-                                          firstActionButtonTitle: "No",
-                                          firstActionButtonColor: const Color(0xFF9c27b0),
-                                          secondActionButtonTitle: "Yes",
-                                          secondActionButtonColor: const Color(0xFFC62828),
-                                          secondActionButtonOnTap: () {
-                                            taskDetailsController.declearTaskStart(
-                                              endPoint: ApiUrl().declearTaskStart,
-                                              taskId: taskDetailsController.taskId.value,
-                                            );
-                                            Get.back();
-                                          },
-                                        )
-                                      : null;
-                                },
-                                style: ButtonStyle(
-                                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                      RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(15.0),
-                                      ),
-                                    ),
-                                    backgroundColor: MaterialStatePropertyAll(taskDetailsController
-                                                    .taskDetailsData.value.taskStartTime ==
-                                                null &&
-                                            taskDetailsController.taskDetailsData.value.taskEndTime ==
-                                                null
-                                        ? ColorConstant().baseColor
-                                        : taskDetailsController.taskDetailsData.value.taskStartTime !=
-                                                    null &&
-                                                taskDetailsController
-                                                        .taskDetailsData.value.taskEndTime ==
-                                                    null
-                                            ? ColorConstant().baseColor.withOpacity(0.3)
-                                            : ColorConstant().baseColor)),
-                                child: Text(
-                                  taskDetailsController.taskDetailsData.value.taskStartTime == null &&
-                                          taskDetailsController.taskDetailsData.value.taskEndTime ==
-                                              null
-                                      ? "Start"
-                                      : taskDetailsController.taskDetailsData.value.taskStartTime !=
-                                                  null &&
-                                              taskDetailsController.taskDetailsData.value.taskEndTime ==
-                                                  null
-                                          ? "Started"
-                                          : "",
-                                  style: const TextStyle(color: Colors.white),
-                                ),
-                              ),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 16,
-                          ),
-                        ],
-                      ),
-                    ),*/
+
                     TaskDetailWidget(
                       taskDetailsData: taskDetailsController.taskDetailsData.value,
                       onPlayPauseButtonTap: () {
@@ -368,7 +194,7 @@ class DownActivityTaskPage extends GetView<DownActivityTaskController> {
                                       sliderButtonIconPadding: 4,
                                       animationDuration: const Duration(milliseconds: 500),
                                       onSubmit: () async {
-                                        if (!await AuthController().handleLocationPermission()) {
+                                        if (!await AuthController().checkLocationStatus()) {
                                           AuthController().logout();
                                         } else {
                                           if (context.mounted) {
@@ -550,8 +376,7 @@ class DownActivityTaskPage extends GetView<DownActivityTaskController> {
                                                   );
                                                 },
                                               );
-                                            } else if (!upActivityTaskDetailsController
-                                                .verifyOtpStatus.value) {
+                                            } else if (_requiredVerifyMobileNumber()) {
                                               showDialog(
                                                 context: context,
                                                 builder: (BuildContext context) {
@@ -1582,7 +1407,7 @@ class DownActivityTaskPage extends GetView<DownActivityTaskController> {
                                 onSelected: (String value) async {
                                   switch (value) {
                                     case 'Edit':
-                                      if (!await AuthController().handleLocationPermission()) {
+                                      if (!await AuthController().checkLocationStatus()) {
                                         AuthController().logout();
                                       } else {
                                         if (context.mounted) {
@@ -1623,7 +1448,7 @@ class DownActivityTaskPage extends GetView<DownActivityTaskController> {
                                       }
                                       break;
                                     case 'Delete':
-                                      if (!await AuthController().handleLocationPermission()) {
+                                      if (!await AuthController().checkLocationStatus()) {
                                         AuthController().logout();
                                       } else {
                                         if (context.mounted) {
@@ -1641,7 +1466,7 @@ class DownActivityTaskPage extends GetView<DownActivityTaskController> {
 
                                       break;
                                     case 'Reached':
-                                      if (!await AuthController().handleLocationPermission()) {
+                                      if (!await AuthController().checkLocationStatus()) {
                                         AuthController().logout();
                                       } else {
                                         if (context.mounted) {
@@ -1946,7 +1771,7 @@ class DownActivityTaskPage extends GetView<DownActivityTaskController> {
                       animationDuration: const Duration(milliseconds: 500),
                       onSubmit: () async {
                         AuthController authController = AuthController();
-                        if (!await AuthController().handleLocationPermission()) {
+                        if (!await AuthController().checkLocationStatus()) {
                           authController.logout();
                         } else {
                           if (context.mounted) {
@@ -2660,7 +2485,7 @@ class DownActivityTaskPage extends GetView<DownActivityTaskController> {
                                     taskDetailsController.searchToController.text != "" &&
                                     taskDetailsController.searchVehicleController.text != "" &&
                                     taskDetailsController.fareTextEditingController.text != "") {
-                                  if (!await authController.handleLocationPermission()) {
+                                  if (!await authController.checkLocationStatus()) {
                                     authController.logout();
                                   } else {
                                     taskDetailsController.addTransport();
@@ -2707,7 +2532,7 @@ class DownActivityTaskPage extends GetView<DownActivityTaskController> {
                                           : taskDetailsController.selectedVehicleId.value,
                                   "taskTransporationWayStatus": 0
                                 };
-                                if (!await authController.handleLocationPermission()) {
+                                if (!await authController.checkLocationStatus()) {
                                   authController.logout();
                                 } else {
                                   taskDetailsController.editTransport(
@@ -2768,5 +2593,24 @@ class DownActivityTaskPage extends GetView<DownActivityTaskController> {
     }
 
     return totalHeight;
+  }
+
+  bool _requiredVerifyMobileNumber() {
+    final UpActivityTaskController taskDetailsController = Get.find();
+    bool value = false;
+    for (CheckList data in taskDetailsController.checkListData) {
+      if (data.title == "Product_Delivery") {
+        value = true;
+        break;
+      }
+    }
+    if (value) {
+      if (taskDetailsController.taskDetailsData.value.taskGroupId != "C") {
+        value = true;
+      } else {
+        value = false;
+      }
+    }
+    return value;
   }
 }

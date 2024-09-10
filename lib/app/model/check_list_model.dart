@@ -23,16 +23,16 @@ class CheckListData {
 
 class CheckList {
   String? title;
-  List<StatusLsit>? statusLsit;
+  List<StatusList>? statusLsit;
 
   CheckList({this.title, this.statusLsit});
 
   CheckList.fromJson(Map<String, dynamic> json) {
     title = json['title'];
     if (json['statusLsit'] != null) {
-      statusLsit = <StatusLsit>[];
+      statusLsit = <StatusList>[];
       json['statusLsit'].forEach((v) {
-        statusLsit!.add(StatusLsit.fromJson(v));
+        statusLsit!.add(StatusList.fromJson(v));
       });
     }
   }
@@ -47,13 +47,13 @@ class CheckList {
   }
 }
 
-class StatusLsit {
+class StatusList {
   String? title;
   String? id;
 
-  StatusLsit({this.title, this.id});
+  StatusList({this.title, this.id});
 
-  StatusLsit.fromJson(Map<String, dynamic> json) {
+  StatusList.fromJson(Map<String, dynamic> json) {
     title = json['title'];
     id = json['id'];
   }

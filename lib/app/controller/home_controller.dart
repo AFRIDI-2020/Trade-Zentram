@@ -26,9 +26,7 @@ class HomeController extends GetxController {
     var response = await homeRepository.getTasks(
       endPoint: endPoint!,
     );
-    log(response.toString());
     if(response["status"] == true) {
-      log(response["data"].toString());
       isFetchTaskData.value = true;
       taskDataList.value = response["data"];
     }

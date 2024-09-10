@@ -51,10 +51,10 @@ class CustomAppBar extends StatelessWidget {
                   authController.oldPasswordValidate.value = "";
                   authController.newPasswordValidate.value = "";
                   authController.confirmPasswordValidate.value = "";
-                  if (!await authController.handleLocationPermission()) {
+                  if (!await authController.checkLocationStatus()) {
                     authController.logout();
                   } else {
-                    Get.back();
+                    Get.back(result: true);
                   }
                 },
         child: toPage == "Home"

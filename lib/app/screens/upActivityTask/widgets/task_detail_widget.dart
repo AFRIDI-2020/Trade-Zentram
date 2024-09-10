@@ -39,7 +39,7 @@ class TaskDetailWidget extends StatelessWidget {
                           children: [
                             TaskInfoWidget(
                               icon: "assets/ic_invoice.png",
-                              data: taskDetailsData.soSystemNo ?? "",
+                              data: taskDetailsData.soSystemNo ?? "N/A",
                             ),
                             TaskInfoWidget(
                               icon: "assets/ic_building.png",

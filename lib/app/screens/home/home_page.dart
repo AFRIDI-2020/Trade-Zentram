@@ -160,8 +160,13 @@ class HomePage extends GetView<HomeController> {
                               }*/
                               print("deleting home controller");
                               await Get.delete<HomeController>();
-                              await Get.to(() => InternetConnectivity(child: UpActivityTaskPage(pageTitle: "Task #${taskData.taskId}",)),
+                              var result = await Get.to(() => InternetConnectivity(child: UpActivityTaskPage(pageTitle: "Task #${taskData.taskId}",)),
                                   preventDuplicates: false, arguments: taskData.taskId.toString());
+                              if(result) {
+                                final homeController = Get.put(HomeController());
+                                homeController.onInit();
+                                await Get.delete<HomeController>();
+                              }
                             },
                             /* child: Container(
                               height: 220,

@@ -35,7 +35,6 @@ class TaskDetailsRepository {
   getLocations({String? endPoint}) async {
     ApiResponse response = await apiService.getData(endpoint: endPoint);
     if (response.success) {
-      log("Locations List: ${response.data}");
       return {"data": response.data ?? {}, "status": true};
     } else {
       return {"data": response.error?.data["errMsg"] ?? "", "status": false};
