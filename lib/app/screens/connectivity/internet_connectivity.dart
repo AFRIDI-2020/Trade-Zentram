@@ -18,13 +18,14 @@ class InternetConnectivity extends StatefulWidget {
 class _InternetConnectivityState extends State<InternetConnectivity> {
   ConnectivityResult _connectionStatus = ConnectivityResult.none;
   final Connectivity _connectivity = Connectivity();
-  late StreamSubscription<ConnectivityResult> _connectivitySubscription;
+  late StreamSubscription<List<ConnectivityResult>> _connectivitySubscription;
 
   @override
   void initState() {
     super.initState();
     initConnectivity();
-    _connectivitySubscription = _connectivity.onConnectivityChanged.listen(_updateConnectionStatus);
+    _connectivitySubscription =
+        _connectivity.onConnectivityChanged.listen(_updateConnectionStatus);
   }
 
   @override
@@ -34,7 +35,7 @@ class _InternetConnectivityState extends State<InternetConnectivity> {
   }
 
   Future<void> initConnectivity() async {
-    late ConnectivityResult result;
+    late final List<ConnectivityResult> result;
     try {
       result = await _connectivity.checkConnectivity();
     } on PlatformException catch (e) {
@@ -48,9 +49,9 @@ class _InternetConnectivityState extends State<InternetConnectivity> {
     return _updateConnectionStatus(result);
   }
 
-  Future<void> _updateConnectionStatus(ConnectivityResult result) async {
+  Future<void> _updateConnectionStatus(List<ConnectivityResult> result) async {
     setState(() {
-      _connectionStatus = result;
+      _connectionStatus = result.first;
     });
   }
 
