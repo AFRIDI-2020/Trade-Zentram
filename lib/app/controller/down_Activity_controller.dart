@@ -184,12 +184,13 @@ class DownActivityTaskController extends GetxController {
   addTransport() async {
     startLoading();
     var authController = Get.put(AuthController());
+    await authController.getCurrentLocation();
     Map<String, dynamic> request = {
       "taskId": taskId.value,
       "taskTransportationCost": fareTextEditingController.text,
-      "taskTransportationEndLat": authController.latitude.value,
+      "taskTransportationEndLat": null,
       "taskTransportationEndLocation": searchToController.text,
-      "taskTransportationEndLong": authController.longitude.value,
+      "taskTransportationEndLong": null,
       "taskTransportationRemarks": remarkTextEditingController.text,
       "taskTransportationStartLat": authController.latitude.value,
       "taskTransportationStartLocation": searchFromController.text,
@@ -235,6 +236,7 @@ class DownActivityTaskController extends GetxController {
   }) async {
     startLoading();
     var authController = Get.put(AuthController());
+    await authController.getCurrentLocation();
     Map<String, dynamic> request = {
       "taskId": taskId,
       "taskTransportationAutoId": taskTransportationAutoId,

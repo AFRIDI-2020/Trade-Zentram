@@ -101,6 +101,8 @@ class UpActivityTaskController extends GetxController {
     AuthController authController = Get.find<AuthController>();
     Position? position = await authController.myLocation();
 
+    log("positions === startLat=${position?.latitude}&startLong=${position?.longitude}");
+
     Map<String, dynamic> response =
         await taskDetailsRepository.declareTaskStart(
       endPoint: position != null? "${endPoint!}$taskId/?startLat=${position.latitude}&startLong=${position.longitude}" : "${endPoint!}$taskId",
@@ -191,9 +193,9 @@ class UpActivityTaskController extends GetxController {
     Map<String, dynamic> request = {
       "taskId": taskId.value,
       "taskTransportationCost": fareTextEditingController.text,
-      "taskTransportationEndLat": authController.latitude.value,
+      "taskTransportationEndLat": null,
       "taskTransportationEndLocation": searchToController.text,
-      "taskTransportationEndLong": authController.longitude.value,
+      "taskTransportationEndLong": null,
       "taskTransportationRemarks": remarkTextEditingController.text,
       "taskTransportationStartLat": authController.latitude.value,
       "taskTransportationStartLocation": searchFromController.text,
@@ -239,6 +241,7 @@ class UpActivityTaskController extends GetxController {
   }) async {
     startLoading();
     var authController = Get.put(AuthController());
+    await authController.getCurrentLocation();
     Map<String, dynamic> request = {
       "taskId": taskId,
       "taskTransportationAutoId": taskTransportationAutoId,
@@ -349,6 +352,7 @@ class UpActivityTaskController extends GetxController {
   getOtp({String? endPoint, String? number}) async {
     startLoading();
     var authController = Get.put(AuthController());
+    await authController.getCurrentLocation();
     Map<String, dynamic> request = {
       "taskId": taskId.value,
       "deliveryReceiverContactNo": number,

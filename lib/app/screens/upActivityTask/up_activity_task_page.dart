@@ -921,6 +921,7 @@ class UpActivityTaskPage extends GetView<UpActivityTaskController> {
                         ? () async {
                             AuthController authController =
                                 Get.put(AuthController());
+                            await authController.getCurrentLocation();
                             if (taskDetailsController
                                         .searchFromController.text !=
                                     "" &&
@@ -954,7 +955,7 @@ class UpActivityTaskPage extends GetView<UpActivityTaskController> {
                         : () async {
                             AuthController authController =
                                 Get.put(AuthController());
-
+                            await authController.getCurrentLocation();
                             var request = {
                               // "taskId": taskDetailsController.taskId.value,
                               "taskTransportationAutoId": autoId ?? "",
